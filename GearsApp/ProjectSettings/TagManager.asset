@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CanvasLayer
   - Underline
+  - PanelUI
   layers:
   - Default
   - TransparentFX
