@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 861803698129925671}
   - component: {fileID: 2255988102702755709}
   - component: {fileID: 1934682228776143340}
+  - component: {fileID: 525523198066422872}
   m_Layer: 5
   m_Name: FlatTabButton
   m_TagString: Untagged
@@ -116,8 +117,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.26769447, y: 0.92639196}
-  m_AnchorMax: {x: 0.7281389, y: 0.9746622}
+  m_AnchorMin: {x: 0.26769447, y: 0.9283514}
+  m_AnchorMax: {x: 0.5676111, y: 0.9746622}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -197,7 +198,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 861803698129925671}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 525523198066422872}
+        m_MethodName: ToggleActive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1934682228776143340
@@ -223,6 +235,19 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
+--- !u!114 &525523198066422872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274259055765255082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88850b9b8007b91409357b1ad1b1b1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  underline: {fileID: 5419614749533293220}
 --- !u!1 &5419614749533293220
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +262,7 @@ GameObject:
   - component: {fileID: 1824510449443235979}
   m_Layer: 5
   m_Name: Underline
-  m_TagString: Untagged
+  m_TagString: Underline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,7 +283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.108}
-  m_AnchoredPosition: {x: 0, y: -4}
+  m_AnchoredPosition: {x: 0, y: -3.9999847}
   m_SizeDelta: {x: 0, y: -8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6920470889909073492
@@ -283,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.627451}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
