@@ -7,10 +7,12 @@ using Vuforia;
 public class TargetModels : MonoBehaviour
 {
     public Text overlay;
+    public Camera ArCamera;
 
     private float zoomSpeed = 0.01f;
     private GameObject[] models = null;
     private int numberOfModels = 0;
+    private GameObject selectedObject;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,13 @@ public class TargetModels : MonoBehaviour
         {
             if (Input.touchCount == 1)
             {
+                Touch touch = Input.GetTouch(0);
+                Ray ray = ArCamera.ScreenPointToRay(touch.position);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
+                selectedObject = hit.transform.gameObject;
+
+                selectedObject.transform.localScale = new Vector3(2, 2, 2);
             }
 
             if ( Input.touchCount == 2)

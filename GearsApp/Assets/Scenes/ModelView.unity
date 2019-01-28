@@ -319,7 +319,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ImageTargetMesh17308
+  m_Name: ImageTargetMesh28040
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -640,7 +640,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ImageTargetMesh17322
+  m_Name: ImageTargetMesh28054
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -869,7 +869,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 'tarmacMaterial
 
-    17318'
+    28050'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -894,7 +894,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ImageTargetMesh17338
+  m_Name: ImageTargetMesh28070
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1272,8 +1272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c437eb2da72e340be1b50cb7f15690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 0.5
   overlay: {fileID: 519177676}
+  ArCamera: {fileID: 0}
 --- !u!1 &1243555724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,7 +1449,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 'stonesMaterial
 
-    17332'
+    28064'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -1727,7 +1727,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 'chipsMaterial
 
-    17348'
+    28080'
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
