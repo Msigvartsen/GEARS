@@ -1107,7 +1107,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 74
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1118,7 +1118,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Pinchy pinch
+  m_Text: Locate target images
 --- !u!222 &519177677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1273,7 +1273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlay: {fileID: 519177676}
-  ArCamera: {fileID: 0}
+  ArCamera: {fileID: 101794943}
+  sceneIndex: 1
 --- !u!1 &1243555724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,8 +1399,8 @@ RectTransform:
   m_Father: {fileID: 605922502}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.45183337}
-  m_AnchorMax: {x: 1, y: 0.63055557}
+  m_AnchorMin: {x: 0, y: 0.88872224}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

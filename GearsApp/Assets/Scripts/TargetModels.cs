@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
+using UnityEngine.SceneManagement;
 
 public class TargetModels : MonoBehaviour
 {
     public Text overlay;
     public Camera ArCamera;
+    public int sceneIndex;
 
     private float zoomSpeed = 0.01f;
     private GameObject[] models = null;
@@ -25,9 +27,10 @@ public class TargetModels : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            Touch touch = Input.GetTouch(0);
+
             if (Input.touchCount == 1)
             {
-                Touch touch = Input.GetTouch(0);
                 Ray ray = ArCamera.ScreenPointToRay(touch.position);
                 RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
@@ -52,8 +55,6 @@ public class TargetModels : MonoBehaviour
 
                 Vector3 zoomVector = new Vector3(deltaMagnitudeDifference, deltaMagnitudeDifference, deltaMagnitudeDifference);
 
-                overlay.text = deltaMagnitudeDifference.ToString();
-
                 for (int i = 0; i < models.Length; i++)
                 {
                     // Only scale visible models
@@ -70,7 +71,17 @@ public class TargetModels : MonoBehaviour
                     }
                 }
             }
+
+            if (Input.touchCount == 3/* && touch.phase == TouchPhase.Began*/)
+            {
+                LoadSceneByIndex(sceneIndex);
+            }
         }
 
+    }
+
+    public void LoadSceneByIndex(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 }
