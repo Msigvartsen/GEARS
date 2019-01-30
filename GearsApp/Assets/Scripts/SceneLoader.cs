@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            if (Input.touchCount == 2/* && touch.phase == TouchPhase.Began*/)
+            if (Input.touchCount == 4)
             {
                 LoadSceneByIndex(sceneIndex);
             }
