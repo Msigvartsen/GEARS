@@ -15,11 +15,16 @@ public class TargetModels : MonoBehaviour
     private GameObject[] models = null;
     private int numberOfModels = 0;
     private GameObject selectedObject;
+    private float rotateSpeed = 0.2f;
+
+    private Color originalColor;
+    private Color selectedColor;
 
     // Start is called before the first frame update
     void Start()
     {
         models = GameObject.FindGameObjectsWithTag("Model");
+        selectedColor = Color.red;
     }
 
     // Update is called once per frame
@@ -31,12 +36,41 @@ public class TargetModels : MonoBehaviour
 
             if (Input.touchCount == 1)
             {
-                Ray ray = ArCamera.ScreenPointToRay(touch.position);
-                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                // Touch to select an object
+                if (touch.phase == TouchPhase.Began)
+                {
+                    Ray ray = ArCamera.ScreenPointToRay(touch.position);
+                    RaycastHit hit = new RaycastHit();
 
-                selectedObject = hit.transform.gameObject;
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        if (hit.collider.gameObject.CompareTag("Model"))
+                        {
+                            selectedObject = hit.transform.gameObject;
+                            if (selectedObject.GetComponent<Renderer>().material.color != selectedColor)
+                                originalColor = selectedObject.GetComponent<Renderer>().material.color;
 
-                selectedObject.transform.localScale = new Vector3(2, 2, 2);
+                            changeColorOnSelected();
+                        }
+                    }
+                }
+
+                // Rotate selected object
+                if (touch.phase == TouchPhase.Moved)
+                {
+                    Vector2 touchPrevPos = touch.position - touch.deltaPosition;
+                    float prevTouchDeltaMagnitude = (touchPrevPos).magnitude;
+                    float touchDeltaMagnitude = (touch.position).magnitude;
+
+                    float deltaMagnitudeDifference = (prevTouchDeltaMagnitude - touchDeltaMagnitude) * rotateSpeed;
+
+                    Vector3 rotateVector = new Vector3(0, deltaMagnitudeDifference, 0);
+
+                    if (selectedObject != null)
+                    {
+                        selectedObject.transform.Rotate(rotateVector);
+                    }
+                }
             }
 
             if ( Input.touchCount == 2)
@@ -55,24 +89,20 @@ public class TargetModels : MonoBehaviour
 
                 Vector3 zoomVector = new Vector3(deltaMagnitudeDifference, deltaMagnitudeDifference, deltaMagnitudeDifference);
 
-                for (int i = 0; i < models.Length; i++)
+                if (selectedObject != null && selectedObject.GetComponent<Renderer>().enabled)
                 {
-                    // Only scale visible models
-                    if (models[i].GetComponent<Renderer>().enabled)
-                    {
-                        if (models[i].transform.localScale.x <= 1.0f || models[i].transform.localScale.x >= 0.5f)
-                            models[i].transform.localScale -= zoomVector * Time.deltaTime;
+                    if (selectedObject.transform.localScale.x <= 1.0f || selectedObject.transform.localScale.x >= 0.5f)
+                        selectedObject.transform.localScale -= zoomVector * Time.deltaTime;
 
-                        // Configure max and minimum scale size
-                        if (models[i].transform.localScale.x > 1.0f)
-                            models[i].transform.localScale = new Vector3(1, 1, 1);
-                        if (models[i].transform.localScale.x < 0.5f)
-                            models[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    }
+                    // Configure max and minimum scale size
+                    if (selectedObject.transform.localScale.x > 1.0f)
+                        selectedObject.transform.localScale = new Vector3(1, 1, 1);
+                    if (selectedObject.transform.localScale.x < 0.5f)
+                        selectedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 }
             }
 
-            if (Input.touchCount == 3/* && touch.phase == TouchPhase.Began*/)
+            if (Input.touchCount == 3)
             {
                 LoadSceneByIndex(sceneIndex);
             }
@@ -83,5 +113,17 @@ public class TargetModels : MonoBehaviour
     public void LoadSceneByIndex(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+    public void changeColorOnSelected()
+    {
+        foreach (var obj in models)
+        {
+            if (obj.transform == selectedObject.transform)
+                obj.GetComponent<Renderer>().material.color = selectedColor;
+            else
+                obj.GetComponent<Renderer>().material.color = originalColor;
+        }
+
     }
 }
