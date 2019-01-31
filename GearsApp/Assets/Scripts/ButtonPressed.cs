@@ -12,7 +12,7 @@ public class ButtonPressed : MonoBehaviour
     {
         //button.onClick.AddListener(toggleActive);
         this.enabled = isActive;
-       
+        //test
     }
 
     private void Update()
