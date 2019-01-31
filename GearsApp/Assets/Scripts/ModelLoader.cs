@@ -20,7 +20,6 @@ public class ModelLoader : MonoBehaviour
         modelsInList[0] = GameObject.CreatePrimitive(PrimitiveType.Cube);
         modelsInList[1] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         modelsInList[2] = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        print(modelsInList.Length);
     }
 
     // Update is called once per frame
@@ -31,32 +30,28 @@ public class ModelLoader : MonoBehaviour
 
     public void LoadCube()
     {
-        //Mesh mesh = modelsInList[0].GetComponent<MeshFilter>().sharedMesh;
-        //Mesh mesh2 = Instantiate(mesh);
-        //modelToSee.GetComponent<MeshFilter>().sharedMesh = mesh2;
-
-        //Instantiate(modelsInList[0]);
-        //modelToSee = modelsInList[0];
-        //modelToSee.GetComponent<MeshFilter>().mesh = modelsInList[0].GetComponent<MeshFilter>().mesh;
-
-        modelToSee = modelsInList[0];
+        Mesh mesh = modelsInList[0].GetComponent<MeshFilter>().mesh;
+        Mesh mesh2 = Instantiate(mesh);
+        modelToSee.GetComponent<MeshFilter>().mesh = mesh2;
 
         modelToSee.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-        print(modelToSee.transform.position);
     }
 
     public void LoadSphere()
     {
-        modelToSee = modelsInList[1];
-        //modelToSee.GetComponent<MeshFilter>().mesh = modelsInList[1].GetComponent<MeshFilter>().mesh;
+        Mesh mesh = modelsInList[1].GetComponent<MeshFilter>().mesh;
+        Mesh mesh2 = Instantiate(mesh);
+        modelToSee.GetComponent<MeshFilter>().mesh = mesh2;
+
         modelToSee.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     public void LoadCylinder()
     {
-        modelToSee = modelsInList[2];
-        //modelToSee.GetComponent<MeshFilter>().mesh = modelsInList[2].GetComponent<MeshFilter>().mesh;
+        Mesh mesh = modelsInList[2].GetComponent<MeshFilter>().mesh;
+        Mesh mesh2 = Instantiate(mesh);
+        modelToSee.GetComponent<MeshFilter>().mesh = mesh2;
+
         modelToSee.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 }
