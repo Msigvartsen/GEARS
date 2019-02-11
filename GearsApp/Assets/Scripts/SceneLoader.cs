@@ -11,8 +11,6 @@ public class SceneLoader : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-
             if (Input.touchCount == 4)
             {
                 LoadSceneByIndex(sceneIndex);
@@ -22,6 +20,6 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadSceneByIndex(int index)
     {
-        SceneManager.LoadScene(index);
+        LoadingScreen.LoadSceneByIndex(index);
     }
 }
