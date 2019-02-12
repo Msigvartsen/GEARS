@@ -13,7 +13,6 @@ public class TargetModels : MonoBehaviour
 
     private float zoomSpeed = 0.01f;
     private GameObject[] models = null;
-    private int numberOfModels = 0;
     private GameObject selectedObject;
     private float rotateSpeed = 0.2f;
 
