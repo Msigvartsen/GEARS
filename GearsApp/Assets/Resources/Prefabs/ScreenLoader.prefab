@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 8004438639094796458}
   - component: {fileID: 4583808694799353055}
   m_Layer: 5
-  m_Name: Title
+  m_Name: LocationName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,8 +265,8 @@ RectTransform:
   m_Father: {fileID: 7016055994462832409}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.6703704}
-  m_AnchorMax: {x: 1, y: 0.7748704}
+  m_AnchorMin: {x: 0, y: 0.63668525}
+  m_AnchorMax: {x: 1, y: 0.8354075}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -300,7 +300,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 6e4a1744cf113994799d3e46a7c45d99, type: 3}
-    m_FontSize: 175
+    m_FontSize: 140
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Title
+  m_Text: LocationName
 --- !u!1 &4038225803457906451
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +533,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!114 &5589484581124399788
 MonoBehaviour:
@@ -831,7 +831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7976213826720863776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 509.95032, y: 997.1629, z: 13.718893}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1385544453416259365}
@@ -851,9 +851,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasAlpha: {fileID: 9196196216542010081}
-  title: {fileID: 4583808694799353055}
+  locationName: {fileID: 4583808694799353055}
   status: {fileID: 87737671021030291}
   progressBar: {fileID: 3851102371162243281}
   imageObject: {fileID: 2379720920673686422}
-  titleText: Loading..
-  fadingAnimationSpeed: 0.8
+  locationNameText: '*LocationName*'
+  fadingAnimationSpeed: 1.9

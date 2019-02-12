@@ -10,10 +10,10 @@ public class LoadingScreen : MonoBehaviour
 
     [Header("Resources")]
     public CanvasGroup canvasAlpha;
-    public Text title;
+    public Text locationName;
     public Text status;
     public Slider progressBar;
-    public static string prefabName = "Prefabs/ScreenLoader";
+    public static string prefabName = "ScreenLoader";
 
 
     [Header("Image")]
@@ -21,8 +21,8 @@ public class LoadingScreen : MonoBehaviour
     //[Range(0.1f, 3.0f)] public float imageFadingSpeed = 1f;
 
     [Header("Settings")]
-    public string titleText;
-    [Range(0.1f, 25.0f)] public float fadingAnimationSpeed = 2f;
+    public string locationNameText;
+    [Range(0.1f, 4.0f)] public float fadingAnimationSpeed = 2f;
 
     private AsyncOperation loadingProcess;
 
@@ -30,14 +30,14 @@ public class LoadingScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        title.text = titleText;
+        locationName.text = locationNameText;
     }
 
     public static void LoadSceneByIndex(int index)
     {
         if (instance == null)
         {
-            instance = Instantiate(Resources.Load<GameObject>(prefabName)).GetComponent<LoadingScreen>();
+            instance = Instantiate(Resources.Load<GameObject>("Prefabs/" + prefabName)).GetComponent<LoadingScreen>();
             DontDestroyOnLoad(instance.gameObject);
         }
 
