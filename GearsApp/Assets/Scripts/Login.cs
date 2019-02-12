@@ -34,9 +34,17 @@ public class Login : MonoBehaviour
             }
             else
             {
-                Debug.Log("Login Succeeded");
-                Debug.Log(webRequest.downloadHandler.text);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                string req = webRequest.downloadHandler.text;
+                Debug.Log(req);
+                if(req == "0")
+                {
+                    Debug.Log("Error: Login Failed -> Wrong Username or Password");
+                }
+                else
+                {
+                    Debug.Log("Hooray! Welcome");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                }
             }
         }
     }
