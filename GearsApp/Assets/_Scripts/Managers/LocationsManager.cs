@@ -19,14 +19,20 @@ public class LocationsManager : MonoBehaviour
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
            
-            req = "{\"Items\":" + req + "}";
             Debug.Log(req);
-            Location[] locations = JsonHelper.FromJson<Location>(req);
-
-            foreach (Location loc in locations)
+            if(req == "0")
             {
-                Debug.Log(loc.location_ID + ": " + loc.name);
-                locationList.Add(loc);
+                Debug.Log(req);
+            }
+            else
+            {
+                req = "{\"Items\":" + req + "}";
+                Location[] locations = JsonHelper.FromJson<Location>(req);
+                foreach (Location loc in locations)
+                {
+                    Debug.Log(loc.location_ID + ": " + loc.name);
+                    locationList.Add(loc);
+                }
             }
         }
     }
