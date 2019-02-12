@@ -37,7 +37,7 @@ public class LoadingScreen : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = Instantiate(Resources.Load<GameObject>("Prefabs/" + prefabName)).GetComponent<LoadingScreen>();
+            instance = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName)).GetComponent<LoadingScreen>();
             DontDestroyOnLoad(instance.gameObject);
         }
 
