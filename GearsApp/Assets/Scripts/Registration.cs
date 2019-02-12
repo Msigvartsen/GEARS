@@ -37,7 +37,7 @@ public class Registration : MonoBehaviour
             {
                 Debug.Log("User Created Successfully");
                 Debug.Log(webRequest.downloadHandler.text);
-                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                LoadingScreen.LoadSceneByIndex(1);
             }
         }
     }

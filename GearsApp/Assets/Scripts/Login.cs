@@ -43,7 +43,7 @@ public class Login : MonoBehaviour
                 else
                 {
                     Debug.Log("Hooray! Welcome");
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                    LoadingScreen.LoadSceneByIndex(1);
                 }
             }
         }
