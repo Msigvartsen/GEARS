@@ -12,13 +12,12 @@ public class LoadingScreen : MonoBehaviour
     public CanvasGroup canvasAlpha;
     public Text locationName;
     public Text status;
-    public Slider progressBar;
     public static string prefabName = "ScreenLoader";
 
 
-    [Header("Image")]
-    public Image imageObject;
-    //[Range(0.1f, 3.0f)] public float imageFadingSpeed = 1f;
+    [Header("Images")]
+    public Image loadingImageObject;
+    [Range(0.1f, 3.0f)] public float imageRadialSpeed = 1f;
 
     [Header("Settings")]
     public string locationNameText;
@@ -31,6 +30,7 @@ public class LoadingScreen : MonoBehaviour
     void Start()
     {
         locationName.text = locationNameText;
+        loadingImageObject.type = Image.Type.Filled;
     }
 
     public static void LoadSceneByIndex(int index)
@@ -49,6 +49,7 @@ public class LoadingScreen : MonoBehaviour
     void Awake()
     {
         canvasAlpha.alpha = 0f;
+        loadingImageObject.fillAmount = 0f;
     }
 
     // Update is called once per frame
@@ -56,12 +57,11 @@ public class LoadingScreen : MonoBehaviour
     {
         try
         {
-            progressBar.value = loadingProcess.progress;
-            status.text = Mathf.Round(progressBar.value * 100f).ToString() + "%";
+            status.text = Mathf.Round(loadingProcess.progress * 100f).ToString() + "%";
         }
         catch
         {
-            Debug.Log("No progressbar found.");
+            Debug.Log("Cannot update status.text.");
         }
 
 
@@ -76,10 +76,12 @@ public class LoadingScreen : MonoBehaviour
         }
         else
         {
-            canvasAlpha.alpha += fadingAnimationSpeed * Time.deltaTime;
+            canvasAlpha.alpha = 1f;
+            loadingImageObject.fillAmount += imageRadialSpeed * Time.deltaTime; ;
+
             Debug.Log(canvasAlpha.alpha);
 
-            if (canvasAlpha.alpha >= 1)
+            if (loadingImageObject.fillAmount >= 1)
                 loadingProcess.allowSceneActivation = true;
         }
     }
