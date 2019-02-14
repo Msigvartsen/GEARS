@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking; 
-
+//REname to LocationModel later
 [System.Serializable]
 public class Location
 {
