@@ -5,12 +5,28 @@ using UnityEngine.Networking;
 
 public class LocationsManager : MonoBehaviour
 {
-
+    
     public List<Location> locationList;
-    void Start()
+    private static LocationsManager _instance;
+    public static LocationsManager GetInstance()
     {
+        return _instance;
+    }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         StartCoroutine(Request());
     }
+
+
 
     IEnumerator Request()
     {
