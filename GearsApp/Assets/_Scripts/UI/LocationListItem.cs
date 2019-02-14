@@ -9,12 +9,13 @@ public class LocationListItem : MonoBehaviour
     private GameObject[] list;
     private Location[] locationArray;
     private string prefabName;
-
+    private Button[] listButton;
 
     private void Start()
     {
         Init();
         UpdateLocationList();
+
     }
 
     private void Init()
@@ -22,10 +23,12 @@ public class LocationListItem : MonoBehaviour
         parent = transform.gameObject;
         locationArray = LocationsManager.GetInstance().locationList.ToArray();
         prefabName = "ListItem";
+        
     }
 
     private void UpdateLocationList()
     {
+        listButton = new Button[locationArray.Length];
         list = new GameObject[locationArray.Length];
 
         for (int i = 0; i < locationArray.Length; i++)
@@ -40,7 +43,13 @@ public class LocationListItem : MonoBehaviour
         go.transform.parent = parent.transform;
 
         go.GetComponentInChildren<Text>().text = locationArray[index].name;
-
+       
+        listButton[index] = go.GetComponentInChildren<Button>();
+        listButton[index].onClick.AddListener(OpenLocationTab);
         return go;
+    }
+    private void OpenLocationTab()
+    {
+        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LocationCanvas"));
     }
 }

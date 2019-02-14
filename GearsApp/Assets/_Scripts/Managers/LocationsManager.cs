@@ -26,8 +26,6 @@ public class LocationsManager : MonoBehaviour
         StartCoroutine(Request());
     }
 
-
-
     IEnumerator Request()
     {
         using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/locations.php"))
@@ -38,7 +36,7 @@ public class LocationsManager : MonoBehaviour
             Debug.Log(req);
             if(req == "0")
             {
-                Debug.Log(req);
+                Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
             }
             else
             {
