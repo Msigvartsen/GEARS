@@ -17,12 +17,13 @@ public class LocationsManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
             _instance = this;
         }
+
         StartCoroutine(Request());
     }
 

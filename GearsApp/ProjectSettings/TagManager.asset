@@ -8,6 +8,8 @@ TagManager:
   - Underline
   - PanelUI
   - Model
+  - LocationCanvas
+  - CanvasManager
   layers:
   - Default
   - TransparentFX

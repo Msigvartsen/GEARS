@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LocationListManager : MonoBehaviour
 {
     private GameObject parent;
-    private GameObject[] locationList;
+    private GameObject[] itemList;
     private Location[] locationArray;
     private string prefabName;
 
@@ -14,7 +14,6 @@ public class LocationListManager : MonoBehaviour
     {
         Init();
         UpdateLocationList();
-
     }
 
     private void Init()
@@ -26,11 +25,11 @@ public class LocationListManager : MonoBehaviour
 
     private void UpdateLocationList()
     {
-        locationList = new GameObject[locationArray.Length];
+        itemList = new GameObject[locationArray.Length];
 
         for (int i = 0; i < locationArray.Length; i++)
         {
-            locationList[i] = GetListItem(i);
+            itemList[i] = GetListItem(i);
         }
     }
 
