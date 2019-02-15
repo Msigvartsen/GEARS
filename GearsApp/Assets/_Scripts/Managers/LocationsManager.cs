@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class LocationsManager : MonoBehaviour
 {
-
     public List<Location> locationList;
     void Start()
     {

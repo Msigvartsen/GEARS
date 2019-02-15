@@ -8,6 +8,9 @@ TagManager:
   - Underline
   - PanelUI
   - Model
+  - ModelButton
+  - ModelImageTarget
+  - ModelTitleName
   layers:
   - Default
   - TransparentFX
