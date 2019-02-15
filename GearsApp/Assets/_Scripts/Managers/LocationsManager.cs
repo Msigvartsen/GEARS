@@ -33,7 +33,7 @@ public class LocationsManager : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
-           
+
             Debug.Log(req);
             if(req == "0")
             {
