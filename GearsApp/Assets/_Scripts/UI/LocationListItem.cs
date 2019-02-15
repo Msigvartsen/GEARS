@@ -24,12 +24,9 @@ public class LocationListItem : MonoBehaviour
 
     private void OpenLocationTab()
     {
-        Debug.Log("CLICK BUTTON");
-        //GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LocationCanvas"));
         GameObject obj = GameObject.FindGameObjectWithTag("LocationCanvas");
         Canvas canvas = obj.GetComponent<Canvas>();
 
-        //canvas.enabled = true;
         CanvasManager manager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
         if (manager != null)
             manager.ChangeCanvas(canvas.name);

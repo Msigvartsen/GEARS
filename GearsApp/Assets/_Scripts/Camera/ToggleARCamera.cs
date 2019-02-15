@@ -4,20 +4,46 @@ using UnityEngine;
 
 public class ToggleARCamera : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] arCameraPanels;
+    private GameObject mainCamera;
+    private GameObject ARCamera;
+    public GameObject[] cameras;
 
-    public void CheckARcamEnabled()
+    private void Start()
     {
-        for(int i = 0; i < arCameraPanels.Length; i++)
-        {
-            if (arCameraPanels[i].activeSelf)
-            {
-                gameObject.SetActive(true);
-                return;
-            }
-        }
-        gameObject.SetActive(false);
+        GetCameras();
+        SetCamera("MainCamera");
     }
 
+    private void GetCameras()
+    {
+        cameras = new GameObject[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject cam = transform.GetChild(i).gameObject;
+            if (cam.name == "Main Camera")
+            {
+                mainCamera = cam;
+            }
+            else
+            {
+                ARCamera = cam;
+            }
+               
+        }
+    }
+    //Lag en bedre funksjon
+    public void SetCamera(string cameraName)
+    {
+        if(cameraName == "MainCamera")
+        {
+            mainCamera.SetActive(true);
+            ARCamera.SetActive(false);
+        }
+        else
+        {
+            ARCamera.SetActive(true);
+            mainCamera.SetActive(false);
+            
+        }
+    }
 }

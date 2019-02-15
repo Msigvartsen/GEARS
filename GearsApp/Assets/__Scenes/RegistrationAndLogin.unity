@@ -448,7 +448,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Username...
+  m_Text: Password..
 --- !u!222 &242547428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Username...
+  m_Text: Number..
 --- !u!222 &988527735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1752,7 +1752,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 207656893}
-        m_MethodName: login
+        m_MethodName: Login
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1898,7 +1898,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1251550453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2375,6 +2375,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Register
       objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874124, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7269997435768852688, guid: 79c2646c95a7a02408ed45199be5b14a,
         type: 3}
       propertyPath: m_Sprite
@@ -2395,11 +2400,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.011764707
-      objectReference: {fileID: 0}
-    - target: {fileID: 4518925510359874124, guid: 79c2646c95a7a02408ed45199be5b14a,
-        type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c2646c95a7a02408ed45199be5b14a, type: 3}
