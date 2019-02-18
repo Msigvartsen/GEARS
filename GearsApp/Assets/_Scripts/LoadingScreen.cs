@@ -68,7 +68,6 @@ public class LoadingScreen : MonoBehaviour
         if (loadingProcess.isDone)
         {
             canvasAlpha.alpha -= fadingAnimationSpeed * Time.deltaTime;
-            Debug.Log(canvasAlpha.alpha);
 
             if (canvasAlpha.alpha <= 0)
                 gameObject.SetActive(false);
@@ -78,8 +77,6 @@ public class LoadingScreen : MonoBehaviour
         {
             canvasAlpha.alpha = 1f;
             loadingImageObject.fillAmount += imageRadialSpeed * Time.deltaTime; ;
-
-            Debug.Log(canvasAlpha.alpha);
 
             if (loadingImageObject.fillAmount >= 1)
                 loadingProcess.allowSceneActivation = true;

@@ -36,13 +36,15 @@ public class Login : MonoBehaviour
             {
                 string req = webRequest.downloadHandler.text;
                 Debug.Log(req);
+
                 if(req == "0")
                 {
                     Debug.Log("Error: Login Failed -> Wrong Username or Password");
                 }
                 else
                 {
-                    Debug.Log("Hooray! Welcome");
+                    Debug.Log("Hooray! Welcome" + req);
+                    UserManager.GetInstance().RequestUserData(req.ToString());
                     LoadingScreen.LoadSceneByIndex(1);
                 }
             }

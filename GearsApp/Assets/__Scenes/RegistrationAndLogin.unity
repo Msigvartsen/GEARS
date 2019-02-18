@@ -1062,6 +1062,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525892165}
   m_CullTransparentMesh: 0
+--- !u!1 &713353954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713353956}
+  - component: {fileID: 713353955}
+  m_Layer: 0
+  m_Name: UserManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &713353955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713353954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1003be36a1bfd478e5f988f4a7792b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentUser:
+    telephonenr: 0
+    username: 
+    media_ID: 
+    explorerscore: 0
+    nerdscore: 0
+--- !u!4 &713353956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713353954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1101.0759, y: 1794.92, z: 15.290271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &947386172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,7 +1947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1251550453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2375,11 +2424,6 @@ PrefabInstance:
       propertyPath: m_Text
       value: Register
       objectReference: {fileID: 0}
-    - target: {fileID: 4518925510359874124, guid: 79c2646c95a7a02408ed45199be5b14a,
-        type: 3}
-      propertyPath: m_Padding.m_Left
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7269997435768852688, guid: 79c2646c95a7a02408ed45199be5b14a,
         type: 3}
       propertyPath: m_Sprite
@@ -2400,6 +2444,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.011764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874124, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79c2646c95a7a02408ed45199be5b14a, type: 3}

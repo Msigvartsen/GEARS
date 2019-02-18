@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class LocationsManager : MonoBehaviour
 {
-    
     public List<Location> locationList;
     private static LocationsManager _instance;
     public static LocationsManager GetInstance()
@@ -23,6 +22,7 @@ public class LocationsManager : MonoBehaviour
         {
             _instance = this;
         }
+
 
         StartCoroutine(Request());
     }
