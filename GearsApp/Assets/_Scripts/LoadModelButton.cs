@@ -35,7 +35,6 @@ public class LoadModelButton : MonoBehaviour
                 modelToShow.SetActive(true);
             }
 
-            GameObject.FindGameObjectWithTag("ModelTitleName").GetComponent<Text>().text = model.model_name;
         }
         else
         {
