@@ -34,15 +34,21 @@ public class LocationsManager : MonoBehaviour
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
 
-            Debug.Log(req);
+            Debug.Log("REQUESTED IN LOCATION" + req);
             if(req == "0")
             {
                 Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
             }
             else
             {
-                req = "{\"Items\":" + req + "}";
-                Location[] locations = JsonHelper.FromJson<Location>(req);
+
+                string phpobject = req.Substring(0, req.IndexOf("|"));
+                string locationObjects = req.Substring(req.IndexOf("|") +1 );
+                locationObjects = "{\"Items\":" + locationObjects + "}";
+
+                PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(phpobject);
+                Debug.Log("ERROR PHP HANDLER: " + obj.statusCode);
+                Location[] locations = JsonHelper.FromJson<Location>(locationObjects);
                 foreach (Location loc in locations)
                 {
                     Debug.Log(loc.location_ID + ": " + loc.name);

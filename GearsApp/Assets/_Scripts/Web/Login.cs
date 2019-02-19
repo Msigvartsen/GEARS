@@ -26,6 +26,7 @@ public class Login : MonoBehaviour
 
         using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
         {
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
             yield return webRequest.SendWebRequest();
 
             if (webRequest.isNetworkError)
@@ -35,19 +36,26 @@ public class Login : MonoBehaviour
             else
             {
                 string req = webRequest.downloadHandler.text;
-                Debug.Log(req);
+                PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(req);
 
-                if(req == "0")
-                {
-                    Debug.Log("Error: Login Failed -> Wrong Username or Password");
-                }
-                else
+                if(obj.statusCode == true)
                 {
                     Debug.Log("Hooray! Welcome" + req);
                     UserManager.GetInstance().RequestUserData(req.ToString());
                     LoadingScreen.LoadSceneByIndex(1);
                 }
+                else
+                {
+                    Debug.Log("Error: Login Failed -> Wrong Username or Password");
+                }
             }
         }
     }
+}
+
+[System.Serializable]
+public class PHPErrorHandler
+{
+    public bool statusCode;
+    public string text;
 }

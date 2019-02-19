@@ -46,9 +46,9 @@ public class UserManager : MonoBehaviour
             string req = request.downloadHandler.text;
 
             Debug.Log(req);
-            if (req == "0")
+            if (int.TryParse(req, out int errorcode) && errorcode == 0)
             {
-                Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
+                Debug.Log("Error: Pulling User Data from SQL Failed");
             }
             else
             {

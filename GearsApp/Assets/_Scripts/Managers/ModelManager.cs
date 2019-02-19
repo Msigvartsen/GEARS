@@ -33,9 +33,10 @@ public class ModelManager : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
-
+            
             Debug.Log(req);
-            if (req == "0")
+            int.TryParse(req, out int errorcode);
+            if (errorcode == 0)
             {
                 Debug.Log(req);
             }
