@@ -45,6 +45,11 @@ public class UserManager : MonoBehaviour
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
 
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+
             Debug.Log(req);
             if (int.TryParse(req, out int errorcode) && errorcode == 0)
             {

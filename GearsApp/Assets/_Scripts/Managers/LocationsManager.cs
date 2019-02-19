@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 public class LocationsManager : MonoBehaviour
 {
@@ -35,27 +36,26 @@ public class LocationsManager : MonoBehaviour
             string req = request.downloadHandler.text;
 
             Debug.Log("REQUESTED IN LOCATION" + req);
-            if(req == "0")
+            if (request.isNetworkError)
             {
-                Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
+                Debug.Log("Error: " + request.error);
             }
             else
             {
+                Response res = JsonConvert.DeserializeObject<Response>(req);
 
-                Response res = JsonUtility.FromJson<Response>(req);
-                Debug.Log("Code:" + res.handler.text);
-                //string phpobject = req.Substring(0, req.IndexOf("|"));
-                //string locationObjects = req.Substring(req.IndexOf("|") +1 );
-                //locationObjects = "{\"Items\":" + locationObjects + "}";
-
-                //PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(phpobject);
-                //Debug.Log("ERROR PHP HANDLER: " + obj.statusCode);
-                //Location[] locations = JsonHelper.FromJson<Location>(locationObjects);
-                //foreach (Location loc in locations)
-                //{
-                //    Debug.Log(loc.location_ID + ": " + loc.name);
-                //    locationList.Add(loc);
-                //}
+                if (res.handler.statusCode == false)
+                {
+                    Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
+                }
+                else
+                {
+                    Debug.Log("Code:" + res.handler.text);
+                    foreach (Location loc in res.locations)
+                    {
+                        Debug.Log("Locs = " + loc.name);
+                    }
+                }
             }
         }
     }
@@ -64,5 +64,6 @@ public class LocationsManager : MonoBehaviour
 public class Response
 {
     public PHPErrorHandler handler;
-    public Location[] locations;
+    [JsonProperty("location")]
+    public List<Location> locations;
 }

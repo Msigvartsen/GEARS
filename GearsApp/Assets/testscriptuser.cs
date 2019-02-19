@@ -7,9 +7,9 @@ public class testscriptuser : MonoBehaviour
 {
     void Start()
     {
-        UserManager manager = UserManager.GetInstance();
-        UserModel user = manager._currentUser;
-        Debug.Log("USERNAME: " + user.username);
-        GetComponent<Text>().text = user.username;
+        //UserManager manager = UserManager.GetInstance();
+        //UserModel user = manager._currentUser;
+        //Debug.Log("USERNAME: " + user.username);
+        //GetComponent<Text>().text = user.username;
     }
 }
