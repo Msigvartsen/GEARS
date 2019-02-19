@@ -42,19 +42,27 @@ public class LocationsManager : MonoBehaviour
             else
             {
 
-                string phpobject = req.Substring(0, req.IndexOf("|"));
-                string locationObjects = req.Substring(req.IndexOf("|") +1 );
-                locationObjects = "{\"Items\":" + locationObjects + "}";
+                Response res = JsonUtility.FromJson<Response>(req);
+                Debug.Log("Code:" + res.handler.text);
+                //string phpobject = req.Substring(0, req.IndexOf("|"));
+                //string locationObjects = req.Substring(req.IndexOf("|") +1 );
+                //locationObjects = "{\"Items\":" + locationObjects + "}";
 
-                PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(phpobject);
-                Debug.Log("ERROR PHP HANDLER: " + obj.statusCode);
-                Location[] locations = JsonHelper.FromJson<Location>(locationObjects);
-                foreach (Location loc in locations)
-                {
-                    Debug.Log(loc.location_ID + ": " + loc.name);
-                    locationList.Add(loc);
-                }
+                //PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(phpobject);
+                //Debug.Log("ERROR PHP HANDLER: " + obj.statusCode);
+                //Location[] locations = JsonHelper.FromJson<Location>(locationObjects);
+                //foreach (Location loc in locations)
+                //{
+                //    Debug.Log(loc.location_ID + ": " + loc.name);
+                //    locationList.Add(loc);
+                //}
             }
         }
     }
+}
+[System.Serializable]
+public class Response
+{
+    public PHPErrorHandler handler;
+    public Location[] locations;
 }
