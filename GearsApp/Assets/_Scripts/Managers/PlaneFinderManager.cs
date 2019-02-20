@@ -10,28 +10,46 @@ public class PlaneFinderManager : MonoBehaviour
     private GameObject groundPlane;
     private GameObject modelOnPlane;
 
+    private HelpTextManager htm;
+
     // Start is called before the first frame update
     void Start()
     {
         planeFinder = GameObject.FindGameObjectWithTag("PlaneFinder");
         groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
+        htm = GameObject.FindGameObjectWithTag("HTM").GetComponent<HelpTextManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CheckForActiveChildren())
+        if (CheckForChildren())
         {
-            planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = false;
-            planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(false);
-            groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = false;
+            // Check if the model has been placed on the ground
+            if (CheckForActiveChildren())
+            {
+                // Disable user input regarding placing the model
+                TurnOffInputOnGround();
+            }
+            else
+            {
+                // Enable user to scan and place the model on the ground
+                TurnOnInputOnGround();
+            }
         }
         else
         {
-            planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
-            planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
-            groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
+            htm.SetHelpText((int)Help.SELECT);
         }
+
+    }
+
+    public bool CheckForChildren()
+    {
+        if (groundPlane.transform.childCount > 0)
+            return true;
+        else
+            return false;
     }
 
     public bool CheckForActiveChildren()
@@ -51,6 +69,7 @@ public class PlaneFinderManager : MonoBehaviour
     public int FindActiveChild()
     {
         int index = -1;
+        // Loop through all children to see if any are active
         for (int i = 0; i < groundPlane.transform.childCount; i++)
         {
             Transform child = groundPlane.transform.GetChild(i);
@@ -82,5 +101,33 @@ public class PlaneFinderManager : MonoBehaviour
             }
         }
         return index;
+    }
+
+    public void TurnOffInputOnGround()
+    {
+        // Disable components
+        planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = false;
+        planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(false);
+        groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = false;
+        htm.FadeOutHelpText();
+    }
+
+    public void TurnOnInputOnGround()
+    {
+        // Set correct help text
+        if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
+        {
+            htm.SetHelpText((int)Help.PLACE);
+        }
+        else
+        {
+            htm.SetHelpText((int)Help.SEARCH);
+        }
+
+        // Enable components
+        planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
+        planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
+        groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
+        htm.FadeInHelpText();
     }
 }

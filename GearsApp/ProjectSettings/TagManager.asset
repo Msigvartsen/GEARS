@@ -13,6 +13,8 @@ TagManager:
   - ModelTitleName
   - GroundPlane
   - PlaneFinder
+  - HelpPanel
+  - HTM
   layers:
   - Default
   - TransparentFX
