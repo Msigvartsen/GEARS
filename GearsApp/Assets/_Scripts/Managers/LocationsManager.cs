@@ -42,7 +42,7 @@ public class LocationsManager : MonoBehaviour
             }
             else
             {
-                Response res = JsonConvert.DeserializeObject<Response>(req);
+                WebResponse res = JsonConvert.DeserializeObject<WebResponse>(req);
 
                 if (res.handler.statusCode == false)
                 {
@@ -60,10 +60,5 @@ public class LocationsManager : MonoBehaviour
         }
     }
 }
-[System.Serializable]
-public class Response
-{
-    public PHPErrorHandler handler;
-    [JsonProperty("location")]
-    public List<Location> locations;
-}
+
+

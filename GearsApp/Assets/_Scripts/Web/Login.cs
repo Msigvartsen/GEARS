@@ -36,7 +36,7 @@ public class Login : MonoBehaviour
             else
             {
                 string req = webRequest.downloadHandler.text;
-                PHPErrorHandler obj = JsonUtility.FromJson<PHPErrorHandler>(req);
+                PHPStatusHandler obj = JsonUtility.FromJson<PHPStatusHandler>(req);
 
                 if(obj.statusCode == true)
                 {
@@ -53,9 +53,4 @@ public class Login : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class PHPErrorHandler
-{
-    public bool statusCode;
-    public string text;
-}
+
