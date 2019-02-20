@@ -12,6 +12,7 @@ TagManager:
   - ModelImageTarget
   - ModelTitleName
   - GroundPlane
+  - PlaneFinder
   layers:
   - Default
   - TransparentFX
