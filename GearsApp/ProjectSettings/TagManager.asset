@@ -11,6 +11,7 @@ TagManager:
   - ModelButton
   - ModelImageTarget
   - ModelTitleName
+  - GroundPlane
   layers:
   - Default
   - TransparentFX

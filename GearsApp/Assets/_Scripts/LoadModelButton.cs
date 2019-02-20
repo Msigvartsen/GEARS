@@ -26,7 +26,7 @@ public class LoadModelButton : MonoBehaviour
             if (!loaded)
             {
                 modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name));
-                modelToShow.transform.parent = GameObject.FindGameObjectWithTag("ModelImageTarget").transform;
+                modelToShow.transform.parent = GameObject.FindGameObjectWithTag("GroundPlane").transform;
                 modelToShow.transform.localPosition = new Vector3(0, 0, 0);
                 loaded = true;
             }
