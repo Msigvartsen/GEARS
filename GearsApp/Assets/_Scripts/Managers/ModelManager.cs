@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using System.Net;
+using System;
 
 public class ModelManager : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class ModelManager : MonoBehaviour
     {
         return _instance;
     }
-
+    
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -33,11 +35,18 @@ public class ModelManager : MonoBehaviour
 
     IEnumerator Request()
     {
+
+        
         using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
-
+            Uri test = new Uri("ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php");
+           
+            if (DisplayFileFromServer(test))
+            {
+                Debug.Log("FOUND SERVER");
+            }
             Debug.Log(req);
             if (request.isNetworkError)
             {
@@ -59,8 +68,34 @@ public class ModelManager : MonoBehaviour
                         Debug.Log("Models = " + model.model_name);
                     }
                 }
-
             }
         }
+    }
+
+    public static bool DisplayFileFromServer(Uri serverUri)
+    {
+        //string serverUri = "ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php";
+
+        // The serverUri parameter should start with the ftp:// scheme.
+        if (serverUri.Scheme != Uri.UriSchemeFtp)
+        {
+            return false;
+        }
+        // Get the object used to communicate with the server.
+        WebClient request = new WebClient();
+
+        // This example assumes the FTP site uses anonymous logon.
+        request.Credentials = new NetworkCredential("bardrg.com_gearsa", "zg5M2o8S8bDkE9iI");
+        try
+        {
+            byte[] newFileData = request.DownloadData(serverUri.ToString());
+            string fileString = System.Text.Encoding.UTF8.GetString(newFileData);
+            Console.WriteLine(fileString);
+        }
+        catch (WebException e)
+        {
+            Console.WriteLine(e.ToString());
+        }
+        return true;
     }
 }
