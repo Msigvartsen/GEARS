@@ -64,8 +64,6 @@ public class UserManager : MonoBehaviour
                 // _currentUser = JsonUtility.FromJson<UserModel>(req);
                 //UserModel[] users = JsonHelper.FromJson<UserModel>(req);
                 //Debug.Log("LENGTH OF USER ARRA YSHOULD BE 1: " + users.Length);
-
-
             }
         }
     }
@@ -74,6 +72,4 @@ public class UserManager : MonoBehaviour
     {
         _currentUser = user;
     }
-
-
 }

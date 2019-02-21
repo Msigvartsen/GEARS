@@ -36,7 +36,7 @@ public class LocationListManager : MonoBehaviour
     private GameObject GetListItem(int index)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
-        go.transform.parent = parent.transform;
+        go.transform.SetParent(parent.transform);
         go.GetComponent<LocationListItem>().location = locationArray[index];
 
         return go;

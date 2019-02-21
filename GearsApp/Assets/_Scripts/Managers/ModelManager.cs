@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 public class ModelManager : MonoBehaviour
 {
@@ -35,19 +36,34 @@ public class ModelManager : MonoBehaviour
             string req = request.downloadHandler.text;
             
             Debug.Log(req);
-            int.TryParse(req, out int errorcode);
-            if (errorcode == 0)
+            if (request.isNetworkError)
             {
-                Debug.Log(req);
+                Debug.Log("Error: " + request.error);
             }
             else
             {
-                req = "{\"Items\":" + req + "}";
-                Model[] models = JsonHelper.FromJson<Model>(req);
-                foreach (Model model in models)
+                int.TryParse(req, out int errorcode);
+                if (errorcode == 0)
                 {
-                    modelList.Add(model);
-                    print(model.model_name + "ModelManager");
+                    Debug.Log(req);
+                }
+                else
+                {
+                    WebResponse<Model> response = JsonConvert.DeserializeObject<WebResponse<Model>>(req);
+
+                    if(response.handler.statusCode == false)
+                    {
+                        Debug.Log(req + ": ERROR: NO MODELS RETRIEVED FROM DATABASE");
+                    }
+                    else
+                    {
+                        foreach (Model model in response.objectList)
+                        {
+                            modelList.Add(model);
+                            Debug.Log("Models = " + model.model_name);
+                        }
+                    }
+
                 }
             }
         }

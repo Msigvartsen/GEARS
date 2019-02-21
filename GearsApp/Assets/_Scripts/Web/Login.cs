@@ -43,7 +43,9 @@ public class Login : MonoBehaviour
                 if(obj.handler.statusCode == true)
                 {
                     Debug.Log("Hooray! Welcome" + req);
-                    UserManager.GetInstance().RequestUserData(req.ToString());
+                    UserManager manager = UserManager.GetInstance();
+                    manager._currentUser = obj.objectList.ToArray()[0];
+                    Debug.Log(manager._currentUser.telephonenr);
                     LoadingScreen.LoadSceneByIndex(1);
                 }
                 else
