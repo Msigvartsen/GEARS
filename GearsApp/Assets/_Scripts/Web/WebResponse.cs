@@ -4,10 +4,11 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 [System.Serializable]
-public class WebResponse
+public class WebResponse<T>
 {
+    [JsonProperty("handler")]
     public PHPStatusHandler handler;
-    [JsonProperty("location")]
-    public List<Location> locations;
+    [JsonProperty("item")]
+    public List<T> objectList;
 }
 

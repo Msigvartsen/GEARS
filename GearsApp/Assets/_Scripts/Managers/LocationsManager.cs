@@ -24,7 +24,7 @@ public class LocationsManager : MonoBehaviour
             _instance = this;
         }
 
-
+        locationList = new List<Location>();
         StartCoroutine(Request());
     }
 
@@ -42,7 +42,7 @@ public class LocationsManager : MonoBehaviour
             }
             else
             {
-                WebResponse res = JsonConvert.DeserializeObject<WebResponse>(req);
+                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req);
 
                 if (res.handler.statusCode == false)
                 {
@@ -51,8 +51,9 @@ public class LocationsManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Code:" + res.handler.text);
-                    foreach (Location loc in res.locations)
+                    foreach (Location loc in res.objectList)
                     {
+                        locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }
                 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using Newtonsoft.Json;
 
 public class Login : MonoBehaviour
 {
@@ -36,9 +37,10 @@ public class Login : MonoBehaviour
             else
             {
                 string req = webRequest.downloadHandler.text;
-                PHPStatusHandler obj = JsonUtility.FromJson<PHPStatusHandler>(req);
-
-                if(obj.statusCode == true)
+                Debug.Log("REQUEST: " + req);
+                //PHPStatusHandler obj = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+                WebResponse<UserModel> obj = JsonConvert.DeserializeObject<WebResponse<UserModel>>(req);
+                if(obj.handler.statusCode == true)
                 {
                     Debug.Log("Hooray! Welcome" + req);
                     UserManager.GetInstance().RequestUserData(req.ToString());
