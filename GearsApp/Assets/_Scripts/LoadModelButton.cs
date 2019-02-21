@@ -23,35 +23,18 @@ public class LoadModelButton : MonoBehaviour
     {
         if (button.isOn)
         {
-            // Create the prefab if it is not loaded
             if (!loaded)
             {
                 modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name));
-
-                // Get the renderer component in either child or on current object and turn it off
-                if (modelToShow.GetComponentsInChildren<Renderer>(true).Length > 0)
-                {
-                    var rendererComponents = modelToShow.GetComponentsInChildren<Renderer>(true);
-                    foreach (var componenent in rendererComponents)
-                    {
-                        componenent.enabled = false;
-                    }
-                }
-                else if (modelToShow.GetComponent<Renderer>())
-                {
-                    modelToShow.GetComponent<Renderer>().enabled = false;
-                }
-
-                // Set the ground plane to be the models parent
-                modelToShow.transform.parent = GameObject.FindGameObjectWithTag("GroundPlane").transform;
+                modelToShow.transform.parent = GameObject.FindGameObjectWithTag("ModelImageTarget").transform;
                 modelToShow.transform.localPosition = new Vector3(0, 0, 0);
                 loaded = true;
             }
             else
             {
-                // Activate the model if its selected and loaded
                 modelToShow.SetActive(true);
             }
+
         }
         else
         {
