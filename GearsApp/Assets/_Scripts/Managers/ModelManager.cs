@@ -13,18 +13,21 @@ public class ModelManager : MonoBehaviour
     {
         return _instance;
     }
-    
+
     private void Awake()
     {
-         if (_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
         }
-         else
+        else
         {
             _instance = this;
         }
-
+        if (modelList == null)
+        {
+            modelList = new List<Model>();
+        }
         StartCoroutine(Request());
     }
 
@@ -34,7 +37,7 @@ public class ModelManager : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
-            
+
             Debug.Log(req);
             if (request.isNetworkError)
             {
@@ -42,29 +45,21 @@ public class ModelManager : MonoBehaviour
             }
             else
             {
-                int.TryParse(req, out int errorcode);
-                if (errorcode == 0)
+                WebResponse<Model> response = JsonConvert.DeserializeObject<WebResponse<Model>>(req);
+
+                if (response.handler.statusCode == false)
                 {
-                    Debug.Log(req);
+                    Debug.Log(req + ": ERROR: NO MODELS RETRIEVED FROM DATABASE");
                 }
                 else
                 {
-                    WebResponse<Model> response = JsonConvert.DeserializeObject<WebResponse<Model>>(req);
-
-                    if(response.handler.statusCode == false)
+                    foreach (Model model in response.objectList)
                     {
-                        Debug.Log(req + ": ERROR: NO MODELS RETRIEVED FROM DATABASE");
+                        modelList.Add(model);
+                        Debug.Log("Models = " + model.model_name);
                     }
-                    else
-                    {
-                        foreach (Model model in response.objectList)
-                        {
-                            modelList.Add(model);
-                            Debug.Log("Models = " + model.model_name);
-                        }
-                    }
-
                 }
+
             }
         }
     }

@@ -2810,6 +2810,11 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1448349191867091971}
+    - target: {fileID: 4429233753438174511, guid: aeb403fad9b75f14798365ffb570b2a0,
+        type: 3}
+      propertyPath: m_IsOn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 525523198066422872, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
       propertyPath: underline
