@@ -40,6 +40,7 @@ public class PlaneFinderManager : MonoBehaviour
         else
         {
             htm.SetHelpText((int)Help.SELECT);
+            htm.FadeInHelpText();
         }
 
     }
