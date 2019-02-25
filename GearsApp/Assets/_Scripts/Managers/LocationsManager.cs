@@ -25,6 +25,7 @@ public class LocationsManager : MonoBehaviour
         }
 
         locationList = new List<Location>();
+        Debug.Log("RUN LOCATION REQUEST");
         StartCoroutine(Request());
     }
 

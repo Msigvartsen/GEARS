@@ -15,7 +15,7 @@ public class ModelManager : MonoBehaviour
     {
         return _instance;
     }
-    
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -35,18 +35,18 @@ public class ModelManager : MonoBehaviour
 
     IEnumerator Request()
     {
-
-        
         using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
         {
+            
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
             Uri test = new Uri("ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php");
-           
+
             if (DisplayFileFromServer(test))
             {
                 Debug.Log("FOUND SERVER");
             }
+
             Debug.Log(req);
             if (request.isNetworkError)
             {
@@ -75,7 +75,7 @@ public class ModelManager : MonoBehaviour
     public static bool DisplayFileFromServer(Uri serverUri)
     {
         //string serverUri = "ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php";
-
+        
         // The serverUri parameter should start with the ftp:// scheme.
         if (serverUri.Scheme != Uri.UriSchemeFtp)
         {
@@ -90,11 +90,11 @@ public class ModelManager : MonoBehaviour
         {
             byte[] newFileData = request.DownloadData(serverUri.ToString());
             string fileString = System.Text.Encoding.UTF8.GetString(newFileData);
-            Console.WriteLine(fileString);
+            Debug.Log("File string: " + fileString);
         }
         catch (WebException e)
         {
-            Console.WriteLine(e.ToString());
+            Debug.Log(e.ToString());
         }
         return true;
     }
