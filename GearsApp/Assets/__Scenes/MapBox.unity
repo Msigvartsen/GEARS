@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &371669524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,10 +523,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.025
-    y: 0.025
-    width: 0.95
-    height: 0.77
+    x: 0
+    y: 0
+    width: 1
+    height: 0.82
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -620,8 +620,8 @@ MonoBehaviour:
   _locationStrings:
   - 61.997383, 10.888814
   - 60.79649, 11.073977
-  _spawnScale: 10
-  _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b,
+  _spawnScale: 7
+  _markerPrefab: {fileID: 1779370585041552922, guid: 2a7f5fb1093b01f438ae1f95964d5ba3,
     type: 3}
 --- !u!114 &1945624726
 MonoBehaviour:
@@ -654,8 +654,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 60.7956, 11.0746
-      zoom: 10
+      latitudeLongitude: 61, 8
+      zoom: 6
     extentOptions:
       extentType: 0
       defaultExtents:

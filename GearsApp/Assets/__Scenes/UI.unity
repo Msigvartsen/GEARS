@@ -252,7 +252,7 @@ MonoBehaviour:
   - 61.997383, 10.888814
   - 60.79649, 11.073977
   _spawnScale: 10
-  _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b,
+  _markerPrefab: {fileID: 1779370585041552922, guid: 2a7f5fb1093b01f438ae1f95964d5ba3,
     type: 3}
 --- !u!114 &105001526
 MonoBehaviour:
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 60.7956, 11.0746
-      zoom: 10
+      latitudeLongitude: 61, 8
+      zoom: 6
     extentOptions:
       extentType: 0
       defaultExtents:
