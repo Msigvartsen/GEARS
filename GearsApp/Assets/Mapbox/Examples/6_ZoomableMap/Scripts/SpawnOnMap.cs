@@ -14,8 +14,8 @@
 
 		[SerializeField]
 		[Geocode]
-		string[] _locationStrings;
-		Vector2d[] _locations;
+		public string[] _locationStrings;
+		public Vector2d[] _locations;
 
 		[SerializeField]
 		float _spawnScale = 100f;
