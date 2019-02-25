@@ -30,14 +30,40 @@ public class ModelManager : MonoBehaviour
         {
             modelList = new List<Model>();
         }
-        StartCoroutine(Request());
+        StartCoroutine(Models());
+        //StartCoroutine(Request());
+    }
+
+    IEnumerator Models()
+    {
+        string text = string.Empty;
+
+        TextAsset resourceFile = Resources.Load("models") as TextAsset;
+
+        text = resourceFile.text.ToString();
+
+        WebResponse<Model> response = JsonConvert.DeserializeObject<WebResponse<Model>>(text);
+
+        if (response.handler.statusCode == false)
+        {
+            Debug.Log("ERROR: NO MODELS RETRIEVED FROM DATABASE");
+        }
+        else
+        {
+            foreach (Model model in response.objectList)
+            {
+                modelList.Add(model);
+                Debug.Log("Models = " + model.model_name);
+            }
+        }
+
+        yield return text;
     }
 
     IEnumerator Request()
     {
         using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
         {
-            
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
             Uri test = new Uri("ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php");

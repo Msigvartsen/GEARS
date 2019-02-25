@@ -1,0 +1,2 @@
+ 
+{"handler":{"statusCode":true,"text":"login compelete"},"item":[{"model_ID":1,"model_name":"Zombie","modeltype":"Animated","score":20},{"model_ID":2,"model_name":"Butterfly","modeltype":"Animated","score":20}]}
