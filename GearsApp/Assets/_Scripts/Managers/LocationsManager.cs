@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using System.IO;
 
 public class LocationsManager : MonoBehaviour
 {
@@ -23,9 +24,38 @@ public class LocationsManager : MonoBehaviour
         {
             _instance = this;
         }
+        if (locationList == null)
+        {
+            locationList = new List<Location>();
+        }
+        StartCoroutine(Locations());
+        //StartCoroutine(Request());
+    }
 
-        locationList = new List<Location>();
-        StartCoroutine(Request());
+    IEnumerator Locations()
+    {
+        string text = string.Empty;
+
+        TextAsset resourceFile = Resources.Load("locations") as TextAsset;
+
+        text = resourceFile.text.ToString();
+
+        WebResponse<Location> response = JsonConvert.DeserializeObject<WebResponse<Location>>(text);
+
+        if (response.handler.statusCode == false)
+        {
+            Debug.Log("ERROR: NO MODELS RETRIEVED FROM DATABASE");
+        }
+        else
+        {
+            foreach (Location loc in response.objectList)
+            {
+                locationList.Add(loc);
+                Debug.Log("Locations = " + loc.name);
+            }
+        }
+
+        yield return text;
     }
 
     IEnumerator Request()
