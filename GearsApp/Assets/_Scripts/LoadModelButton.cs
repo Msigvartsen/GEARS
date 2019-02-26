@@ -44,6 +44,7 @@ public class LoadModelButton : MonoBehaviour
 
                 // Set the ground plane to be the models parent
                 modelToShow.transform.parent = GameObject.FindGameObjectWithTag("GroundPlane").transform;
+                print("LoadModelButton found groundplane");
                 modelToShow.transform.localPosition = new Vector3(0, 0, 0);
                 loaded = true;
             }

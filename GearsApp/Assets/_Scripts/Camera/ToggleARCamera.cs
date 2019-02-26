@@ -6,7 +6,7 @@ public class ToggleARCamera : MonoBehaviour
 {
     private GameObject mainCamera;
     private GameObject ARCamera;
-    private GameObject mapCamera;
+    //private GameObject mapCamera;
     public GameObject[] cameras;
 
     private void Start()
@@ -27,7 +27,7 @@ public class ToggleARCamera : MonoBehaviour
             }
             else if (cam.name == "Map Camera")
             {
-                mapCamera = cam;
+                //mapCamera = cam;
             }
             else
             {
@@ -43,11 +43,11 @@ public class ToggleARCamera : MonoBehaviour
         {
             mainCamera.SetActive(true);
             ARCamera.SetActive(false);
-            mapCamera.SetActive(false);
+            //mapCamera.SetActive(false);
         }
         else if (cameraName == "MapCamera")
         {
-            mapCamera.SetActive(true);
+            //mapCamera.SetActive(true);
             ARCamera.SetActive(false);
             mainCamera.SetActive(false);
         }
@@ -55,7 +55,7 @@ public class ToggleARCamera : MonoBehaviour
         {
             ARCamera.SetActive(true);
             mainCamera.SetActive(false);
-            mapCamera.SetActive(false);
+            //mapCamera.SetActive(false);
             
         }
     }
