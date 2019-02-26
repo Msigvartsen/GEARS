@@ -24,7 +24,7 @@ public class LocationsManager : MonoBehaviour
         {
             _instance = this;
         }
-        if (locationList == null)
+        if(locationList == null)
         {
             locationList = new List<Location>();
         }
@@ -91,5 +91,3 @@ public class LocationsManager : MonoBehaviour
         }
     }
 }
-
-

@@ -101,7 +101,7 @@ public class ModelManager : MonoBehaviour
     public static bool DisplayFileFromServer(Uri serverUri)
     {
         //string serverUri = "ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php";
-
+        
         // The serverUri parameter should start with the ftp:// scheme.
         if (serverUri.Scheme != Uri.UriSchemeFtp)
         {
