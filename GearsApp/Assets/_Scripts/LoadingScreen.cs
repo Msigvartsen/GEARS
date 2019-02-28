@@ -33,6 +33,7 @@ public class LoadingScreen : MonoBehaviour
         loadingImageObject.type = Image.Type.Filled;
     }
 
+
     public static void LoadSceneByIndex(int index)
     {
         if (instance == null)
