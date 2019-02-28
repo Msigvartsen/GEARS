@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/__Scenes/Locations.unity
     guid: b8f153ba2848065459318e1ecf391b7d
   - enabled: 1
+    path: Assets/__Scenes/Favorites.unity
+    guid: f17f1812d95be3b488717274d3538826
+  - enabled: 1
     path: Assets/__Scenes/ModelView.unity
     guid: 635fe5d646b91194d83dc7d97b1efbad
   - enabled: 0
