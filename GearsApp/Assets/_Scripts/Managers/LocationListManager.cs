@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LocationListManager : MonoBehaviour
 {
+    public enum ArrayType{ Locations, Favorites};
+    public ArrayType arrayType;
     private GameObject parent;
     private GameObject[] itemList;
     private Location[] locationArray;
@@ -19,7 +21,12 @@ public class LocationListManager : MonoBehaviour
     private void Init()
     {
         parent = transform.gameObject;
-        locationArray = LocationsManager.GetInstance().locationList.ToArray();
+
+        if(arrayType == ArrayType.Locations)
+            locationArray = LocationsManager.GetInstance().locationList.ToArray();
+        if (arrayType == ArrayType.Favorites)
+            locationArray = LocationsManager.GetInstance().favoriteLocationList.ToArray();
+
         prefabName = "ListItem";
     }
 
