@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.Net;
 using System;
+using ConstantsNS;
 
 public class ModelManager : MonoBehaviour
 {
@@ -62,7 +63,9 @@ public class ModelManager : MonoBehaviour
 
     IEnumerator Request()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
+        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
+        string path = Constants.PhpPath + "models.php";
+        using (UnityWebRequest request = UnityWebRequest.Get(path))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
@@ -101,7 +104,6 @@ public class ModelManager : MonoBehaviour
     public static bool DisplayFileFromServer(Uri serverUri)
     {
         //string serverUri = "ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php";
-        
         // The serverUri parameter should start with the ftp:// scheme.
         if (serverUri.Scheme != Uri.UriSchemeFtp)
         {

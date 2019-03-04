@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
+using ConstantsNS;
 
 public class Login : MonoBehaviour
 {
@@ -18,14 +19,17 @@ public class Login : MonoBehaviour
     {
         StartCoroutine(UserLogin());
     }
-
+    
     IEnumerator UserLogin()
     {
         WWWForm form = new WWWForm();
         form.AddField("user", usernameField.text);
         form.AddField("password", passwordField.text);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
+        //using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
+        string path = Constants.PhpPath + "login.php";
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
         {
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             yield return webRequest.SendWebRequest();
@@ -37,16 +41,14 @@ public class Login : MonoBehaviour
             else
             {
                 string req = webRequest.downloadHandler.text;
-                Debug.Log("REQUEST: " + req);
-                //PHPStatusHandler obj = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
-                WebResponse<UserModel> obj = JsonConvert.DeserializeObject<WebResponse<UserModel>>(req);
+                WebResponse<UserModel> obj = JsonConvert.DeserializeObject<WebResponse<UserModel>>(req, Constants.JsonSettings);
+                Debug.Log(obj.handler.text);
                 if(obj.handler.statusCode == true)
                 {
-                    Debug.Log("Hooray! Welcome" + req);
                     UserManager manager = UserManager.GetInstance();
                     manager._currentUser = obj.objectList.ToArray()[0];
-                    Debug.Log(manager._currentUser.telephonenr);
-                    LoadingScreen.LoadScene(1);
+
+                    LoadingScreen.LoadScene("MainMenu");
                 }
                 else
                 {
