@@ -33,7 +33,7 @@ public class LoadingScreen : MonoBehaviour
         loadingImageObject.type = Image.Type.Filled;
     }
 
-    public static void LoadSceneByIndex(int index)
+    public static void LoadScene(int index)
     {
         if (instance == null)
         {
@@ -45,6 +45,21 @@ public class LoadingScreen : MonoBehaviour
         instance.loadingProcess = SceneManager.LoadSceneAsync(index);
         instance.loadingProcess.allowSceneActivation = false;
     }
+
+    public static void LoadScene(string sceneName)
+    {
+        if (instance == null)
+        {
+            instance = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName)).GetComponent<LoadingScreen>();
+            DontDestroyOnLoad(instance.gameObject);
+        }
+
+        instance.gameObject.SetActive(true);
+        instance.loadingProcess = SceneManager.LoadSceneAsync(sceneName);
+        instance.loadingProcess.allowSceneActivation = false;
+    }
+
+
 
     void Awake()
     {

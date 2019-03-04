@@ -363,17 +363,22 @@ PrefabInstance:
     - target: {fileID: 2043210332807919276, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadSceneByIndex
+      value: LoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 2043210332807919276, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2043210332807919276, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043210332807919276, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Locations
       objectReference: {fileID: 0}
     - target: {fileID: 8231953675128730922, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
@@ -493,17 +498,22 @@ PrefabInstance:
     - target: {fileID: 2043210332625758020, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadSceneByIndex
+      value: LoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 2043210332625758020, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2043210332625758020, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043210332625758020, guid: 60a7dac6d9fc04643a13e243ef8a8cd4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Favorites
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60a7dac6d9fc04643a13e243ef8a8cd4, type: 3}
@@ -531,7 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184bf5855d65e724788b305d62d8fcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 0
 --- !u!1 &588328068
 GameObject:
   m_ObjectHideFlags: 0

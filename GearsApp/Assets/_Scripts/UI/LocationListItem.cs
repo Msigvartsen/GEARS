@@ -32,6 +32,6 @@ public class LocationListItem : MonoBehaviour
         //    manager.ChangeCanvas(canvas.name);
         //else
         //    Debug.Log("ERROR: NO CANVAS MANAGER FOUND");
-        LoadingScreen.LoadSceneByIndex(index);
+        LoadingScreen.LoadScene("ModelView");
     }
 }

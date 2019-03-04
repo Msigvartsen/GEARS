@@ -37,7 +37,7 @@ public class Registration : MonoBehaviour
             {
                 Debug.Log("User Created Successfully");
                 Debug.Log(webRequest.downloadHandler.text);
-                LoadingScreen.LoadSceneByIndex(1);
+                LoadingScreen.LoadScene(1);
             }
         }
     }

@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-    public int sceneIndex;
-
-    public void LoadSceneByIndex(int index)
+    public void LoadScene(int index)
     {
-        LoadingScreen.LoadSceneByIndex(index);
+        LoadingScreen.LoadScene(index);
+    }
+    public void LoadScene(string sceneName)
+    {
+        LoadingScreen.LoadScene(sceneName);
     }
 }

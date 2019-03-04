@@ -46,7 +46,7 @@ public class Login : MonoBehaviour
                     UserManager manager = UserManager.GetInstance();
                     manager._currentUser = obj.objectList.ToArray()[0];
                     Debug.Log(manager._currentUser.telephonenr);
-                    LoadingScreen.LoadSceneByIndex(1);
+                    LoadingScreen.LoadScene(1);
                 }
                 else
                 {
