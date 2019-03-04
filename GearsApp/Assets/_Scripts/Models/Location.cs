@@ -12,4 +12,5 @@ public class Location
     public double latitude;
     public double longitude;
     public string information;
+    public bool favorite;
 }

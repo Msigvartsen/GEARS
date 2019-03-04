@@ -22,19 +22,34 @@ public class LocationListManager : MonoBehaviour
     {
         parent = transform.gameObject;
 
-        if(arrayType == ArrayType.Locations)
-            locationArray = LocationsManager.GetInstance().locationList.ToArray();
-        if (arrayType == ArrayType.Favorites)
-            locationArray = LocationsManager.GetInstance().favoriteLocationList.ToArray();
+        //if(arrayType == ArrayType.Locations)
+        locationArray = LocationsManager.GetInstance().locationList.ToArray();
+        //if (arrayType == ArrayType.Favorites)
+        //    locationArray = LocationsManager.GetInstance().favoriteLocationList.ToArray();
 
         prefabName = "ListItem";
     }
 
     private void UpdateLocationList()
     {
-        itemList = new GameObject[locationArray.Length];
+        Location[] locations = locationArray;
+    
+        if(arrayType == ArrayType.Favorites)
+        {
+            List<Location> list = new List<Location>();
+            for (int i = 0; i < locationArray.Length; i++)
+            {
+                if(locationArray[i].favorite == true)
+                {
+                    list.Add(locationArray[i]);
+                }
+            }
+            locations = list.ToArray();
+        }
 
-        for (int i = 0; i < locationArray.Length; i++)
+        itemList = new GameObject[locations.Length];
+
+        for (int i = 0; i < locations.Length; i++)
         {
             itemList[i] = GetListItem(i);
         }

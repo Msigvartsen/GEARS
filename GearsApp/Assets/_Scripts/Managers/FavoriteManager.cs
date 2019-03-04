@@ -4,64 +4,59 @@ using UnityEngine;
 using ConstantsNS;
 using Newtonsoft.Json;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class FavoriteManager : MonoBehaviour
 {
-    List<Location> _favoriteLocations;
-    FavoriteManager _instance;
 
-    private void Awake()
+    public void CallAddToFavorite()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-        DontDestroyOnLoad(gameObject);
+        StartCoroutine(AddToFavorite());
     }
 
-    private void Start()
+    public void CallRemoveFromFavorite()
     {
-        StartCoroutine(GetFavorites());
+
     }
 
-    IEnumerator GetFavorites()
+    IEnumerator AddToFavorite()
     {
+        Location loc = GetComponent<LocationListItem>().location;
+        bool isFavorite = GetComponentInChildren<Toggle>().isOn;
+        UserManager manager = UserManager.GetInstance();
+
         WWWForm form = new WWWForm();
-        form.AddField("user", UserManager.GetInstance()._currentUser.username);
-        string path = Constants.PhpPath + "favorites.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
+        form.AddField("number", manager._currentUser.telephonenr);
+        form.AddField("location_id", loc.location_ID);
 
-            Debug.Log("REQUESTED IN FAVORITES" + req);
-            if (request.isNetworkError)
+        string path;
+        if (isFavorite)
+            path = Constants.PhpPath + "addfavorite.php";
+        else
+            path = Constants.PhpPath + "removefavorite.php";
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
+        {
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
             {
-                Debug.Log("Error: " + request.error);
+                Debug.Log("Error: " + webRequest.error);
             }
             else
             {
-                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req);
+                string req = webRequest.downloadHandler.text;
+                Debug.Log("FAVORITE: + " + req);
+                LocationsManager locManager = LocationsManager.GetInstance();
+                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req, Constants.JsonSettings);
 
-                if (res.handler.statusCode == false)
+                if (handler.statusCode == true)
                 {
-                    Debug.Log(req + ": ERROR: NO FAVORITES RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    Debug.Log("Code:" + res.handler.text);
-                    foreach (Location loc in res.objectList)
-                    {
-                        //locationList.Add(loc);
-                        //Debug.Log("Locs = " + loc.name);
-                        Debug.Log("CREATE FAV. LOCATION LIST ITEM)");
-                    }
+                    loc.favorite = isFavorite;
                 }
             }
         }
     }
 }
+

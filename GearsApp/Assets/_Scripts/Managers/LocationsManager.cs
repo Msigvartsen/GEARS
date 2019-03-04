@@ -54,6 +54,7 @@ public class LocationsManager : MonoBehaviour
             }
             else
             {
+                Debug.Log("Location: " + req);
                 WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req);
 
                 if (res.handler.statusCode == false)
@@ -71,8 +72,6 @@ public class LocationsManager : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     IEnumerator GetFavorites()
@@ -105,7 +104,14 @@ public class LocationsManager : MonoBehaviour
                     {
                         //locationList.Add(loc);
                         //Debug.Log("Locs = " + loc.name);
-                        favoriteLocationList.Add(loc);
+                        foreach(Location location in locationList)
+                        {
+                            if(location.name == loc.name)
+                            {
+                                location.favorite = true;
+                            }
+                        }
+                       // favoriteLocationList.Add(loc);
                         Debug.Log("CREATE FAV. LOCATION LIST ITEM)");
                     }
                 }
