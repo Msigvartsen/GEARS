@@ -40,7 +40,8 @@ public class UserManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("username", _username);
         Debug.Log("FORM: " + _username);
-        using (UnityWebRequest request = UnityWebRequest.Post("http://localhost/gears/userdata.php", form))
+        //using (UnityWebRequest request = UnityWebRequest.Post("http://localhost/gears/userdata.php", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("https://cgtroll.com/gearsa/GEARS/PHPScripts/userdata.php", form))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;

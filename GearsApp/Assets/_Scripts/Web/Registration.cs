@@ -25,7 +25,8 @@ public class Registration : MonoBehaviour
         form.AddField("name", nameField.text);
         form.AddField("password", passwordField.text);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/register.php", form))
+        //using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/register.php", form))
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("https://cgtroll.com/gearsa/GEARS/PHPScripts/register.php", form))
         {
             yield return webRequest.SendWebRequest();
 

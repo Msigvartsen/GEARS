@@ -25,7 +25,8 @@ public class Login : MonoBehaviour
         form.AddField("user", usernameField.text);
         form.AddField("password", passwordField.text);
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
+        //using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
+        using (UnityWebRequest webRequest = UnityWebRequest.Post("https://cgtroll.com/gearsa/GEARS/PHPScripts/login.php", form))
         {
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             yield return webRequest.SendWebRequest();

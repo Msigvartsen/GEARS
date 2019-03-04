@@ -28,8 +28,8 @@ public class LocationsManager : MonoBehaviour
         {
             locationList = new List<Location>();
         }
-        StartCoroutine(Locations());
-        //StartCoroutine(Request());
+        //StartCoroutine(Locations());
+        StartCoroutine(Request());
     }
 
     IEnumerator Locations()
@@ -60,7 +60,8 @@ public class LocationsManager : MonoBehaviour
 
     IEnumerator Request()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/locations.php"))
+        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/locations.php"))
+        using (UnityWebRequest request = UnityWebRequest.Get("https://cgtroll.com/gearsa/GEARS/PHPScripts/locations.php"))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;

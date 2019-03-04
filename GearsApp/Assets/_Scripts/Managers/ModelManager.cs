@@ -30,8 +30,8 @@ public class ModelManager : MonoBehaviour
         {
             modelList = new List<Model>();
         }
-        StartCoroutine(Models());
-        //StartCoroutine(Request());
+        //StartCoroutine(Models());
+        StartCoroutine(Request());
     }
 
     IEnumerator Models()
@@ -62,7 +62,8 @@ public class ModelManager : MonoBehaviour
 
     IEnumerator Request()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
+        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
+        using (UnityWebRequest request = UnityWebRequest.Get("https://cgtroll.com/gearsa/GEARS/PHPScripts/models.php"))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;

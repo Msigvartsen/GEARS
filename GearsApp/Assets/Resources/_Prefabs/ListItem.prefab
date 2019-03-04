@@ -295,7 +295,7 @@ MonoBehaviour:
     latitude: 0
     longitude: 0
     information: 
-  index: 3
+  index: 4
 --- !u!1 &3288657164470246087
 GameObject:
   m_ObjectHideFlags: 0
