@@ -662,8 +662,8 @@ MonoBehaviour:
     longitude: 11.074224
   zoom: 13
   mapType: 0
-  size: 215
-  doubleResolution: 1
+  size: 512
+  doubleResolution: 0
   markers: []
   paths: []
 --- !u!222 &338134273
