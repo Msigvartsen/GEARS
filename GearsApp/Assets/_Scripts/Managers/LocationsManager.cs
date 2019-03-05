@@ -11,6 +11,9 @@ public class LocationsManager : MonoBehaviour
     public List<Location> locationList;
     public List<Location> favoriteLocationList;
     private static LocationsManager _instance;
+
+    public Location CurrentLocation;
+
     public static LocationsManager GetInstance()
     {
         return _instance;

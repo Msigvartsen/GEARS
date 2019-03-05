@@ -21,12 +21,7 @@ public class LocationListManager : MonoBehaviour
     private void Init()
     {
         parent = transform.gameObject;
-
-        //if(arrayType == ArrayType.Locations)
         locationArray = LocationsManager.GetInstance().locationList.ToArray();
-        //if (arrayType == ArrayType.Favorites)
-        //    locationArray = LocationsManager.GetInstance().favoriteLocationList.ToArray();
-
         prefabName = "ListItem";
     }
 

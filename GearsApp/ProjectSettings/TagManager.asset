@@ -16,6 +16,7 @@ TagManager:
   - PlaneFinder
   - HTM
   - GroundPlane1
+  - HeaderButton
   layers:
   - Default
   - TransparentFX
