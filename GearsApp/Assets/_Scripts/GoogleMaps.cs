@@ -127,20 +127,15 @@ public class GoogleMaps : MonoBehaviour
 
         qs += "&key=" + UnityWebRequest.UnEscapeURL(GoogleApiKey);
 
-        UnityWebRequest req = UnityWebRequestTexture.GetTexture(url + "?" + qs);
+        WWW req = new WWW(url + "?" + qs);
         Debug.Log(url + "?" + qs);
 
         // Create a texture in DXT1 format
-        //GetComponent<Renderer>().material.mainTexture = new Texture2D(size, size, TextureFormat.DXT1, false);
         GetComponent<RawImage>().texture = new Texture2D(size, size, TextureFormat.DXT1, false);
-
-        //renderer.material.mainTexture = new Texture2D(size, size, TextureFormat.DXT1, false);
-        var texture = DownloadHandlerTexture.GetContent(req);
         while (!req.isDone)
             yield return null;
         if (req.error == null)
-            GetComponent<RawImage>().texture = texture;
-                //req.LoadImageIntoTexture((Texture2D)GetComponent<RawImage>().texture);
+                req.LoadImageIntoTexture((Texture2D)GetComponent<RawImage>().texture);
     }
 }
 

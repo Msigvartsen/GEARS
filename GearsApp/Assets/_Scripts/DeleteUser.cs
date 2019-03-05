@@ -10,4 +10,8 @@ public class DeleteUser : MonoBehaviour
         GameObject gameObject = GameObject.FindGameObjectWithTag("PopupWarning");
         gameObject.SetActive(false);
     }
+    public void CallLogOut()
+    {
+        UserManager.GetInstance().LogOut();
+    }
 }

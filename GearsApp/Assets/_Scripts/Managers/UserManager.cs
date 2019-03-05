@@ -40,6 +40,12 @@ public class UserManager : MonoBehaviour
         _currentUser = user;
     }
 
+    public void LogOut()
+    {
+        _currentUser = null;
+        LoadingScreen.LoadScene("RegistrationAndLogin");
+    }
+
     public void CallDeleteUser()
     {
         StartCoroutine(DeleteUser());

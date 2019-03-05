@@ -660,10 +660,10 @@ MonoBehaviour:
     address: 
     latitude: 60.796352
     longitude: 11.074224
-  zoom: 17
-  mapType: 1
-  size: 2056
-  doubleResolution: 0
+  zoom: 13
+  mapType: 0
+  size: 215
+  doubleResolution: 1
   markers: []
   paths: []
 --- !u!222 &338134273

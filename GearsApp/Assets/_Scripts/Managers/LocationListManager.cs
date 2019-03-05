@@ -27,7 +27,7 @@ public class LocationListManager : MonoBehaviour
 
     private void UpdateLocationList()
     {
-        Location[] locations = locationArray;
+        Location[] locations = new Location[0];
     
         if(arrayType == ArrayType.Favorites)
         {
@@ -36,27 +36,36 @@ public class LocationListManager : MonoBehaviour
             {
                 if(locationArray[i].favorite == true)
                 {
+                    Debug.Log("Adding to Favlist: " + locationArray[i].name);
                     list.Add(locationArray[i]);
                 }
             }
             locations = list.ToArray();
+        }
+        else
+        {
+            locations = locationArray;
         }
 
         itemList = new GameObject[locations.Length];
 
         for (int i = 0; i < locations.Length; i++)
         {
-            itemList[i] = GetListItem(i);
+            itemList[i] = GetListItem(i, locations);
         }
     }
 
-    private GameObject GetListItem(int index)
+    private GameObject GetListItem(int index, Location[] locations)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
-        go.GetComponent<LocationListItem>().location = locationArray[index];
+        go.GetComponent<LocationListItem>().location = locations[index];
+        if(arrayType == ArrayType.Favorites)
+        {
+            Debug.Log("Favorite List Item index: " + index + locations[index].name);
+        }
         GameObject favoriteButton = GameObject.FindGameObjectWithTag("FavoriteButton");
-        favoriteButton.GetComponent<Toggle>().isOn = locationArray[index].favorite;
+        favoriteButton.GetComponent<Toggle>().isOn = locations[index].favorite;
 
         return go;
     }
