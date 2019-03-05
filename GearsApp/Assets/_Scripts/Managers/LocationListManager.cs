@@ -55,11 +55,9 @@ public class LocationListManager : MonoBehaviour
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<LocationListItem>().location = locationArray[index];
+        GameObject favoriteButton = GameObject.FindGameObjectWithTag("FavoriteButton");
+        favoriteButton.GetComponent<Toggle>().isOn = locationArray[index].favorite;
 
         return go;
-    }
-    private void OpenLocationTab()
-    {
-        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LocationCanvas"));
     }
 }

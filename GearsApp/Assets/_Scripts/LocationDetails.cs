@@ -7,7 +7,7 @@ public class LocationDetails : MonoBehaviour
 {
     private void Start()
     {
-        LocationsManager manager = LocationsManager.GetInstance(); ;
+        LocationsManager manager = LocationsManager.GetInstance();
 
         GameObject gameObject = GameObject.FindGameObjectWithTag("HeaderButton");
         gameObject.GetComponentInChildren<Text>().text = manager.CurrentLocation.name;

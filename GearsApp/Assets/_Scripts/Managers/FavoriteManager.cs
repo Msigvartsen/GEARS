@@ -8,15 +8,14 @@ using UnityEngine.UI;
 
 public class FavoriteManager : MonoBehaviour
 {
+    private void Start()
+    {
+        GetComponentInChildren<Toggle>().isOn = GetComponent<LocationListItem>().location.favorite;
+    }
 
     public void CallAddToFavorite()
     {
         StartCoroutine(AddToFavorite());
-    }
-
-    public void CallRemoveFromFavorite()
-    {
-
     }
 
     IEnumerator AddToFavorite()

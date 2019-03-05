@@ -17,6 +17,7 @@ TagManager:
   - HTM
   - GroundPlane1
   - HeaderButton
+  - FavoriteButton
   layers:
   - Default
   - TransparentFX

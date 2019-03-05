@@ -14,6 +14,16 @@ public class LocationsManager : MonoBehaviour
 
     public Location CurrentLocation;
 
+    public Sprite favoriteFilled;
+    public Sprite favoriteOutline;
+
+    private void Start()
+    {
+        favoriteFilled = Resources.Load<Sprite>("_Icons/star_white");
+        favoriteOutline = Resources.Load<Sprite>("_Icons/star_outline_white");
+    }
+
+
     public static LocationsManager GetInstance()
     {
         return _instance;
@@ -102,49 +112,18 @@ public class LocationsManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Code:" + res.handler.text);
                     foreach (Location loc in res.objectList)
                     {
-                        //locationList.Add(loc);
-                        //Debug.Log("Locs = " + loc.name);
                         foreach(Location location in locationList)
                         {
-                            if(location.name == loc.name)
+                            if(location.location_ID == loc.location_ID)
                             {
                                 location.favorite = true;
                             }
                         }
-                       // favoriteLocationList.Add(loc);
-                        Debug.Log("CREATE FAV. LOCATION LIST ITEM)");
                     }
                 }
             }
         }
     }
-    //IEnumerator Locations()
-    //{
-    //    string text = string.Empty;
-
-    //    TextAsset resourceFile = Resources.Load("locations") as TextAsset;
-
-    //    text = resourceFile.text.ToString();
-
-    //    WebResponse<Location> response = JsonConvert.DeserializeObject<WebResponse<Location>>(text);
-
-    //    if (response.handler.statusCode == false)
-    //    {
-    //        Debug.Log("ERROR: NO MODELS RETRIEVED FROM DATABASE");
-    //    }
-    //    else
-    //    {
-    //        foreach (Location loc in response.objectList)
-    //        {
-    //            locationList.Add(loc);
-    //            Debug.Log("Locations = " + loc.name);
-    //        }
-    //    }
-
-    //    yield return text;
-    //}
-
 }
