@@ -23,7 +23,6 @@ public class LocationsManager : MonoBehaviour
         favoriteOutline = Resources.Load<Sprite>("_Icons/star_outline_white");
     }
 
-
     public static LocationsManager GetInstance()
     {
         return _instance;
@@ -46,9 +45,13 @@ public class LocationsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         StartCoroutine(Request());
-        StartCoroutine(GetFavorites());
+        //StartCoroutine(GetFavorites());
     }
 
+    public void CallGetFavorites()
+    {
+        StartCoroutine(GetFavorites());
+    }
 
     IEnumerator Request()
     {
@@ -118,6 +121,10 @@ public class LocationsManager : MonoBehaviour
                             if(location.location_ID == loc.location_ID)
                             {
                                 location.favorite = true;
+                            }
+                            else
+                            {
+                                location.favorite = false;
                             }
                         }
                     }

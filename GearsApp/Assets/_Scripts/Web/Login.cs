@@ -48,6 +48,7 @@ public class Login : MonoBehaviour
                     UserManager manager = UserManager.GetInstance();
                     manager._currentUser = obj.objectList.ToArray()[0];
 
+                    LocationsManager.GetInstance().CallGetFavorites();
                     LoadingScreen.LoadScene("MainMenu");
                 }
                 else

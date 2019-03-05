@@ -49,13 +49,13 @@ public class UserManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("number", _currentUser.telephonenr);
+        Debug.Log("NUMBEr: " + _currentUser.telephonenr);
         string path = Constants.PhpPath + "deleteuser.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
 
-            Debug.Log("REQUESTED IN FAVORITES" + req);
             if (request.isNetworkError)
             {
                 Debug.Log("Error: " + request.error);

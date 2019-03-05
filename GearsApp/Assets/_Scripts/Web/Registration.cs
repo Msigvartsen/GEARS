@@ -40,14 +40,14 @@ public class Registration : MonoBehaviour
             else
             {
                 string req = webRequest.downloadHandler.text;
-                Debug.Log("REQUEST FROM REG = " + req);
                 WebResponse<UserModel> obj = JsonConvert.DeserializeObject<WebResponse<UserModel>>(req, Constants.JsonSettings);
                 Debug.Log(obj.handler.text);
                 if (obj.handler.statusCode == true)
                 {
                     UserManager manager = UserManager.GetInstance();
                     manager._currentUser = obj.objectList.ToArray()[0];
-                    Debug.Log(manager._currentUser.telephonenr);
+
+                    LocationsManager.GetInstance().CallGetFavorites();
                     LoadingScreen.LoadScene("MainMenu");
                 }
             }
