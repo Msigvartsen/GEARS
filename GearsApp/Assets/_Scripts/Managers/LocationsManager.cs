@@ -44,11 +44,10 @@ public class LocationsManager : MonoBehaviour
             locationList = new List<Location>();
         }
         DontDestroyOnLoad(gameObject);
-        //StartCoroutine(Locations());
+
         StartCoroutine(Request());
         StartCoroutine(GetFavorites());
     }
-
 
 
     IEnumerator Request()

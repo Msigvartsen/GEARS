@@ -947,6 +947,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 522703797}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518925510359874125, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: User
+      objectReference: {fileID: 0}
     - target: {fileID: 5188671332179468768, guid: 79c2646c95a7a02408ed45199be5b14a,
         type: 3}
       propertyPath: m_Text
@@ -993,3 +1028,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9a5c2ba687a7e498970d0355b622d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrayType: 0

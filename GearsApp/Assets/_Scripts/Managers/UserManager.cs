@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using ConstantsNS;
+using Newtonsoft.Json;
 
 public class UserManager : MonoBehaviour
 {
@@ -31,45 +33,47 @@ public class UserManager : MonoBehaviour
     public void RequestUserData(string username)
     {
         _username = username;
-        Debug.Log("NAME BEFORE REQUEST : " + _username);
-        StartCoroutine(Request());
-    }
-
-    IEnumerator Request()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("username", _username);
-        Debug.Log("FORM: " + _username);
-        using (UnityWebRequest request = UnityWebRequest.Post("http://localhost/gears/userdata.php", form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-
-            Debug.Log(req);
-            if (int.TryParse(req, out int errorcode) && errorcode == 0)
-            {
-                Debug.Log("Error: Pulling User Data from SQL Failed");
-            }
-            else
-            {
-                req = "{\"Items\":" + req + "}";
-                //string test = req.Trim(new char[] { '[', ']' });
-                
-                Debug.Log(req);
-                // _currentUser = JsonUtility.FromJson<UserModel>(req);
-                //UserModel[] users = JsonHelper.FromJson<UserModel>(req);
-                //Debug.Log("LENGTH OF USER ARRA YSHOULD BE 1: " + users.Length);
-            }
-        }
     }
 
     public void SetCurrentUser(UserModel user)
     {
         _currentUser = user;
+    }
+
+    public void CallDeleteUser()
+    {
+        StartCoroutine(DeleteUser());
+    }
+
+    IEnumerator DeleteUser()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("number", _currentUser.telephonenr);
+        string path = Constants.PhpPath + "deleteuser.php";
+        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            Debug.Log("REQUESTED IN FAVORITES" + req);
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+
+                if (handler.statusCode == false)
+                {
+                    Debug.Log(req);
+                }
+                else
+                {
+                    _currentUser = null;
+                    LoadingScreen.LoadScene("RegistrationAndLogin");
+                }
+            }
+        }
     }
 }
