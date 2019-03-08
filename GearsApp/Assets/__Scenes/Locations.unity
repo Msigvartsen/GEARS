@@ -567,6 +567,11 @@ PrefabInstance:
       propertyPath: arrayType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7794277511220192700, guid: 6d314e282893c7e46a64d47cfd8b1486,
+        type: 3}
+      propertyPath: m_Name
+      value: Mask
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7794277511220192690, guid: 6d314e282893c7e46a64d47cfd8b1486, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6d314e282893c7e46a64d47cfd8b1486, type: 3}
@@ -586,8 +591,8 @@ GameObject:
   m_Component:
   - component: {fileID: 338134270}
   - component: {fileID: 338134273}
-  - component: {fileID: 338134272}
   - component: {fileID: 338134271}
+  - component: {fileID: 338134272}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -650,22 +655,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 338134269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd52af9ee3537847be9f7201238161a, type: 3}
+  m_Script: {fileID: 11500000, guid: c4bb46071054a034a9a64cf314099ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoogleApiKey: AIzaSyAvapQU2GAWFaaHDO5Vh6C5shdg-wqnEu8
-  loadOnStart: 1
-  autoLocateCenter: 0
-  centerLocation:
-    address: 
-    latitude: 60.796352
-    longitude: 11.074224
-  zoom: 13
-  mapType: 0
-  size: 512
-  doubleResolution: 0
-  markers: []
-  paths: []
 --- !u!222 &338134273
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -726,31 +718,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &954928069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954928064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbd52af9ee3537847be9f7201238161a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GoogleApiKey: AIzaSyAvapQU2GAWFaaHDO5Vh6C5shdg-wqnEu8
-  loadOnStart: 1
-  autoLocateCenter: 0
-  centerLocation:
-    address: 
-    latitude: 60.796352
-    longitude: 11.074224
-  zoom: 17
-  mapType: 1
-  size: 1028
-  doubleResolution: 0
-  markers: []
-  paths: []
 --- !u!1 &1075910575 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7794277511120341670, guid: 6d314e282893c7e46a64d47cfd8b1486,

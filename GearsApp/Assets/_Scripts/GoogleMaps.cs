@@ -90,7 +90,7 @@ public class GoogleMaps : MonoBehaviour
         qs += "&maptype=" + mapType.ToString().ToLower();
         var usingSensor = false;
 
-#if UNITY_IPHONE
+#if UNITY_ANDROID
 		usingSensor = Input.location.isEnabledByUser && Input.location.status == LocationServiceStatus.Running;
 #endif
 
@@ -127,7 +127,26 @@ public class GoogleMaps : MonoBehaviour
 
         qs += "&key=" + UnityWebRequest.UnEscapeURL(GoogleApiKey);
 
-        WWW req = new WWW(url + "?" + qs);
+        //
+        string urla = "https://www.google.com/maps/embed/v1/";
+        string viewType = "view";
+        string apikey = "AIzaSyAvapQU2GAWFaaHDO5Vh6C5shdg-wqnEu8";
+        string lat = "61.997638";
+        string lon = "20.888123";
+        string center = lat + ", " + lon;
+        string maptype = "satellite";
+        //string zoom = "12";
+
+        string requestURL = urla + viewType +
+                "?key=" + apikey +
+                "&center=" + center +
+                "&zoom=12" +
+                "&maptype=" + maptype;
+
+
+        //
+        //WWW req = new WWW(url + "?" + qs);
+        WWW req = new WWW(requestURL);
         Debug.Log(url + "?" + qs);
 
         // Create a texture in DXT1 format
