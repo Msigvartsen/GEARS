@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System;
+using System.Net;
 
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 public class BingMaps : MonoBehaviour
 {
-
     public string apikey;
     [Header("Map Location")]
     public double latitude;
@@ -17,9 +21,13 @@ public class BingMaps : MonoBehaviour
 
     void Start()
     {
+#if PLATFORM_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+        {
+            Permission.RequestUserPermission(Permission.FineLocation);
+        }
+#endif
         StartCoroutine(StartLocationService());
-        //if(map)
-        //    StartCoroutine(Map());
     }
     private void Update()
     {
@@ -32,7 +40,8 @@ public class BingMaps : MonoBehaviour
     IEnumerator Map()
     {
         map = false;
-        apikey = "AlX-3jOqVPhYaOe3SWIaYEVvUwAj_adfgEWeZDcrsLSazMMaUvh0eigR5VSt5lkb";
+        Uri uri = new Uri("ftp://ftp.bardrg.com/GEARS/Keys/apikeybing.txt");
+        apikey = DisplayFileFromServer(uri);
         //string test = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Bellevue%20Washington?mapLayer=TrafficFlow&key="+apikey;
         string url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/";
         string center = latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -87,7 +96,6 @@ public class BingMaps : MonoBehaviour
             yield break;
         }
 
-        // Connection has failed
         if(Input.location.status == LocationServiceStatus.Running)
         {
             Debug.Log(Input.location.lastData.latitude);
@@ -95,7 +103,6 @@ public class BingMaps : MonoBehaviour
             latitude = Input.location.lastData.latitude;
             longitude = Input.location.lastData.longitude;
             map = true;
-
         }
         else
         {
@@ -106,18 +113,34 @@ public class BingMaps : MonoBehaviour
             yield break;
         }
         
-        //if (Input.location.status == LocationServiceStatus.Failed)
-        //{
-        //    Debug.Log("Unable to determine device location");
-        //    yield break;
-        //}
-        //else
-        //{
-        //    // Access granted and location value could be retrieved
-        //    Debug.Log("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
-        //}
-
         // Stop service if there is no need to query location updates continuously
         Input.location.Stop();
+    }
+
+    public static string DisplayFileFromServer(Uri serverUri)
+    {
+        //string serverUri = "ftp://ftp.bardrg.com/GEARS/Keys/apikeybing.txt";
+        // The serverUri parameter should start with the ftp:// scheme.
+        string fileString = string.Empty;
+        if (serverUri.Scheme != Uri.UriSchemeFtp)
+        {
+            return fileString;
+        }
+        // Get the object used to communicate with the server.
+        WebClient request = new WebClient();
+
+        // This example assumes the FTP site uses anonymous logon.
+        request.Credentials = new NetworkCredential("bardrg.com_gearsa", "zg5M2o8S8bDkE9iI");
+        try
+        {
+            byte[] newFileData = request.DownloadData(serverUri.ToString());
+            fileString = System.Text.Encoding.UTF8.GetString(newFileData);
+            Debug.Log("File string: " + fileString);
+        }
+        catch (WebException e)
+        {
+            Debug.Log(e.ToString());
+        }
+        return fileString;
     }
 }
