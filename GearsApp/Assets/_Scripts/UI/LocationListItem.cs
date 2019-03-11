@@ -8,7 +8,6 @@ public class LocationListItem : MonoBehaviour
     private GameObject parent;
     private Button listButton;
     public Location location;
-    public int index;
 
     private void Start()
     {
@@ -24,14 +23,8 @@ public class LocationListItem : MonoBehaviour
 
     private void OpenLocationTab()
     {
-        //GameObject obj = GameObject.FindGameObjectWithTag("LocationCanvas");
-        //Canvas canvas = obj.GetComponent<Canvas>();
-
-        //CanvasManager manager = GameObject.FindGameObjectWithTag("CanvasManager").GetComponent<CanvasManager>();
-        //if (manager != null)
-        //    manager.ChangeCanvas(canvas.name);
-        //else
-        //    Debug.Log("ERROR: NO CANVAS MANAGER FOUND");
-        LoadingScreen.LoadSceneByIndex(index);
+        LocationController manager = LocationController.GetInstance();
+        manager.CurrentLocation = location;
+        LoadingScreen.LoadScene("Location");
     }
 }
