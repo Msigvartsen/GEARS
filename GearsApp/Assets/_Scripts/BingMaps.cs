@@ -21,12 +21,12 @@ public class BingMaps : MonoBehaviour
 
     void Start()
     {
-#if PLATFORM_ANDROID
-        if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
-        {
-            Permission.RequestUserPermission(Permission.FineLocation);
-        }
-#endif
+        #if PLATFORM_ANDROID
+                if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+                {
+                    Permission.RequestUserPermission(Permission.FineLocation);
+                }
+        #endif
         StartCoroutine(StartLocationService());
     }
     private void Update()

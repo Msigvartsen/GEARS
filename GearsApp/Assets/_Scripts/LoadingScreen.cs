@@ -10,7 +10,6 @@ public class LoadingScreen : MonoBehaviour
 
     [Header("Resources")]
     public CanvasGroup canvasAlpha;
-    public Text locationName;
     public Text status;
     public static string prefabName = "ScreenLoader";
 
@@ -29,7 +28,6 @@ public class LoadingScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        locationName.text = locationNameText;
         loadingImageObject.type = Image.Type.Filled;
     }
 
@@ -43,7 +41,7 @@ public class LoadingScreen : MonoBehaviour
 
         instance.gameObject.SetActive(true);
         instance.loadingProcess = SceneManager.LoadSceneAsync(index);
-        instance.loadingProcess.allowSceneActivation = false;
+        instance.loadingProcess.allowSceneActivation = true;
     }
 
     public static void LoadScene(string sceneName)
@@ -56,7 +54,7 @@ public class LoadingScreen : MonoBehaviour
 
         instance.gameObject.SetActive(true);
         instance.loadingProcess = SceneManager.LoadSceneAsync(sceneName);
-        instance.loadingProcess.allowSceneActivation = false;
+        instance.loadingProcess.allowSceneActivation = true;
     }
 
 
