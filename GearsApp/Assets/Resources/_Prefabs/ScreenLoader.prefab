@@ -384,13 +384,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7976213826720863776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed07b055ea803154ba47daa68dd686f2, type: 3}
+  m_Script: {fileID: 11500000, guid: b1aeef8de5e24da4ca74ad7a752217e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasAlpha: {fileID: 9196196216542010081}
-  locationName: {fileID: 0}
   status: {fileID: 87737671021030291}
   loadingImageObject: {fileID: 2379720920673686422}
-  imageRadialSpeed: 3
-  locationNameText: '*LocationName*'
-  fadingAnimationSpeed: 4
+  imageRadialSpeed: 1
+  locationNameText: text
+  fadingAnimationSpeed: 2

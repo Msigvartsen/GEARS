@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/__Scenes/MainMenu.unity
     guid: a4a2cb5c81a1ae944bccbd8552afdada
   - enabled: 1
-    path: Assets/__Scenes/Locations.unity
+    path: Assets/__Scenes/SelectLocation.unity
     guid: b8f153ba2848065459318e1ecf391b7d
   - enabled: 1
     path: Assets/__Scenes/Favorites.unity
@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/__Scenes/User.unity
     guid: e3a84638b9779ac44a42b1633353463b
   - enabled: 1
-    path: Assets/__Scenes/ModelView.unity
+    path: Assets/__Scenes/Location.unity
     guid: 635fe5d646b91194d83dc7d97b1efbad
   - enabled: 0
     path: Assets/__Scenes/UI.unity

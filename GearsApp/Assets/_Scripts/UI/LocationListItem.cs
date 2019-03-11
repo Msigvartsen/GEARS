@@ -23,8 +23,8 @@ public class LocationListItem : MonoBehaviour
 
     private void OpenLocationTab()
     {
-        LocationsManager manager = LocationsManager.GetInstance();
+        LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = location;
-        LoadingScreen.LoadScene("ModelView");
+        LoadingScreen.LoadScene("Location");
     }
 }
