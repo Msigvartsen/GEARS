@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1074,6 +1074,7 @@ GameObject:
   - component: {fileID: 713353955}
   - component: {fileID: 713353958}
   - component: {fileID: 713353957}
+  - component: {fileID: 713353959}
   m_Layer: 0
   m_Name: UserManager
   m_TagString: Untagged
@@ -1149,6 +1150,26 @@ MonoBehaviour:
     favorite: 0
   favoriteFilled: {fileID: 21300000, guid: e978b8c9e958e9940b9e1e12078f4745, type: 3}
   favoriteOutline: {fileID: 21300000, guid: 6a1fb4a011c9135499521e40e4111e20, type: 3}
+--- !u!114 &713353959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713353954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8849940b0adcbcb41a5a808f9b081782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stationList: []
+  CurrentStation:
+    station_ID: 0
+    location_ID: 0
+    target_ID: 0
+    model_ID: 0
+    helptext: 
+    score: 0
 --- !u!1 &947386172
 GameObject:
   m_ObjectHideFlags: 0
