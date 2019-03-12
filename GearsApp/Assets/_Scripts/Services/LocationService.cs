@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocationService : MonoBehaviour
-{
-    public double _currentLatitude;
-    public double _currentLongitude;
-    public bool _isLocationEnabled;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 
-    IEnumerator StartLocationService()
+public static class LocationService
+{
+    public static void CallUserPermission()
+    {
+#if PLATFORM_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+        {
+            Permission.RequestUserPermission(Permission.FineLocation);
+        }
+#endif
+    }
+
+    public static IEnumerator StartLocationService()
     {
         if (!Input.location.isEnabledByUser)
         {
-            _currentLatitude = 60.793911;
-            _currentLongitude = 11.07599;
-            _isLocationEnabled = false;
             yield break;
         }
-        // Start service before querying location
         Input.location.Start();
+
         // Wait until service initializes
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
@@ -30,28 +37,19 @@ public class LocationService : MonoBehaviour
         // Service didn't initialize in 20 seconds
         if (maxWait < 1)
         {
-            Debug.Log("Timed out");
-            _isLocationEnabled = false;
+            Debug.Log("Connection to LocationService Timed Out");
             yield break;
         }
 
-        if (Input.location.status == LocationServiceStatus.Running)
+        if (Input.location.status == LocationServiceStatus.Failed)
         {
-            _currentLatitude = Input.location.lastData.latitude;
-            _currentLongitude = Input.location.lastData.longitude;
-            _isLocationEnabled = false;
-
-        }
-        else
-        {
-            _currentLatitude = 60.793911;
-            _currentLongitude = 11.07599;
             Debug.Log("Unable to determine device location");
-            _isLocationEnabled = true;
             yield break;
         }
+    }
 
-        // Stop service if there is no need to query location updates continuously
+    public static void StopLocationService()
+    {
         Input.location.Stop();
     }
 }
