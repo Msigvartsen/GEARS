@@ -6,9 +6,6 @@ using UnityEngine.UI;
 using System;
 using System.Net;
 
-#if PLATFORM_ANDROID
-using UnityEngine.Android;
-#endif
 public class BingMaps : MonoBehaviour
 {
     public string apikey;
@@ -21,13 +18,18 @@ public class BingMaps : MonoBehaviour
 
     void Start()
     {
-        #if PLATFORM_ANDROID
-                if (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
-                {
-                    Permission.RequestUserPermission(Permission.FineLocation);
-                }
-        #endif
-        StartCoroutine(StartLocationService());
+        if(Input.location.status == LocationServiceStatus.Running)
+        {
+            GetComponentInChildren<Text>().text = Input.location.lastData.latitude.ToString();
+        }
+        else
+        {
+            GetComponentInChildren<Text>().text = "Hello";
+        }
+
+        StartCoroutine(Map());
+
+
     }
     private void Update()
     {
@@ -39,30 +41,37 @@ public class BingMaps : MonoBehaviour
 
     IEnumerator Map()
     {
-        map = false;
-        Uri uri = new Uri("ftp://ftp.bardrg.com/GEARS/Keys/apikeybing.txt");
-        apikey = DisplayFileFromServer(uri);
-        //string test = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Bellevue%20Washington?mapLayer=TrafficFlow&key="+apikey;
-        string url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/";
-        string center = latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        //map = false;
+        //Uri uri = new Uri("ftp://ftp.bardrg.com/GEARS/Keys/apikeybing.txt");
+        //apikey = DisplayFileFromServer(uri);
+        ////string test = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/Bellevue%20Washington?mapLayer=TrafficFlow&key="+apikey;
+        //string url = "https://dev.virtualearth.net/REST/v1/Imagery/Map/Road/";
+        //string center = latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-        string requestURL = url +
-                center + "/" +
-                zoom.ToString() + "?" +
-                "mapSize=" + "1440" + "," + "2960" +
-                "&key=" + apikey;
+        //string requestURL = url +
+        //        center + "/" +
+        //        zoom.ToString() + "?" +
+        //        "mapSize=" + "1440" + "," + "2960" +
+        //        "&key=" + apikey;
 
-        Debug.Log("URL " + requestURL);
-        using (WWW req = new WWW(requestURL))
-        {
-            yield return req;
-            GetComponent<RawImage>().texture = new Texture2D(size, size, TextureFormat.DXT1, false);
-            Debug.Log(req.text);
-            while (!req.isDone)
-                yield return null;
-            if (req.error == null)
-                req.LoadImageIntoTexture((Texture2D)GetComponent<RawImage>().texture);
-        }
+        //Debug.Log("URL " + requestURL);
+        //using (WWW req = new WWW(requestURL))
+        //{
+        //    yield return req;
+        //    GetComponent<RawImage>().texture = new Texture2D(size, size, TextureFormat.DXT1, false);
+        //    Debug.Log(req.text);
+        //    while (!req.isDone)
+        //        yield return null;
+        //    if (req.error == null)
+        //        req.LoadImageIntoTexture((Texture2D)GetComponent<RawImage>().texture);
+        //}
+
+        Uri uri = new Uri("ftp://ftp.bardrg.com/GEARS/Images/hinn.jpg");
+        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
+        GetComponent<RawImage>().texture = tex;
+        Debug.Log("New Image");
+        yield return tex;
+
     }
 
     IEnumerator StartLocationService()

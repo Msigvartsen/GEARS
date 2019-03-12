@@ -16,11 +16,11 @@ public class ToggleFavoriteSprite : MonoBehaviour
 
         if (isFavorite)
         {
-            GetComponent<Image>().sprite = manager.favoriteFilled;
+            GetComponent<Image>().sprite = manager.FavoriteFilled;
         }
         else
         {
-            GetComponent<Image>().sprite = manager.favoriteOutline;
+            GetComponent<Image>().sprite = manager.FavoriteOutline;
         }
     }
 }

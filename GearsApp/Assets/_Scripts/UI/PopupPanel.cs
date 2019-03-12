@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PopupPanel : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _popupPanel;
+    public GameObject _popupPanel;
 
     private void Start()
     {

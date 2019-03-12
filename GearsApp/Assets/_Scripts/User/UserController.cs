@@ -28,6 +28,8 @@ public class UserController : MonoBehaviour
             _instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        LocationService.CallUserPermission();
     }
 
     public void RequestUserData(string username)

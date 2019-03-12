@@ -14,8 +14,11 @@ public class LocationController : MonoBehaviour
 
     public Location CurrentLocation;
 
-    public Sprite favoriteFilled;
-    public Sprite favoriteOutline;
+    private Sprite favoriteFilled;
+    private Sprite favoriteOutline;
+
+    public Sprite FavoriteFilled { get => favoriteFilled; set => favoriteFilled = value; }
+    public Sprite FavoriteOutline { get => favoriteOutline; set => favoriteOutline = value; }
 
     private void Start()
     {
