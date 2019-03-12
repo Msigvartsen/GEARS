@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class Location
 {
-
     public int location_ID;
     public string name;
     public double latitude;

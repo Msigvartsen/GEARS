@@ -17,13 +17,28 @@ public static class FTPHandler
         return file;
     }
 
+    public static string DownloadTextFromFTP(Uri serverUri)
+    {
+        byte[] data = DownloadDataAsByte(serverUri);
+        if(data != null)
+        {
+            string result = System.Text.Encoding.UTF8.GetString(data);
+            return result;
+        }
+        else
+            return null;
+    }
+
     private static byte[] DownloadDataAsByte(Uri serverUri)
     {
         WebClient request = ConnectToFTPClient(serverUri);
-
-        byte[] newFileData = request.DownloadData(serverUri.ToString());
-
-        return newFileData;
+        if (request != null)
+        {
+            byte[] newFileData = request.DownloadData(serverUri.ToString());
+            return newFileData;
+        }
+        else
+            return null;
     }
 
     private static WebClient ConnectToFTPClient(Uri serverUri)

@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Net;
+using System;
 
 public class LocationDetails : MonoBehaviour
 {
     private void Start()
+    {
+        StartCoroutine(UpdateInfoText());
+    }
+
+    IEnumerator UpdateInfoText()
     {
         LocationController manager = LocationController.GetInstance();
 
@@ -13,12 +20,15 @@ public class LocationDetails : MonoBehaviour
         gameObject.GetComponentInChildren<Text>().text = manager.CurrentLocation.name;
 
         Transform[] children = GetComponentsInChildren<Transform>();
-        foreach(Transform obj in children)
+        foreach (Transform obj in children)
         {
-            if(obj.name == "InfoPanel")
+            if (obj.name == "InfoPanel")
             {
                 GameObject infoPanel = obj.gameObject;
-                infoPanel.GetComponentInChildren<Text>().text = manager.CurrentLocation.information;
+                Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Information/basicinfo.txt");
+                string infotext = FTPHandler.DownloadTextFromFTP(uri);
+                infoPanel.GetComponentInChildren<Text>().text = infotext;//manager.CurrentLocation.information;
+                yield return infotext;
             }
         }
     }
