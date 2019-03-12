@@ -28,6 +28,9 @@ public class LocationDetails : MonoBehaviour
                 Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Information/basicinfo.txt");
                 string infotext = FTPHandler.DownloadTextFromFTP(uri);
                 infoPanel.GetComponentInChildren<Text>().text = infotext;//manager.CurrentLocation.information;
+                string path = ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Images/hinn.jpg";
+                Uri uri2 = new Uri(path);
+                infoPanel.GetComponentInChildren<RawImage>().texture = FTPHandler.DownloadImageFromFTP(uri2);
                 yield return infotext;
             }
         }
