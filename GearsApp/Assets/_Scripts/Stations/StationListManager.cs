@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StationListManager : MonoBehaviour
 {
@@ -37,6 +38,25 @@ public class StationListManager : MonoBehaviour
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<StationListItem>().station = stationArray[index];
+        GameObject visitedToggle = GameObject.FindGameObjectWithTag("VisitedToggle");
+        visitedToggle.GetComponent<Toggle>().isOn = stationArray[index].visited;
+
+        if (!visitedToggle.GetComponent<Toggle>().isOn)
+        {
+            visitedToggle.GetComponent<Image>().enabled = false;
+            GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
+            GetComponentInChildren<Button>().enabled = false;
+            visitedToggle.GetComponentInChildren<Text>().text = "Locked";
+            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0,0,0);
+        }
+        else
+        {
+            visitedToggle.GetComponent<Image>().enabled = true;
+            GetComponentInChildren<CanvasGroup>().alpha = 1;
+            GetComponentInChildren<Button>().enabled = true;
+            visitedToggle.GetComponentInChildren<Text>().text = "Unlocked";
+            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0, -100, 0);
+        }
 
         return go;
     }

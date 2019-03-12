@@ -19,6 +19,7 @@ TagManager:
   - HeaderButton
   - FavoriteButton
   - PopupWarning
+  - VisitedToggle
   layers:
   - Default
   - TransparentFX

@@ -42,6 +42,11 @@ public class StationController : MonoBehaviour
         StartCoroutine(Request());
     }
 
+    public void CallUserProgressRequest()
+    {
+        StartCoroutine(UserProgressRequest());
+    }
+
     IEnumerator Request()
     {
         //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/stations.php"))
@@ -71,7 +76,53 @@ public class StationController : MonoBehaviour
                     foreach (Station stat in res.objectList)
                     {
                         stationList.Add(stat);
-                        Debug.Log("Station id = " + stat.station_ID + " with location_ID = " + stat.location_ID);
+                        Debug.Log("Station nr = " + stat.station_NR + " with location_ID = " + stat.location_ID);
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator UserProgressRequest()
+    {
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("number", UserController.GetInstance()._currentUser.telephonenr);
+            string path = Constants.PhpPath + "userprogress.php";
+            using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+            {
+                yield return request.SendWebRequest();
+                string req = request.downloadHandler.text;
+
+                Debug.Log("REQUESTED IN STATION_USERPROGRESS" + req);
+                if (request.isNetworkError)
+                {
+                    Debug.Log("Error: " + request.error);
+                }
+                else
+                {
+                    WebResponse<Station> res = JsonConvert.DeserializeObject<WebResponse<Station>>(req);
+
+                    if (res.handler.statusCode == false)
+                    {
+                        Debug.Log(req + ": ERROR: NO USERPROGRESS RETRIEVED FROM DATABASE");
+                    }
+                    else
+                    {
+                        foreach (Station stat in res.objectList)
+                        {
+                            foreach (Station station in stationList)
+                            {
+                                if (station.station_NR == stat.station_NR && station.location_ID == stat.location_ID)
+                                {
+                                    station.visited = true;
+                                }
+                                else
+                                {
+                                    station.visited = false;
+                                }
+                            }
+                        }
                     }
                 }
             }
