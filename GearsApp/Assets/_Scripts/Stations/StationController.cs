@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.IO;
 using ConstantsNS;
+using UnityEngine.UI;
 
 public class StationController : MonoBehaviour
 {
@@ -126,6 +127,60 @@ public class StationController : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    IEnumerator UpdateUserProgress()
+    {
+        StationController stationManager = StationController.GetInstance();
+        Station station;
+
+        if (stationManager.CurrentStation != null)
+        {
+            station = StationController.GetInstance().CurrentStation;
+
+            if (!station.visited)
+            {
+                UserController userManager = UserController.GetInstance();
+                string path;
+
+                WWWForm form = new WWWForm();
+                form.AddField("number", userManager._currentUser.telephonenr);
+                form.AddField("station_nr", station.station_NR);
+                form.AddField("location_id", station.location_ID);
+
+                path = Constants.PhpPath + "updateuserprogress.php";
+
+                using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
+                {
+                    webRequest.downloadHandler = new DownloadHandlerBuffer();
+                    yield return webRequest.SendWebRequest();
+
+                    if (webRequest.isNetworkError)
+                    {
+                        Debug.Log("Error: " + webRequest.error);
+                    }
+                    else
+                    {
+                        string req = webRequest.downloadHandler.text;
+                        Debug.Log("USERPROGRESS: + " + req);
+                        PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req, Constants.JsonSettings);
+
+                        if (handler.statusCode == true)
+                        {
+                            station.visited = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("User has visited this station before.");
+            }
+        }
+        else
+        {
+            Debug.Log("StationController.CurrentStation not set to a valid station");
         }
     }
 }
