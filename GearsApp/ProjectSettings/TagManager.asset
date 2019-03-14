@@ -19,6 +19,7 @@ TagManager:
   - HeaderButton
   - FavoriteButton
   - PopupWarning
+  - ProfilePicture
   layers:
   - Default
   - TransparentFX

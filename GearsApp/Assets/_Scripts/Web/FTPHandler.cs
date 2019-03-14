@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using UnityEngine;
 
@@ -15,6 +16,44 @@ public static class FTPHandler
             file.LoadImage(data);
 
         return file;
+    }
+
+    public static List<Texture2D> DownloadAllImagesFromFTP(Uri serverUri)
+    {
+        List<Texture2D> images = new List<Texture2D>();
+
+        FtpWebRequest listRequest = (FtpWebRequest)WebRequest.Create(serverUri);
+        listRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+        WebClient req = ConnectToFTPClient(serverUri);
+        listRequest.Credentials = req.Credentials;
+        
+        List<string> lines = new List<string>();
+
+        using (FtpWebResponse listResponse = (FtpWebResponse)listRequest.GetResponse())
+        using (Stream listStream = listResponse.GetResponseStream())
+        using (StreamReader listReader = new StreamReader(listStream))
+        {
+            while (!listReader.EndOfStream)
+            {
+                string item = listReader.ReadLine();
+                
+                if(!string.IsNullOrEmpty(item) && !item.StartsWith("."))
+                {
+                    lines.Add(item);
+                }
+            }
+        }
+
+        foreach(string line in lines)
+        {
+            Uri fileUri = new Uri(serverUri.ToString() + line);
+            Debug.Log("FTP FILE URLS : " + fileUri.ToString());
+            Texture2D tex = DownloadImageFromFTP(fileUri);
+            images.Add(tex);
+        }
+
+        return images;
+        
     }
 
     public static string DownloadTextFromFTP(Uri serverUri)
