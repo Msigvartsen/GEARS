@@ -29,17 +29,20 @@ public class StationListManager : MonoBehaviour
         for (int i = 0; i < stationArray.Length; i++)
         {
             if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
+            {
                 itemList[i] = GetListItem(i);
+            }
         }
     }
 
     GameObject GetListItem(int index)
     {
+        print(index);
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<StationListItem>().station = stationArray[index];
-        GameObject visitedToggle = GameObject.FindGameObjectWithTag("VisitedToggle");
-        visitedToggle.GetComponent<Toggle>().isOn = stationArray[index].visited;
+        Toggle visitedToggle = GetComponentInChildren<Toggle>();
+        visitedToggle.isOn = false; // stationArray[index].visited;
 
         if (!visitedToggle.GetComponent<Toggle>().isOn)
         {
@@ -51,6 +54,7 @@ public class StationListManager : MonoBehaviour
         }
         else
         {
+            print(prefabName + index + " is turned on");
             visitedToggle.GetComponent<Image>().enabled = true;
             GetComponentInChildren<CanvasGroup>().alpha = 1;
             GetComponentInChildren<Button>().enabled = true;
