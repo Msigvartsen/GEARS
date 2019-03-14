@@ -434,7 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   station:
-    station_ID: 0
     location_ID: 0
     station_NR: 0
     target_ID: 0
