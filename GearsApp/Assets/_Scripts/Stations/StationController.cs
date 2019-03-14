@@ -130,6 +130,11 @@ public class StationController : MonoBehaviour
         }
     }
 
+    public void CallUpdateUserProgress()
+    {
+        StartCoroutine(UpdateUserProgress());
+    }
+
     IEnumerator UpdateUserProgress()
     {
         StationController stationManager = StationController.GetInstance();
