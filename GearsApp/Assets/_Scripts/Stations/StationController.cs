@@ -118,10 +118,6 @@ public class StationController : MonoBehaviour
                                 {
                                     station.visited = true;
                                 }
-                                else
-                                {
-                                    station.visited = false;
-                                }
                             }
                         }
                     }
@@ -173,7 +169,8 @@ public class StationController : MonoBehaviour
 
                         if (handler.statusCode == true)
                         {
-                            station.visited = true;
+                            Debug.Log(handler.text);
+                            //station.visited = true;
                         }
                     }
                 }

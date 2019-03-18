@@ -8,62 +8,83 @@ public class StationListManager : MonoBehaviour
     private GameObject parent;
     private GameObject[] itemList;
     private Station[] stationArray;
+    LocationController locationController;
     private string prefabName;
 
     // Start is called before the first frame update
     void Start()
     {
-        parent = transform.gameObject;
-        stationArray = StationController.GetInstance().stationList.ToArray();
-        prefabName = "StationListItem";
-
-        UpdateStationList();
+        SetData();
     }
 
-    void UpdateStationList()
+    private void SetData()
     {
-        LocationController locationController = LocationController.GetInstance();
-        Location[] locations = locationController.locationList.ToArray();
-
+        parent = transform.gameObject;
+        locationController = LocationController.GetInstance();
+        stationArray = StationController.GetInstance().stationList.ToArray();
         itemList = new GameObject[stationArray.Length];
+        prefabName = "StationListItem";
+
         for (int i = 0; i < stationArray.Length; i++)
         {
             if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
             {
-                itemList[i] = GetListItem(i);
+                itemList[i] = GetListItem(i, stationArray[i]);
             }
         }
     }
 
-    GameObject GetListItem(int index)
+    GameObject GetListItem(int index, Station station)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
-        go.GetComponent<StationListItem>().station = stationArray[index];
-        Toggle visitedToggle = go.GetComponentInChildren<Toggle>();
-        visitedToggle.isOn = stationArray[index].visited;
+        go.GetComponent<StationListItem>().station = station;
 
-        print(stationArray[index].visited);
+        SetButtonValues(go, station);
 
-        if (!visitedToggle.GetComponent<Toggle>().isOn)
+        return go;
+    }
+
+    public void UpdateVisitedStations()
+    {
+        //stationArray = StationController.GetInstance().stationList.ToArray();
+
+        //if (itemList != null)
+        //{
+        //    for (int i = 0; i < stationArray.Length; i++)
+        //    {
+        //        if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
+        //        {
+        //            Debug.Log("UpdateVisitedStations() -> stationArray[" + i + "] = locId" + stationArray[i].location_ID + " //// stationNr = " + stationArray[i].station_NR + " //// visited = " + stationArray[i].visited);
+        //            itemList[i].GetComponent<StationListItem>().station = stationArray[i];
+        //            SetButtonValues(itemList[i], stationArray[i]);
+        //        }
+        //    }
+        //}
+    }
+
+    void SetButtonValues(GameObject ListItem, Station station)
+    {
+        Toggle visitedToggle = ListItem.GetComponentInChildren<Toggle>();
+        visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().station.visited;
+
+        Debug.Log("Station nr = " + station.station_NR + " at location id = " + station.location_ID + ", visited = " + visitedToggle.isOn);
+
+        if (!visitedToggle.isOn)
         {
-            print("Station " + stationArray[index].station_NR + " in location " + stationArray[index].location_ID + " is turned off");
             visitedToggle.GetComponent<Image>().enabled = false;
-            go.GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
-            go.GetComponentInChildren<Button>().enabled = false;
+            ListItem.GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
+            ListItem.GetComponentInChildren<Button>().enabled = false;
             visitedToggle.GetComponentInChildren<Text>().text = "Locked";
-            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0,0,0);
+            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0, 0, 0);
         }
         else
         {
-            print("Station " + stationArray[index].station_NR + " in location " + stationArray[index].location_ID + " is turned on");
             visitedToggle.GetComponent<Image>().enabled = true;
-            go.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            go.GetComponentInChildren<Button>().enabled = true;
+            ListItem.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            ListItem.GetComponentInChildren<Button>().enabled = true;
             visitedToggle.GetComponentInChildren<Text>().text = "Unlocked";
             visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0, -100, 0);
         }
-
-        return go;
     }
 }

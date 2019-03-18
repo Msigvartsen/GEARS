@@ -9,8 +9,8 @@ public class StationTargetController : MonoBehaviour
     private StationController stationController;
 
     private Location location;
-    private Station[] stations;
-    private List<Station> tempList;
+    private List<Station> allStationsAtLocation;
+    private bool[] visitedStations;
 
     private GameObject[] targets;
 
@@ -37,17 +37,21 @@ public class StationTargetController : MonoBehaviour
             location = locationController.CurrentLocation;
         }
 
-        tempList = new List<Station>();
+        allStationsAtLocation = new List<Station>();
 
         for (int i = 0; i < stationController.stationList.ToArray().Length; i ++)
         {
             if (stationController.stationList[i].location_ID == locationController.CurrentLocation.location_ID)
             {
-                tempList.Add(stationController.stationList[i]);
+                allStationsAtLocation.Add(stationController.stationList[i]);
             }
         }
 
-        stations = tempList.ToArray();
+        visitedStations = new bool[allStationsAtLocation.Count];
+        for (int i = 0; i < visitedStations.Length; i++)
+        {
+            visitedStations[i] = false;
+        }
     }
 
     void FindAllTargets()
@@ -65,101 +69,63 @@ public class StationTargetController : MonoBehaviour
     {
         bool found = false;
 
-        for (int i = 0; i < targets.Length; i++)
+        if(targets != null)
         {
-            string targetName = targets[i].GetComponent<ImageTargetBehaviour>().ImageTarget.Name;
-
-            var renderComponents = targets[i].GetComponentInChildren<MeshRenderer>();
-
-            if (renderComponents.enabled)
-                found = true;
-            else
-                found = false;
-
-            //foreach (var components in renderComponents)
-            //{
-            //    if (components.enabled)
-            //    {
-            //        found = true;
-            //        break;
-            //    }
-            //}
-
-            if (found)
+            for (int i = 0; i < targets.Length; i++)
             {
-                Debug.Log("Found " + targetName);
+                string targetName = "";
 
-                switch (targetName)
+                if (targets[i].GetComponent<ImageTargetBehaviour>().ImageTarget.Name != null)
+                    targetName = targets[i].GetComponent<ImageTargetBehaviour>().ImageTarget.Name;
+
+                var renderComponents = targets[i].GetComponentInChildren<Renderer>();
+
+                if (renderComponents.enabled)
+                    found = true;
+                else
+                    found = false;
+
+                if (found)
                 {
-                    case "tarmac":
-                        stations[0].visited = true;
-                        break;
-                    case "chips":
-                        stations[1].visited = true;
-                        break;
-                    case "stones":
-                        stations[2].visited = true;
-                        break;
-                    default:
-                        break;
-                }
+                    Debug.Log("Found " + targetName);
 
-                UpdateMainStationList();
+                    switch (targetName)
+                    {
+                        case "tarmac":
+                            visitedStations[0] = true;
+                            break;
+                        case "chips":
+                            visitedStations[1] = true;
+                            break;
+                        case "stones":
+                            visitedStations[2] = true;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    UpdateMainStationList();
+                }
             }
         }
-
-        //foreach (var go in targets)
-        //{
-        //    string targetName = go.GetComponent<ImageTargetBehaviour>().ImageTarget.Name;
-
-        //    var renderComponents = go.GetComponentsInChildren<Renderer>();
-
-        //    foreach (var components in renderComponents)
-        //    {
-        //        if (components.enabled)
-        //            found = true;
-        //    }
-
-        //    if (found)
-        //    {
-        //        Debug.Log("Found " + targetName);
-
-        //        switch (targetName)
-        //        {
-        //            case "tarmac":
-        //                stations[0].visited = true;
-        //                break;
-        //            case "chips":
-        //                stations[1].visited = true;
-        //                break;
-        //            case "stones":
-        //                stations[2].visited = true;
-        //                break;
-        //            default:
-        //                break;
-        //        }
-
-        //        UpdateMainStationList();
-        //    }
-        //}
     }
 
     void UpdateMainStationList()
     {
         for (int i = 0; i < stationController.stationList.Count; i++)
         {
-            for (int j = 0; j < stations.Length; j++)
+            for (int j = 0; j < allStationsAtLocation.Count; j++)
             {
-                if ((stationController.stationList[i].location_ID == stations[j].location_ID) 
-                    && (stationController.stationList[i].station_NR == stations[j].station_NR) 
-                    && stations[j].visited)
+                if ((stationController.stationList[i].location_ID == allStationsAtLocation[j].location_ID) 
+                    && (stationController.stationList[i].station_NR == allStationsAtLocation[j].station_NR)
+                    && visitedStations[j] == true)
                 {
-                    stationController.stationList[i].visited = true;
+                    stationController.CurrentStation = stationController.stationList[i];
+                    stationController.CallUpdateUserProgress();
                 }
             }
         }
 
-        stationController.CallUpdateUserProgress();
     }
 
 
