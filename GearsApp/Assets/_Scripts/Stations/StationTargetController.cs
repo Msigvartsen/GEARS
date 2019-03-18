@@ -113,7 +113,7 @@ public class StationTargetController : MonoBehaviour
 
     void UpdateMainStationList()
     {
-        // Update the users current station
+        // Update the users current station, which is used in StationControllers UpdateUserProgress() IEnumerator to add data to Userprogress (database)
         for (int i = 0; i < stationController.stationList.Count; i++)
         {
             for (int j = 0; j < allStationsAtLocation.Count; j++)
