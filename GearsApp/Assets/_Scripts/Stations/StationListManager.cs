@@ -47,20 +47,18 @@ public class StationListManager : MonoBehaviour
 
     public void UpdateVisitedStations()
     {
-        //stationArray = StationController.GetInstance().stationList.ToArray();
+        stationArray = StationController.GetInstance().stationList.ToArray();
 
-        //if (itemList != null)
-        //{
-        //    for (int i = 0; i < stationArray.Length; i++)
-        //    {
-        //        if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
-        //        {
-        //            Debug.Log("UpdateVisitedStations() -> stationArray[" + i + "] = locId" + stationArray[i].location_ID + " //// stationNr = " + stationArray[i].station_NR + " //// visited = " + stationArray[i].visited);
-        //            itemList[i].GetComponent<StationListItem>().station = stationArray[i];
-        //            SetButtonValues(itemList[i], stationArray[i]);
-        //        }
-        //    }
-        //}
+        if (itemList != null)
+        {
+            for (int i = 0; i < stationArray.Length; i++)
+            {
+                if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
+                {
+                    SetButtonValues(itemList[i], stationArray[i]);
+                }
+            }
+        }
     }
 
     void SetButtonValues(GameObject ListItem, Station station)

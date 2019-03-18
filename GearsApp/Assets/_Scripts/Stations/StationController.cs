@@ -170,7 +170,7 @@ public class StationController : MonoBehaviour
                         if (handler.statusCode == true)
                         {
                             Debug.Log(handler.text);
-                            //station.visited = true;
+                            station.visited = true;
                         }
                     }
                 }
