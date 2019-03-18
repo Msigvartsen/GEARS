@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
+using Newtonsoft.Json;
+using UnityEngine.Networking;
 
 public class MediaController : MonoBehaviour
 {
     private static MediaController _instance;
-    public List<Texture2D> imageList;
+    public List<Media> mediaList;
 
     public static MediaController GetInstance()
     {
@@ -30,10 +31,38 @@ public class MediaController : MonoBehaviour
 
     IEnumerator RequestImages()
     {
-        Debug.Log("Request Images...");
-        string path = ConstantsNS.Constants.FTPPath + "/Media/Images/";
-        Uri uri = new Uri(path);
-        imageList = FTPHandler.DownloadAllImagesFromFTP(uri);
-        yield return imageList;
+        string path = ConstantsNS.Constants.PhpPath + "getimages.php";
+        using (UnityWebRequest request = UnityWebRequest.Get(path))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                Debug.Log("Location: " + req);
+                WebResponse<Media> res = JsonConvert.DeserializeObject<WebResponse<Media>>(req);
+
+                if (res.handler.statusCode == false)
+                {
+                    Debug.Log(req + ": ERROR: NO MEDIA RETRIEVED FROM DATABASE");
+                }
+                else
+                {
+                    Debug.Log("Code:" + res.handler.text);
+                    foreach (Media media in res.objectList)
+                    {
+                        Debug.Log("Media name = " + media.medianame);
+                        Uri uri = new Uri(ConstantsNS.Constants.FTPPath + "Media/" + media.mediatype + "/" + media.medianame);
+                        Texture2D image = FTPHandler.DownloadImageFromFTP(uri);
+                        media.image = image;
+                        mediaList.Add(media);
+                    }
+                }
+            }
+        }
     }
 }

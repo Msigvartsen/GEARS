@@ -48,9 +48,47 @@ public class UserController : MonoBehaviour
         LoadingScreen.LoadScene("RegistrationAndLogin");
     }
 
+    public void CallUpdateUserPicture(int mediaID)
+    {
+        _currentUser.media_ID = mediaID;
+        StartCoroutine(UpdateUserPicture());
+    }
+
     public void CallDeleteUser()
     {
         StartCoroutine(DeleteUser());
+    }
+
+
+    IEnumerator UpdateUserPicture()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("number", _currentUser.telephonenr);
+        form.AddField("media_ID", _currentUser.media_ID);
+        string path = Constants.PhpPath + "updateuserpicture.php";
+        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+
+                if (handler.statusCode == false)
+                {
+                    Debug.Log(req);
+                }
+                else
+                {
+                    Debug.Log("Successful Update" + req);
+                }
+            }
+        }
     }
 
     IEnumerator DeleteUser()

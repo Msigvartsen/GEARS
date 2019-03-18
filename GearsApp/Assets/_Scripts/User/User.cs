@@ -7,7 +7,7 @@ public class User
 {
     public int telephonenr;
     public string username;
-    public string media_ID;
+    public int media_ID;
     public int explorerscore;
-    public int nerdscore;
+    public int challengescore;
 }

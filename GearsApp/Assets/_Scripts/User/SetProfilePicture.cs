@@ -5,17 +5,20 @@ public class SetProfilePicture : MonoBehaviour
 {
     private void Start()
     {
-        GetComponent<Button>().onClick.AddListener(LoadProfilePicture);
+        RefreshImage();
     }
 
-    public void LoadProfilePicture()
+    public void RefreshImage()
     {
-        UserController uc = UserController.GetInstance();
-        GameObject profilePicture = GameObject.FindGameObjectWithTag("ProfilePicture");
-        string name = GetComponent<RawImage>().name;
-       // uc._currentUser.media_ID = name;
-        Texture2D tex = (Texture2D)GetComponent<RawImage>().texture;
-        profilePicture.GetComponent<RawImage>().texture = tex;
-        profilePicture.GetComponent<PopupPanel>().SetPopupPanelActive(false);
+        MediaController mediaController = MediaController.GetInstance();
+        User user = UserController.GetInstance()._currentUser;
+
+        foreach (Media media in mediaController.mediaList)
+        {
+            if (media.media_ID == user.media_ID)
+            {
+                GetComponent<RawImage>().texture = media.image;
+            }
+        }
     }
 }

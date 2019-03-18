@@ -4,26 +4,28 @@ using UnityEngine.UI;
 
 public class ProfilePicturesList : MonoBehaviour
 {
-    Texture2D[] images;
+    Media[] images;
     private string prefabName;
 
     private void Start()
     {
         prefabName = "ImageListItem";
         MediaController mediaController = MediaController.GetInstance();
-        images = mediaController.imageList.ToArray();
+        images = mediaController.mediaList.ToArray();
         for(int i = 0; i < images.Length; i++)
         {
-            GetListItem(i);
+            GetListItem(i, images[i]);
         }
     }
 
-    private GameObject GetListItem(int index)
+    private GameObject GetListItem(int index, Media media)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(gameObject.transform, false);
-        go.GetComponent<RawImage>().texture = images[index];
-        //go.GetComponent<SetProfilePicture>().imageName = 
+        go.GetComponent<ImageListItem>().media = media;
+        go.GetComponent<ImageListItem>().RefreshImage();
+        //go.GetComponent<RawImage>().texture = images[index].image;
+        //go.GetComponent<Media>() = media;
         return go;
     }
 }
