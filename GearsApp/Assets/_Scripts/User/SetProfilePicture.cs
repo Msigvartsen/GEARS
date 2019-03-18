@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SetProfilePicture : MonoBehaviour
@@ -16,9 +13,9 @@ public class SetProfilePicture : MonoBehaviour
         UserController uc = UserController.GetInstance();
         GameObject profilePicture = GameObject.FindGameObjectWithTag("ProfilePicture");
         string name = GetComponent<RawImage>().name;
-        uc._currentUser.media_ID = name;
-        string path = ConstantsNS.Constants.FTPPath + "Media/Images/"+ name;
-        Uri test = new Uri(path);
-        profilePicture.GetComponent<RawImage>().texture = FTPHandler.DownloadImageFromFTP(test);
+       // uc._currentUser.media_ID = name;
+        Texture2D tex = (Texture2D)GetComponent<RawImage>().texture;
+        profilePicture.GetComponent<RawImage>().texture = tex;
+        profilePicture.GetComponent<PopupPanel>().SetPopupPanelActive(false);
     }
 }

@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 399934627}
   m_Layer: 5
   m_Name: Panel
-  m_TagString: Untagged
+  m_TagString: ProfilePicture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1994,7 +1994,7 @@ GameObject:
   - component: {fileID: 1859904905}
   m_Layer: 5
   m_Name: ProfilePictureButton
-  m_TagString: ProfilePicture
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

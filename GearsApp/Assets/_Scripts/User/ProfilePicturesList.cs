@@ -10,10 +10,8 @@ public class ProfilePicturesList : MonoBehaviour
     private void Start()
     {
         prefabName = "ImageListItem";
-        string path = ConstantsNS.Constants.FTPPath + "/Media/Images/";
-        Uri uri = new Uri(path);
-        images = FTPHandler.DownloadAllImagesFromFTP(uri).ToArray();
-
+        MediaController mediaController = MediaController.GetInstance();
+        images = mediaController.imageList.ToArray();
         for(int i = 0; i < images.Length; i++)
         {
             GetListItem(i);
