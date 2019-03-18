@@ -29,6 +29,7 @@ public class StationTargetController : MonoBehaviour
 
     void SetAllInstances()
     {
+        // Get controllers
         locationController = LocationController.GetInstance();
         stationController = StationController.GetInstance();
 
@@ -37,9 +38,10 @@ public class StationTargetController : MonoBehaviour
             location = locationController.CurrentLocation;
         }
 
+        // Find all stations at the current location
         allStationsAtLocation = new List<Station>();
 
-        for (int i = 0; i < stationController.stationList.ToArray().Length; i ++)
+        for (int i = 0; i < stationController.stationList.ToArray().Length; i++)
         {
             if (stationController.stationList[i].location_ID == locationController.CurrentLocation.location_ID)
             {
@@ -47,6 +49,7 @@ public class StationTargetController : MonoBehaviour
             }
         }
 
+        // Make a bool array for each station the user can find. Used to determine which station the user scans
         visitedStations = new bool[allStationsAtLocation.Count];
         for (int i = 0; i < visitedStations.Length; i++)
         {
@@ -56,6 +59,7 @@ public class StationTargetController : MonoBehaviour
 
     void FindAllTargets()
     {
+        // Locate all stations on current location
         int childCount = gameObject.transform.childCount;
         targets = new GameObject[childCount];
 
@@ -69,14 +73,11 @@ public class StationTargetController : MonoBehaviour
     {
         bool found = false;
 
-        if(targets != null)
+        if (targets != null)
         {
             for (int i = 0; i < targets.Length; i++)
             {
-                string targetName = "";
-
-                if (targets[i].GetComponent<ImageTargetBehaviour>().ImageTarget.Name != null)
-                    targetName = targets[i].GetComponent<ImageTargetBehaviour>().ImageTarget.Name;
+                string targetName = targets[i].name;
 
                 var renderComponents = targets[i].GetComponentInChildren<Renderer>();
 
@@ -85,19 +86,19 @@ public class StationTargetController : MonoBehaviour
                 else
                     found = false;
 
+                // Check which station the user has scanned
                 if (found)
                 {
                     Debug.Log("Found " + targetName);
-
                     switch (targetName)
                     {
-                        case "tarmac":
+                        case "Station1":
                             visitedStations[0] = true;
                             break;
-                        case "chips":
+                        case "Station2":
                             visitedStations[1] = true;
                             break;
-                        case "stones":
+                        case "Station3":
                             visitedStations[2] = true;
                             break;
                         default:
@@ -112,11 +113,12 @@ public class StationTargetController : MonoBehaviour
 
     void UpdateMainStationList()
     {
+        // Update the users current station
         for (int i = 0; i < stationController.stationList.Count; i++)
         {
             for (int j = 0; j < allStationsAtLocation.Count; j++)
             {
-                if ((stationController.stationList[i].location_ID == allStationsAtLocation[j].location_ID) 
+                if ((stationController.stationList[i].location_ID == allStationsAtLocation[j].location_ID)
                     && (stationController.stationList[i].station_NR == allStationsAtLocation[j].station_NR)
                     && visitedStations[j] == true)
                 {
