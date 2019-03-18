@@ -25,6 +25,7 @@ public class StationListManager : MonoBehaviour
         itemList = new GameObject[stationArray.Length];
         prefabName = "StationListItem";
 
+        // Get the stations linked to current location
         for (int i = 0; i < stationArray.Length; i++)
         {
             if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
@@ -36,6 +37,7 @@ public class StationListManager : MonoBehaviour
 
     GameObject GetListItem(int index, Station station)
     {
+        // Create buttons to each station, meant to check on progress at current location
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<StationListItem>().station = station;
@@ -47,6 +49,7 @@ public class StationListManager : MonoBehaviour
 
     public void UpdateVisitedStations()
     {
+        // Update buttons to see if any new ones has been unlocked by the user
         stationArray = StationController.GetInstance().stationList.ToArray();
 
         if (itemList != null)
@@ -63,6 +66,7 @@ public class StationListManager : MonoBehaviour
 
     void SetButtonValues(GameObject ListItem, Station station)
     {
+        // Set the buttons value based on whether the station has been scanned or not
         Toggle visitedToggle = ListItem.GetComponentInChildren<Toggle>();
         visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().station.visited;
 
@@ -70,6 +74,7 @@ public class StationListManager : MonoBehaviour
 
         if (!visitedToggle.isOn)
         {
+            // Disable button if the user has not scanned the target
             visitedToggle.GetComponent<Image>().enabled = false;
             ListItem.GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
             ListItem.GetComponentInChildren<Button>().enabled = false;
@@ -78,6 +83,7 @@ public class StationListManager : MonoBehaviour
         }
         else
         {
+            // Enable button if the user has scanned the target
             visitedToggle.GetComponent<Image>().enabled = true;
             ListItem.GetComponentInChildren<CanvasGroup>().alpha = 1;
             ListItem.GetComponentInChildren<Button>().enabled = true;
