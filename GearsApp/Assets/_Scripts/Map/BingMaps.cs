@@ -28,7 +28,7 @@ public class BingMaps : MonoBehaviour
             GetComponentInChildren<Text>().text = "Hello";
         }
         
-        StartCoroutine(RequestMap());
+        //StartCoroutine(RequestMap());
     }
 
     IEnumerator RequestMap()
