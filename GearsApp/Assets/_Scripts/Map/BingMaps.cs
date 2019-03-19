@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Net;
 
+
 public class BingMaps : MonoBehaviour
 {
     public string apikey;
@@ -26,10 +27,31 @@ public class BingMaps : MonoBehaviour
         {
             GetComponentInChildren<Text>().text = "Hello";
         }
-
-        StartCoroutine(Map());
+        
+        StartCoroutine(RequestMap());
     }
 
+    IEnumerator RequestMap()
+    {
+        string path = ConstantsNS.Constants.PhpPath + "test.html";
+        Application.OpenURL(path);
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(path))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                var texture = DownloadHandlerTexture.GetContent(request);
+                GetComponent<RawImage>().texture = new Texture2D(size, size, TextureFormat.DXT1, false);
+                GetComponent<RawImage>().texture = texture;
+            }
+        }
+    }
 
     IEnumerator Map()
     {
