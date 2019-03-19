@@ -23,6 +23,12 @@ public class StationModel : MonoBehaviour
 
             GameObject go = Instantiate(model, transform);
 
+            var renderComponentsInModel = go.GetComponentsInChildren<Renderer>();
+            foreach (var item in renderComponentsInModel)
+            {
+                item.enabled = false;
+            }
+
             if (material != null)
             {
                 var matComponents = go.GetComponentsInChildren<Renderer>();
