@@ -108,7 +108,7 @@ public class LocationController : MonoBehaviour
             }
             else
             {
-                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req);
+                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req, Constants.JsonSettings);
 
                 if (res.handler.statusCode == false)
                 {
