@@ -8,6 +8,6 @@ public class User
     public int telephonenr;
     public string username;
     public int media_ID;
-    public int explorerscore;
-    public int challengescore;
+    public int experience;
+    public int level;
 }

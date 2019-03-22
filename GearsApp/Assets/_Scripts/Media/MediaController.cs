@@ -43,7 +43,7 @@ public class MediaController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Location: " + req);
+                Debug.Log("Media: " + req);
                 WebResponse<Media> res = JsonConvert.DeserializeObject<WebResponse<Media>>(req);
 
                 if (res.handler.statusCode == false)
