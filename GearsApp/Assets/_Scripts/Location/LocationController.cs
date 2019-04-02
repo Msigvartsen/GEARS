@@ -24,7 +24,7 @@ public class LocationController : MonoBehaviour
         favoriteFilled = Resources.Load<Sprite>("_Icons/star_white");
         favoriteOutline = Resources.Load<Sprite>("_Icons/star_outline_white");
 
-        LocationService.CallUserPermission();
+        LocationServiceNS.LocationService.CallUserPermission();
     }
 
     public static LocationController GetInstance()

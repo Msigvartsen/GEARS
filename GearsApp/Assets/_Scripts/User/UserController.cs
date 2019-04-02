@@ -29,7 +29,7 @@ public class UserController : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        LocationService.CallUserPermission();
+        LocationServiceNS.LocationService.CallUserPermission();
     }
 
     public void RequestUserData(string username)

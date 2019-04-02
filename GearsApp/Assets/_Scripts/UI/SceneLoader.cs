@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         if (sceneName == "SelectLocation")
-            StartCoroutine(LocationService.StartLocationService());
+            StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
 
         LoadingScreen.LoadScene(sceneName);
     }
