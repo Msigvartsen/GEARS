@@ -11,7 +11,7 @@ public class SetProfilePicture : MonoBehaviour
     public void RefreshImage()
     {
         MediaController mediaController = MediaController.GetInstance();
-        User user = UserController.GetInstance()._currentUser;
+        User user = UserController.GetInstance().CurrentUser;
 
         foreach (Media media in mediaController.mediaList)
         {

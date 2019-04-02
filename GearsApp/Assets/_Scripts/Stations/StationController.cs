@@ -88,7 +88,7 @@ public class StationController : MonoBehaviour
     {
         {
             WWWForm form = new WWWForm();
-            form.AddField("number", UserController.GetInstance()._currentUser.telephonenr);
+            form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
             string path = Constants.PhpPath + "userprogress.php";
             using (UnityWebRequest request = UnityWebRequest.Post(path, form))
             {
@@ -146,7 +146,7 @@ public class StationController : MonoBehaviour
                 string path;
 
                 WWWForm form = new WWWForm();
-                form.AddField("number", userManager._currentUser.telephonenr);
+                form.AddField("number", userManager.CurrentUser.telephonenr);
                 form.AddField("station_nr", station.station_NR);
                 form.AddField("location_id", station.location_ID);
 

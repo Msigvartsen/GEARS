@@ -25,7 +25,7 @@ public class FavoriteController : MonoBehaviour
         UserController manager = UserController.GetInstance();
 
         WWWForm form = new WWWForm();
-        form.AddField("number", manager._currentUser.telephonenr);
+        form.AddField("number", manager.CurrentUser.telephonenr);
         form.AddField("location_id", loc.location_ID);
 
         string path;

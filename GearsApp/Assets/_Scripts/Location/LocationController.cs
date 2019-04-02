@@ -96,7 +96,7 @@ public class LocationController : MonoBehaviour
     IEnumerator GetFavorites()
     {
         WWWForm form = new WWWForm();
-        form.AddField("number", UserController.GetInstance()._currentUser.telephonenr);
+        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
         string path = Constants.PhpPath + "favorites.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {

@@ -8,9 +8,11 @@ using Newtonsoft.Json;
 
 public class UserController : MonoBehaviour
 {
-    public User _currentUser;
-    private string _username;
     private static UserController _instance;
+    private string _username;
+
+    private User _currentUser;
+    public User CurrentUser { get => _currentUser; set => _currentUser = value; }
 
     public static UserController GetInstance()
     {
@@ -39,18 +41,18 @@ public class UserController : MonoBehaviour
 
     public void SetCurrentUser(User user)
     {
-        _currentUser = user;
+        CurrentUser = user;
     }
 
     public void LogOut()
     {
-        _currentUser = null;
+        CurrentUser = null;
         LoadingScreen.LoadScene("RegistrationAndLogin");
     }
 
     public void CallUpdateUserPicture(int mediaID)
     {
-        _currentUser.media_ID = mediaID;
+        CurrentUser.media_ID = mediaID;
         StartCoroutine(UpdateUserPicture());
     }
 
@@ -63,8 +65,8 @@ public class UserController : MonoBehaviour
     IEnumerator UpdateUserPicture()
     {
         WWWForm form = new WWWForm();
-        form.AddField("number", _currentUser.telephonenr);
-        form.AddField("media_ID", _currentUser.media_ID);
+        form.AddField("number", CurrentUser.telephonenr);
+        form.AddField("media_ID", CurrentUser.media_ID);
         string path = Constants.PhpPath + "updateuserpicture.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {
@@ -94,8 +96,8 @@ public class UserController : MonoBehaviour
     IEnumerator DeleteUser()
     {
         WWWForm form = new WWWForm();
-        form.AddField("number", _currentUser.telephonenr);
-        Debug.Log("NUMBEr: " + _currentUser.telephonenr);
+        form.AddField("number", CurrentUser.telephonenr);
+        Debug.Log("NUMBEr: " + CurrentUser.telephonenr);
         string path = Constants.PhpPath + "deleteuser.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {
@@ -116,7 +118,7 @@ public class UserController : MonoBehaviour
                 }
                 else
                 {
-                    _currentUser = null;
+                    CurrentUser = null;
                     LoadingScreen.LoadScene("RegistrationAndLogin");
                 }
             }

@@ -12,7 +12,7 @@ public class UpdateTextComponent : MonoBehaviour
     {
         if(arrayType == ArrayType.Username)
         {
-            GetComponent<Text>().text = UserController.GetInstance()._currentUser.username;
+            GetComponent<Text>().text = UserController.GetInstance().CurrentUser.username;
         }
     }
 }

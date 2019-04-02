@@ -45,7 +45,7 @@ public class Registration : MonoBehaviour
                 if (obj.handler.statusCode == true)
                 {
                     UserController manager = UserController.GetInstance();
-                    manager._currentUser = obj.objectList.ToArray()[0];
+                    manager.CurrentUser = obj.objectList.ToArray()[0];
 
                     LocationController.GetInstance().CallGetFavorites();
                     LoadingScreen.LoadScene("MainMenu");
