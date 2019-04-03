@@ -21,4 +21,9 @@ public class MapMarker : MonoBehaviour
         //Add other relevant info :) 
     }
 
+    public void TestChangeText()
+    {
+        GetComponentInChildren<TextMesh>().text = "Test";
+    }
+
 }

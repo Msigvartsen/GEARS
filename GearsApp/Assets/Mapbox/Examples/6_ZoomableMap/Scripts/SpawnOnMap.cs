@@ -1,70 +1,90 @@
-﻿namespace Mapbox.Examples
+﻿
+using UnityEngine;
+using Mapbox.Utils;
+using Mapbox.Unity.Map;
+using Mapbox.Unity.MeshGeneration.Factories;
+using Mapbox.Unity.Utilities;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+public class SpawnOnMap : MonoBehaviour
 {
-	using UnityEngine;
-	using Mapbox.Utils;
-	using Mapbox.Unity.Map;
-	using Mapbox.Unity.MeshGeneration.Factories;
-	using Mapbox.Unity.Utilities;
-	using System.Collections.Generic;
-    using UnityEngine.UI;
+    [SerializeField]
+    AbstractMap _map;
 
-	public class SpawnOnMap : MonoBehaviour
-	{
-		[SerializeField]
-		AbstractMap _map;
+    Vector2d[] _locations;
+    Location[] locations;
 
-		Vector2d[] _locations;
-        Location[] locations;
+    [SerializeField]
+    float _spawnScale = 100f;
 
-		[SerializeField]
-		float _spawnScale = 100f;
+    [SerializeField]
+    GameObject _markerPrefab;
 
-		[SerializeField]
-		GameObject _markerPrefab;
+    List<GameObject> _spawnedObjects;
+    LocationController locationController;
 
-		List<GameObject> _spawnedObjects;
-        LocationController locationController;
+    void Start()
+    {
 
-		void Start()
-		{
-            
-            Invoke("SetMarkers", 2); // Temporary:  needs a delay to retreive locations first. 
-		}
+        Invoke("SetMarkers", 2); // Temporary:  needs a delay to retreive locations first. 
+    }
 
-		private void Update()
-		{
-            if (_spawnedObjects != null)
-            {
-                foreach(var obj in _spawnedObjects)
-                {
-                    var loc = obj.GetComponent<MapMarker>().MapMarkerLocation;
-                    Vector2d latlong = locationController.GetLatitudeLongitudeFromLocation(loc);
-                    obj.transform.localPosition = _map.GeoToWorldPosition(latlong, true);
-                    obj.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                }
-            }
-		}
-
-        private void SetMarkers()
+    private void Update()
+    {
+        if (_spawnedObjects != null)
         {
-            locationController = LocationController.GetInstance();
-            locations = locationController.locationList.ToArray();
-            _spawnedObjects = new List<GameObject>();
-
-            foreach(Location loc in locations)
+            foreach (var obj in _spawnedObjects)
             {
-                var instance = Instantiate(_markerPrefab);
-                var mapMarker = instance.GetComponent<MapMarker>();
-                mapMarker.MapMarkerLocation = loc;
-                mapMarker.UpdateData();
-
+                var loc = obj.GetComponent<MapMarker>().MapMarkerLocation;
                 Vector2d latlong = locationController.GetLatitudeLongitudeFromLocation(loc);
-
-                instance.transform.localPosition = _map.GeoToWorldPosition(latlong, true);
-                instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-                _spawnedObjects.Add(instance);
+                obj.transform.localPosition = _map.GeoToWorldPosition(latlong, true);
+                obj.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
             }
         }
-	}
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Touch touch = Input.GetTouch(0);
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            RaycastHit hit = new RaycastHit();
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject.tag == "MapMarker")
+                {
+                    hit.collider.gameObject.GetComponent<MapMarker>().TestChangeText();
+                }
+            }
+            else
+            {
+                
+            }
+        }
+
+
+
+    }
+
+    private void SetMarkers()
+    {
+        locationController = LocationController.GetInstance();
+        locations = locationController.locationList.ToArray();
+        _spawnedObjects = new List<GameObject>();
+
+        foreach (Location loc in locations)
+        {
+            var instance = Instantiate(_markerPrefab);
+            var mapMarker = instance.GetComponent<MapMarker>();
+            mapMarker.MapMarkerLocation = loc;
+            mapMarker.UpdateData();
+
+            Vector2d latlong = locationController.GetLatitudeLongitudeFromLocation(loc);
+
+            instance.transform.localPosition = _map.GeoToWorldPosition(latlong, true);
+            instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+            _spawnedObjects.Add(instance);
+        }
+    }
 }
