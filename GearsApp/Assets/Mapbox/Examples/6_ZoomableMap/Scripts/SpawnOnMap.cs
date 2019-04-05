@@ -15,6 +15,8 @@ public class SpawnOnMap : MonoBehaviour
     Vector2d[] _locations;
     Location[] locations;
 
+    GameObject UserMarker;
+
     [SerializeField]
     float _spawnScale = 100f;
 
@@ -26,7 +28,7 @@ public class SpawnOnMap : MonoBehaviour
 
     void Start()
     {
-
+        StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
         Invoke("SetMarkers", 2); // Temporary:  needs a delay to retreive locations first. 
     }
 
@@ -41,6 +43,12 @@ public class SpawnOnMap : MonoBehaviour
                 obj.transform.localPosition = _map.GeoToWorldPosition(latlong, true);
                 obj.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
             }
+        }
+        if (UserMarker != null)
+        {
+            Vector2d userLoc = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            UserMarker.transform.localPosition = _map.GeoToWorldPosition(userLoc, true);
+            UserMarker.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
         }
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
@@ -58,7 +66,7 @@ public class SpawnOnMap : MonoBehaviour
             }
             else
             {
-                
+
             }
         }
 
@@ -86,5 +94,11 @@ public class SpawnOnMap : MonoBehaviour
 
             _spawnedObjects.Add(instance);
         }
+
+        UserMarker = Instantiate(Resources.Load<GameObject>("_Prefabs/Zombie"));
+        Vector2d userLoc = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
+        UserMarker.transform.localPosition = _map.GeoToWorldPosition(userLoc, true);
+        UserMarker.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
     }
 }

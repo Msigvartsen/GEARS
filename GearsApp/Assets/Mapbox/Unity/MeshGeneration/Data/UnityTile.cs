@@ -26,7 +26,7 @@ namespace Mapbox.Unity.MeshGeneration.Data
 		//keeping track of tile objects to be able to cancel them safely if tile is destroyed before data fetching finishes
 		private List<Tile> _tiles = new List<Tile>();
 
-		public bool IsRecycled = false;
+		public bool IsRecycled = true;
 
 		#region CachedUnityComponents
 		MeshRenderer _meshRenderer;
@@ -183,7 +183,7 @@ namespace Mapbox.Unity.MeshGeneration.Data
 			gameObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
 			gameObject.SetActive(true);
 
-			IsRecycled = false;
+			IsRecycled = true;
 			//MeshRenderer.enabled = true;
 
 
