@@ -28,10 +28,11 @@ public class LocationDetails : MonoBehaviour
                 Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Information/basicinfo.txt");
                 string infotext = FTPHandler.DownloadTextFromFTP(uri);
                 infoPanel.GetComponentInChildren<Text>().text = infotext;//manager.CurrentLocation.information;
-                string path = ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Images/img.jpg";
-                Uri uri2 = new Uri(path);
+                //string path = ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Images/img.jpg";
+                //Uri uri2 = new Uri(path);
                 //Texture2D tex = 
-                infoPanel.GetComponentInChildren<RawImage>().texture = FTPHandler.DownloadImageFromFTP(uri2);
+                //infoPanel.GetComponentInChildren<RawImage>().texture = FTPHandler.DownloadImageFromFTP(uri2);
+                infoPanel.GetComponentInChildren<RawImage>().texture = manager.CurrentLocation.thumbnail;
                 //manager.CurrentLocation.thumbnail = tex;
                 yield return infotext;
             }

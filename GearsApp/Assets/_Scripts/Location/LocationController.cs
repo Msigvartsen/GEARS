@@ -100,7 +100,6 @@ public class LocationController : MonoBehaviour
                         Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
                         Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
                         loc.thumbnail = tex;
-                        Debug.Log("Adding thumbnail");
                         locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }
