@@ -30,7 +30,9 @@ public class LocationDetails : MonoBehaviour
                 infoPanel.GetComponentInChildren<Text>().text = infotext;//manager.CurrentLocation.information;
                 string path = ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Images/img.jpg";
                 Uri uri2 = new Uri(path);
+                //Texture2D tex = 
                 infoPanel.GetComponentInChildren<RawImage>().texture = FTPHandler.DownloadImageFromFTP(uri2);
+                //manager.CurrentLocation.thumbnail = tex;
                 yield return infotext;
             }
         }

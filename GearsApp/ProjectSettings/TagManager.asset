@@ -22,6 +22,8 @@ TagManager:
   - ProfilePicture
   - VisitedToggle
   - MapMarker
+  - LocationPopupInfo
+  - LocationPopupContainer
   layers:
   - Default
   - TransparentFX

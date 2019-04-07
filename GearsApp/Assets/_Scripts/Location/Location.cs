@@ -12,4 +12,6 @@ public class Location
     public double longitude;
     public string information;
     public bool favorite;
+
+    public Texture2D thumbnail;
 }

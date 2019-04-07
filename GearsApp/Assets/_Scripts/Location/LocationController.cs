@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using Mapbox.Utils;
+using System;
 
 public class LocationController : MonoBehaviour
 {
@@ -49,7 +50,6 @@ public class LocationController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         StartCoroutine(Request());
-        //StartCoroutine(GetFavorites());
     }
 
     public Vector2d GetLatitudeLongitudeFromLocation(Location loc)
@@ -97,6 +97,10 @@ public class LocationController : MonoBehaviour
                     Debug.Log("Code:" + res.handler.text);
                     foreach (Location loc in res.objectList)
                     {
+                        Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
+                        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
+                        loc.thumbnail = tex;
+                        Debug.Log("Adding thumbnail");
                         locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }

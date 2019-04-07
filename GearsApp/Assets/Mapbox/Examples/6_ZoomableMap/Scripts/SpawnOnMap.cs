@@ -61,7 +61,7 @@ public class SpawnOnMap : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "MapMarker")
                 {
-                    hit.collider.gameObject.GetComponent<MapMarker>().TestChangeText();
+                    hit.collider.gameObject.GetComponent<MapMarker>().SpawnLocationPopupInfo();
                 }
             }
             else
