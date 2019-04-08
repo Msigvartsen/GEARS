@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class ProximityHandler : MonoBehaviour
 {
     [SerializeField]
-    GameObject panel;
+    GameObject focusButton;
 
+    bool inRange = false;
+    bool showButton = false;
     LocationController locationController;
     Location[] locations;
     Location locationInRange;
@@ -17,9 +19,9 @@ public class ProximityHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        panel.GetComponent<CanvasGroup>().alpha = 0;
         locationController = LocationController.GetInstance();
         locations = locationController.locationList.ToArray();
+        focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
     }
 
     // Update is called once per frame
@@ -30,9 +32,12 @@ public class ProximityHandler : MonoBehaviour
             locationInRange = CheckRangeToLocations();
         }
 
-        if (locationInRange != null)
+        if (inRange)
         {
-            FadeInPanel();
+            if (showButton)
+                FadeInPanel();
+            else
+                FadeOutPanel();
         }
     }
 
@@ -54,20 +59,19 @@ public class ProximityHandler : MonoBehaviour
 
     void FadeInPanel()
     {
-        if (panel.GetComponent<CanvasGroup>().alpha < 1)
+        if (focusButton.GetComponent<CanvasGroup>().alpha < 1)
         {
-            panel.GetComponent<CanvasGroup>().alpha += Time.deltaTime * fadeSpeed;
+            focusButton.GetComponent<CanvasGroup>().alpha += Time.deltaTime * fadeSpeed;
         }
 
-        panel.transform.GetChild(0).GetComponentInChildren<Text>().text = "See stations at " + locationInRange.name + " " 
-            + CalculateDistanceInMeters((float)locationInRange.latitude,(float) locationInRange.longitude);
+        focusButton.GetComponentInChildren<Text>().text = "See stations at " + locationInRange.name;
     }
 
     void FadeOutPanel()
     {
-        if (panel.GetComponent<CanvasGroup>().alpha > 0)
+        if (focusButton.GetComponent<CanvasGroup>().alpha > 0)
         {
-            panel.GetComponent<CanvasGroup>().alpha -= Time.deltaTime * fadeSpeed;
+            focusButton.GetComponent<CanvasGroup>().alpha -= Time.deltaTime * fadeSpeed;
         }
     }
 
@@ -80,9 +84,21 @@ public class ProximityHandler : MonoBehaviour
             if (CalculateDistanceInMeters((float)locations[i].latitude, (float)locations[i].longitude) < 1000)
             {
                 locInRange = locations[i];
+                inRange = true;
+                showButton = true;
             }
         }
 
         return locInRange;
+    }
+
+    void FocusLocation()
+    {
+        if (locationInRange != null)
+        {
+            GetComponent<Mapbox.Unity.Map.AbstractMap>().SetCenterLatitudeLongitude(new Mapbox.Utils.Vector2d(locationInRange.latitude, locationInRange.longitude));
+            GetComponent<Mapbox.Unity.Map.AbstractMap>().SetZoom(16.7f);
+            GetComponent<SpawnOnMap>().SetStationMarkers(locationInRange);
+        }
     }
 }

@@ -67,6 +67,20 @@ public class SpawnOnMap : MonoBehaviour
             userObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
         }
 
+        if (_spawnedStations != null)
+        {
+            int count = _spawnedStations.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var spawnedStation = _spawnedStations[i];
+                var location = _spawnedStations[i].GetComponent<MapMarker>().MapMarkerLocation;
+                spawnedStation.transform.localPosition = _map.GeoToWorldPosition(new Vector2d(location.latitude, location.longitude), true);
+                spawnedStation.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            }
+
+        }
+
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Touch touch = Input.GetTouch(0);
@@ -86,7 +100,6 @@ public class SpawnOnMap : MonoBehaviour
             }
         }
     }
-
     private void SetMarkers()
     {
         locationController = LocationController.GetInstance();
@@ -117,7 +130,7 @@ public class SpawnOnMap : MonoBehaviour
         }
     }
 
-    private void SetStationMarkers(Location location)
+    public void SetStationMarkers(Location location)
     {
         StationController stationController = StationController.GetInstance();
 
