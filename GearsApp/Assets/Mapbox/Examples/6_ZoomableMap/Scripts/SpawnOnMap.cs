@@ -70,9 +70,6 @@ public class SpawnOnMap : MonoBehaviour
 
             }
         }
-
-
-
     }
 
     private void SetMarkers()
@@ -100,6 +97,5 @@ public class SpawnOnMap : MonoBehaviour
         Vector2d userLoc = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
         UserMarker.transform.localPosition = _map.GeoToWorldPosition(userLoc, true);
         UserMarker.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
     }
 }
