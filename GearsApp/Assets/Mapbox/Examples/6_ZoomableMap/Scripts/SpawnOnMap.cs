@@ -28,6 +28,7 @@ public class SpawnOnMap : MonoBehaviour
 
     void Start()
     {
+        LocationServiceNS.LocationService.CallUserPermission();
         StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
         Invoke("SetMarkers", 2); // Temporary:  needs a delay to retreive locations first. 
     }
