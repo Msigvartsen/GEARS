@@ -5,6 +5,28 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    private static UIController _instance;
+
+    public static UIController GetInstance()
+    {
+        return _instance;
+    }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+
     [Header("PANEL LIST")]
     public List<GameObject> panelList = new List<GameObject>();
 
@@ -42,7 +64,7 @@ public class UIController : MonoBehaviour
         currentButtonAnimator = currentButton.GetComponent<Animator>();
         currentButtonAnimator.Play(buttonFadeIn);
 
-        currentPanel = panelList[currentPanelIndex];
+        currentPanel = panelList[0];
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
     }

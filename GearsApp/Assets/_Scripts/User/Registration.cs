@@ -49,6 +49,8 @@ public class Registration : MonoBehaviour
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
                     LocationController.GetInstance().CallGetFavorites();
+                    UIController.GetInstance().PanelAnim("Main");
+                    UIController.GetInstance().ChangeTopTitle("Main");
                     //LoadingScreen.LoadScene("MainMenu");
                 }
             }

@@ -31037,6 +31037,7 @@ GameObject:
   - component: {fileID: 1595165464}
   - component: {fileID: 1595165461}
   - component: {fileID: 1595165463}
+  - component: {fileID: 1595165465}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -31101,6 +31102,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a71a9a791852884fb287f69e5795650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1595165465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595165460}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4519ed0bd3c81b74792e26687b3b6803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelList:
+  - {fileID: 850329243}
+  - {fileID: 78800835}
+  - {fileID: 1221724352}
+  - {fileID: 1349063059}
+  - {fileID: 1610615652}
+  - {fileID: 905447544}
+  - {fileID: 1895994560}
+  - {fileID: 364326222}
+  - {fileID: 1741639699}
+  - {fileID: 1552333890}
+  - {fileID: 1552333890}
+  - {fileID: 1552333890}
+  - {fileID: 1552333890}
+  - {fileID: 1552333890}
+  buttonList:
+  - {fileID: 1034199237}
+  - {fileID: 877264196}
+  - {fileID: 1363417324}
+  - {fileID: 1614525732}
+  - {fileID: 1502562647}
+  - {fileID: 1895947221}
+  - {fileID: 1551975613}
+  - {fileID: 255799844}
+  - {fileID: 1152036834}
+  - {fileID: 1820667495}
+  - {fileID: 287740622}
+  - {fileID: 1185446207}
+  - {fileID: 1636041801}
+  - {fileID: 821557533}
+  topTitleText: {fileID: 989760745}
+  currentPanelIndex: 0
 --- !u!1 &1596921772
 GameObject:
   m_ObjectHideFlags: 0
