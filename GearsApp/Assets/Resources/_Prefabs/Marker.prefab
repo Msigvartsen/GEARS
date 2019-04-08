@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3103171968312410368}
   - component: {fileID: 2992382750947954019}
-  - component: {fileID: 6247722721738770343}
+  - component: {fileID: 8865102951328352566}
   m_Layer: 0
   m_Name: Marker
   m_TagString: MapMarker
@@ -139,7 +139,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0.1}
---- !u!114 &6247722721738770343
+--- !u!114 &8865102951328352566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779370585041552922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3d9116ffe6956428f5ce4f1432d52e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e9360162eacfd449a12a62b2da7e19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5057828408515614595
