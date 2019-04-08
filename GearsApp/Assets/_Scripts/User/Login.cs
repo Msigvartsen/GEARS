@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using ConstantsNS;
-
+using TMPro;
 public class Login : MonoBehaviour
 {
     [Header("Input Fields")]
-    public InputField usernameField;
-    public InputField passwordField;
-
+    //public InputField usernameField;
+    //public InputField passwordField;
+    public TMP_InputField usernameField;
+    public TMP_InputField passwordField;
     [Header("Buttons")]
     public Button loginButton;
 
@@ -50,7 +51,7 @@ public class Login : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
-                    LoadingScreen.LoadScene("MainMenu");
+                    //LoadingScreen.LoadScene("MainMenu");
                 }
                 else
                 {

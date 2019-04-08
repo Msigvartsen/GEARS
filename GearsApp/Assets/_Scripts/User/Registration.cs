@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using ConstantsNS;
+using TMPro;
 
 public class Registration : MonoBehaviour
 {
     [Header("Input Fields")]
-    public InputField mobileField;
-    public InputField nameField;
-    public InputField passwordField;
+    public TMP_InputField mobileField;
+    public TMP_InputField nameField;
+    public TMP_InputField passwordField;
     [Header("Buttons")]
     public Button submitButton;
    
@@ -48,7 +49,7 @@ public class Registration : MonoBehaviour
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
                     LocationController.GetInstance().CallGetFavorites();
-                    LoadingScreen.LoadScene("MainMenu");
+                    //LoadingScreen.LoadScene("MainMenu");
                 }
             }
         }
