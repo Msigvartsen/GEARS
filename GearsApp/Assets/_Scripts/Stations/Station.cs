@@ -8,6 +8,8 @@ public class Station
     public int location_ID;
     public int station_NR;
     public int target_ID;
+    public double latitude;
+    public double longitide;
     public int model_ID;
     public string helptext;
     public int score;

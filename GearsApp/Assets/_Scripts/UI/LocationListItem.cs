@@ -18,6 +18,7 @@ public class LocationListItem : MonoBehaviour
     private void Init()
     {
         GetComponentInChildren<Text>().text = location.name;
+        GetComponentInChildren<RawImage>().texture = location.thumbnail;
         listButton = GetComponentInChildren<Button>();
         listButton.onClick.AddListener(OpenLocationTab);
 

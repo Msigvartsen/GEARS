@@ -10,9 +10,7 @@ public class UserController : MonoBehaviour
 {
     private static UserController _instance;
     private string _username;
-
-    private User _currentUser;
-    public User CurrentUser { get => _currentUser; set => _currentUser = value; }
+    public User CurrentUser { get; set; }
 
     public static UserController GetInstance()
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-//REname to LocationModel later
+
 [System.Serializable]
 public class Location
 {
@@ -12,4 +12,6 @@ public class Location
     public double longitude;
     public string information;
     public bool favorite;
+
+    public Texture2D thumbnail;
 }

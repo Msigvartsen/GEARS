@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
-using ConstantsNS;
+using Mapbox.Utils;
+using System;
 
 public class LocationController : MonoBehaviour
 {
@@ -49,7 +50,18 @@ public class LocationController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         StartCoroutine(Request());
-        //StartCoroutine(GetFavorites());
+    }
+
+    public Vector2d GetLatitudeLongitudeFromLocation(Location loc)
+    {
+        if (loc != null)
+            return new Vector2d(loc.latitude, loc.longitude);
+        else
+        {
+            Debug.Log("Error Retreiving Latitude and Longitude from Location, return 0, 0");
+            return new Vector2d(0,0);
+        }
+
     }
 
     public void CallGetFavorites()
@@ -60,7 +72,7 @@ public class LocationController : MonoBehaviour
     IEnumerator Request()
     {
         //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/locations.php"))
-        string path = Constants.PhpPath + "locations.php";
+        string path = ConstantsNS.Constants.PhpPath + "locations.php";
         using (UnityWebRequest request = UnityWebRequest.Get(path))
         {
             yield return request.SendWebRequest();
@@ -85,6 +97,9 @@ public class LocationController : MonoBehaviour
                     Debug.Log("Code:" + res.handler.text);
                     foreach (Location loc in res.objectList)
                     {
+                        Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
+                        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
+                        loc.thumbnail = tex;
                         locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }
@@ -97,7 +112,7 @@ public class LocationController : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
-        string path = Constants.PhpPath + "favorites.php";
+        string path = ConstantsNS.Constants.PhpPath + "favorites.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {
             yield return request.SendWebRequest();
@@ -110,7 +125,7 @@ public class LocationController : MonoBehaviour
             }
             else
             {
-                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req, Constants.JsonSettings);
+                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req, ConstantsNS.Constants.JsonSettings);
 
                 if (res.handler.statusCode == false)
                 {
