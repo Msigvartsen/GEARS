@@ -460,8 +460,8 @@ namespace Mapbox.Unity.Map
                 _vectorData.Factory
             };
 
-            if (Input.location.isEnabledByUser)
-                SetCenterLatitudeLongitude(new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude));
+            //if (Input.location.isEnabledByUser)
+            //    SetCenterLatitudeLongitude(new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude));
 
             InitializeMap(_options);
         }
