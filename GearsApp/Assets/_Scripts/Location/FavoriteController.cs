@@ -8,9 +8,18 @@ using UnityEngine.UI;
 
 public class FavoriteController : MonoBehaviour
 {
+    [SerializeField]
+    private LocationListItem listItem;
+    [SerializeField]
+    private GameObject imagePanel; //For filled/unfilled favorite icon
+
     private void Start()
     {
-        GetComponentInChildren<Toggle>().isOn = GetComponent<LocationListItem>().location.favorite;
+        Debug.Log("Starting Favorite Controller");
+        bool active = listItem.location.favorite;
+        GetComponentInChildren<Toggle>().isOn = active;
+        imagePanel.SetActive(active);
+        //GetComponent<LocationListItem>().location.favorite;
     }
 
     public void CallAddToFavorite()
@@ -20,8 +29,10 @@ public class FavoriteController : MonoBehaviour
 
     IEnumerator AddToFavorite()
     {
-        Location loc = GetComponent<LocationListItem>().location;
+        Debug.Log("CALL FAV");
+        Location loc = listItem.location;
         bool isFavorite = GetComponentInChildren<Toggle>().isOn;
+        isFavorite = true;
         UserController manager = UserController.GetInstance();
 
         WWWForm form = new WWWForm();
