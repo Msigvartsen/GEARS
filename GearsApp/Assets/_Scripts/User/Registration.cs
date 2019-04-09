@@ -15,7 +15,10 @@ public class Registration : MonoBehaviour
     public TMP_InputField passwordField;
     [Header("Buttons")]
     public Button submitButton;
-   
+
+    [SerializeField]
+    private UserProfile userProfile;
+
     public void CallRegister()
     {
         StartCoroutine(Register());

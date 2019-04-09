@@ -15,6 +15,8 @@ public class Login : MonoBehaviour
     public TMP_InputField passwordField;
     [Header("Buttons")]
     public Button loginButton;
+    [SerializeField]
+    private UserProfile userProfile;
 
     public void CallLogin()
     {
@@ -49,11 +51,11 @@ public class Login : MonoBehaviour
                     UserController manager = UserController.GetInstance();
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
+                    Debug.Log("Current USer loggged in: " + req);
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
+                    userProfile.UpdateUserProfileUI();
                     UIController.GetInstance().PanelAnim("Main");
-                    //UIController.GetInstance().ChangeTopTitle("Main");
-                    //LoadingScreen.LoadScene("MainMenu");
                 }
                 else
                 {

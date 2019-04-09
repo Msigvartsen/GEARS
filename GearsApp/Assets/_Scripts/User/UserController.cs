@@ -11,7 +11,10 @@ public class UserController : MonoBehaviour
     private static UserController _instance;
     private string _username;
     public User CurrentUser { get; set; }
+    [SerializeField]
+    private int experienceCapPerLevel = 100;
 
+    
     public static UserController GetInstance()
     {
         return _instance;
@@ -41,6 +44,25 @@ public class UserController : MonoBehaviour
     {
         CurrentUser = user;
     }
+
+    public void UpdateUserExperience(int experience)
+    {
+        CurrentUser.experience += experience;
+        if(CurrentUser.experience >= experienceCapPerLevel)
+        {
+            UpdateUserLevel();
+        }
+    }
+
+    public void UpdateUserLevel()
+    {
+        if(CurrentUser.experience >= experienceCapPerLevel)
+        {
+            CurrentUser.level++;
+            CurrentUser.experience -= experienceCapPerLevel; //resets experience bar
+        }
+    }
+
 
     public void LogOut()
     {
