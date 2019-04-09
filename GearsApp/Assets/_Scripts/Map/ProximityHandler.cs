@@ -8,6 +8,9 @@ public class ProximityHandler : MonoBehaviour
     [SerializeField]
     GameObject focusButton;
 
+    [SerializeField]
+    int maxRange = 1000;
+
     bool inRange = false;
     bool showButton = false;
     LocationController locationController;
@@ -21,6 +24,7 @@ public class ProximityHandler : MonoBehaviour
     {
         locationController = LocationController.GetInstance();
         locations = locationController.locationList.ToArray();
+        focusButton.GetComponent<CanvasGroup>().alpha = 0;
         focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
     }
 
@@ -81,7 +85,7 @@ public class ProximityHandler : MonoBehaviour
 
         for (int i = 0; i < locations.Length; i++)
         {
-            if (CalculateDistanceInMeters((float)locations[i].latitude, (float)locations[i].longitude) < 1000)
+            if (CalculateDistanceInMeters((float)locations[i].latitude, (float)locations[i].longitude) < maxRange)
             {
                 locInRange = locations[i];
                 inRange = true;
@@ -96,9 +100,7 @@ public class ProximityHandler : MonoBehaviour
     {
         if (locationInRange != null)
         {
-            GetComponent<Mapbox.Unity.Map.AbstractMap>().SetCenterLatitudeLongitude(new Mapbox.Utils.Vector2d(locationInRange.latitude, locationInRange.longitude));
-            GetComponent<Mapbox.Unity.Map.AbstractMap>().SetZoom(16.7f);
-            GetComponent<SpawnOnMap>().SetStationMarkers(locationInRange);
+            GetComponent<SpawnOnMap>().MoveCameraToLocation(locationInRange);
         }
     }
 }

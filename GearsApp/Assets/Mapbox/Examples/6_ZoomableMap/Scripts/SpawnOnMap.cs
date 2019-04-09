@@ -12,13 +12,11 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     AbstractMap _map;
 
-    Vector2d[] _locations;
-    Location[] locations;
-
-    GameObject UserMarker;
+    [SerializeField]
+    float _spawnScale = 10f;
 
     [SerializeField]
-    float _spawnScale = 100f;
+    float _stationSize = 5f;
 
     [SerializeField]
     GameObject _markerPrefab;
@@ -29,13 +27,19 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     GameObject _stationPrefab;
 
+    LocationController locationController;
+    Location[] locations;
+    List<Station> stations;
+
     List<GameObject> _spawnedObjects;
     List<GameObject> _spawnedStations;
     GameObject userObject;
-    LocationController locationController;
 
+    Vector2d targetCenter;
 
-
+    bool stationsSpawned = false;
+    bool focusLocation = false;
+    float zoomSpeed = 5f;
 
     void Start()
     {
@@ -46,39 +50,27 @@ public class SpawnOnMap : MonoBehaviour
 
     private void Update()
     {
+        // Update positions for markers based on map movement
         if (_spawnedObjects != null)
         {
-            // Update positions for markers based on map movement
-            int count = _spawnedObjects.Count;
-
-            for (int i = 0; i < count; i++)
-            {
-                var spawnedObject = _spawnedObjects[i];
-                var location = _spawnedObjects[i].GetComponent<MapMarker>().MapMarkerLocation;
-                spawnedObject.transform.localPosition = _map.GeoToWorldPosition(new Vector2d(location.latitude, location.longitude), true);
-                spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-            }
+            UpdateLocationMarkers();
         }
 
+        // Update user marker to check for movement
         if (userObject != null)
         {
-            Vector2d userLoc = LocationServiceNS.LocationService.GetLatitudeLongitude();
-            userObject.transform.localPosition = _map.GeoToWorldPosition(userLoc, true);
-            userObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            UpdateUserMarker();
         }
 
+        // Update positions for station markers
         if (_spawnedStations != null)
         {
-            int count = _spawnedStations.Count;
+            UpdateStationMarkers();
+        }
 
-            for (int i = 0; i < count; i++)
-            {
-                var spawnedStation = _spawnedStations[i];
-                var location = _spawnedStations[i].GetComponent<MapMarker>().MapMarkerLocation;
-                spawnedStation.transform.localPosition = _map.GeoToWorldPosition(new Vector2d(location.latitude, location.longitude), true);
-                spawnedStation.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-            }
-
+        if (focusLocation)
+        {
+            ZoomOnLocation();
         }
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
@@ -100,6 +92,51 @@ public class SpawnOnMap : MonoBehaviour
             }
         }
     }
+
+    private void UpdateUserMarker()
+    {
+        Vector2d userLoc = LocationServiceNS.LocationService.GetLatitudeLongitude();
+        userObject.transform.localPosition = _map.GeoToWorldPosition(userLoc, true);
+        userObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+    }
+
+    private void UpdateLocationMarkers()
+    {
+        for (int i = 0; i < _spawnedObjects.Count; i++)
+        {
+            if (GetComponent<AbstractMap>().Zoom > 4.1f)
+            {
+                _spawnedObjects[i].SetActive(true);
+                GameObject spawnedObject = _spawnedObjects[i];
+                var location = _spawnedObjects[i].GetComponent<MapMarker>().MapMarkerLocation;
+                spawnedObject.transform.localPosition = _map.GeoToWorldPosition(new Vector2d(location.latitude, location.longitude), true);
+                spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            }
+            else
+            {
+                _spawnedObjects[i].SetActive(false);
+            }
+        }
+    }
+
+    private void UpdateStationMarkers()
+    {
+        for (int i = 0; i < _spawnedStations.Count; i++)
+        {
+            if (GetComponent<AbstractMap>().Zoom > 15f)
+            {
+                _spawnedStations[i].SetActive(true);
+                GameObject spawnedStation = _spawnedStations[i];
+                spawnedStation.transform.localPosition = _map.GeoToWorldPosition(new Vector2d(stations[i].latitude, stations[i].longitude), true);
+                spawnedStation.transform.localScale = new Vector3(_stationSize, _stationSize, _stationSize);
+            }
+            else
+            {
+                _spawnedStations[i].SetActive(false);
+            }
+        }
+    }
+
     private void SetMarkers()
     {
         locationController = LocationController.GetInstance();
@@ -126,7 +163,7 @@ public class SpawnOnMap : MonoBehaviour
         if (_userPrefab != null && Input.location.isEnabledByUser)
         {
             Vector2d userLoc = LocationServiceNS.LocationService.GetLatitudeLongitude();
-            SetLocationOnMap(userLoc, _userPrefab);
+            userObject = SetLocationOnMap(userLoc, _userPrefab);
         }
     }
 
@@ -135,24 +172,60 @@ public class SpawnOnMap : MonoBehaviour
         StationController stationController = StationController.GetInstance();
 
         // Add markers for stations connected to selected location
-        _spawnedStations = new List<GameObject>();
-        for (int i = 0; i < stationController.stationList.Count; i++)
+        if (!stationsSpawned)
         {
-            if (stationController.stationList[i].location_ID == location.location_ID)
+            _spawnedStations = new List<GameObject>();
+            stations = new List<Station>();
+
+            foreach (var item in stationController.stationList)
             {
-                Vector2d stationLoc = new Vector2d(stationController.stationList[i].latitude, stationController.stationList[i].longitude);
-                SetLocationOnMap(stationLoc, _stationPrefab, true);
+                if (item.location_ID == location.location_ID)
+                    stations.Add(item);
             }
+
+            foreach (var item in stations)
+            {
+                GameObject go = SetLocationOnMap(new Vector2d(item.latitude, item.longitude), _stationPrefab);
+                go.transform.localScale = new Vector3(_stationSize, _stationSize, _stationSize);
+                go.GetComponentInChildren<TextMesh>().text = "Station " + item.station_NR;
+                _spawnedStations.Add(go);
+            }
+
+            stationsSpawned = true;
         }
     }
 
-    private void SetLocationOnMap(Vector2d loc, GameObject prefab, bool station = false)
+    private GameObject SetLocationOnMap(Vector2d loc, GameObject prefab)
     {
         GameObject go = Instantiate(prefab);
         go.transform.localPosition = _map.GeoToWorldPosition(loc, true);
         go.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 
-        if (station)
-            _spawnedStations.Add(go);
+        return go;
+    }
+
+    public void MoveCameraToLocation(Location loc)
+    {
+        targetCenter = new Vector2d(loc.latitude, loc.longitude);
+        GetComponent<AbstractMap>().UpdateMap(targetCenter);
+
+        SetStationMarkers(loc);
+
+        focusLocation = true;
+    }
+
+    private void ZoomOnLocation()
+    {
+        float targetZoom = 16.7f;
+
+        if (GetComponent<AbstractMap>().Zoom < targetZoom)
+        {
+            GetComponent<AbstractMap>().UpdateMap(targetCenter, GetComponent<AbstractMap>().Zoom + Time.deltaTime * zoomSpeed);
+        }
+        else
+        {
+            focusLocation = false;
+        }
+
     }
 }
