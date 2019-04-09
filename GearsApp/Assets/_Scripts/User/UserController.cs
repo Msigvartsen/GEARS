@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using ConstantsNS;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class UserController : MonoBehaviour
 {
@@ -67,7 +68,10 @@ public class UserController : MonoBehaviour
     public void LogOut()
     {
         CurrentUser = null;
-        LoadingScreen.LoadScene("RegistrationAndLogin");
+        //LoadingScreen.LoadScene("GearsApp");
+        //Scene loadedLevel = SceneManager.GetActiveScene();
+        //SceneManager.LoadScene(loadedLevel.buildIndex);
+        UIController.GetInstance().PanelAnim("LoginOrRegister");
     }
 
     public void CallUpdateUserPicture(int mediaID)

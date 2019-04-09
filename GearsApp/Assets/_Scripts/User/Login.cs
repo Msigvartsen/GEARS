@@ -51,7 +51,6 @@ public class Login : MonoBehaviour
                     UserController manager = UserController.GetInstance();
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
-                    Debug.Log("Current USer loggged in: " + req);
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
                     userProfile.UpdateUserProfileUI();
