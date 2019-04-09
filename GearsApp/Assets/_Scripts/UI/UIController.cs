@@ -102,9 +102,7 @@ public class UIController : MonoBehaviour
             currentButtonAnimator.Play(buttonFadeOut);
             nextButtonAnimator.Play(buttonFadeIn);
 
-            ChangeTopTitle(currentPanel.name);
-            Debug.Log("CurrentIndex: " + currentPanelIndex);
-
+            ChangeTopTitle(nextPanel.name);
         }
     }
 
@@ -134,7 +132,7 @@ public class UIController : MonoBehaviour
             currentButtonAnimator.Play(buttonFadeOut);
             nextButtonAnimator.Play(buttonFadeIn);
 
-            ChangeTopTitle(currentPanel.name);
+            ChangeTopTitle(nextPanel.name);
 
         }
     }
