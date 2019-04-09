@@ -9,6 +9,7 @@ public class LocationListItem : MonoBehaviour
     private GameObject parent;
     private Button listButton;
     public Location location;
+
     [SerializeField]
     private TMPro.TextMeshProUGUI placeName;
     [SerializeField]
@@ -16,15 +17,11 @@ public class LocationListItem : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("START LOCATIONLISTITEM SCRIPT");
         Init();
     }
 
     private void Init()
     {
-        //GameObject textPanel = GameObject.FindGameObjectWithTag("ListItemTextPanel");
-        //TMPro.TextMeshProUGUI[] objects = textPanel.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
-
         float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
         float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
 
@@ -41,35 +38,10 @@ public class LocationListItem : MonoBehaviour
 
         placeName.text = location.name;
         lengthToLocation.text = length;
-        //foreach (var text in objects)
-        //{
-        //    if(text.name == "PlaceName")
-        //    {
-        //        Debug.Log("SETTING NEW NAME: " + location.name + "in " + text.name);
-        //        text.text = location.name;
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("SETTING NEW LENGTH: " + length + "in " + text.name);
-        //        text.text = length;
-        //    }
-        //}
-        //GetComponentInChildren<Text>().text = location.name;
         //GetComponentInChildren<RawImage>().texture = location.thumbnail;
         //listButton = GetComponentInChildren<Button>();
         //listButton.onClick.AddListener(OpenLocationTab);
 
-        //float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
-        //float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
-
-        //if (CalculateDistance(locationLat, locationLong) < 5)
-        //{
-        //    GetComponentsInChildren<Text>()[1].text = "< 5 km";
-        //}
-        //else
-        //{
-        //    GetComponentsInChildren<Text>()[1].text = CalculateDistance(locationLat, locationLong) + " km";
-        //}
     }
 
     private void OpenLocationTab()

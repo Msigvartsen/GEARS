@@ -15,11 +15,9 @@ public class FavoriteController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Starting Favorite Controller");
         bool active = listItem.location.favorite;
         GetComponentInChildren<Toggle>().isOn = active;
         imagePanel.SetActive(active);
-        //GetComponent<LocationListItem>().location.favorite;
     }
 
     public void CallAddToFavorite()
@@ -32,8 +30,8 @@ public class FavoriteController : MonoBehaviour
         Debug.Log("CALL FAV");
         Location loc = listItem.location;
         bool isFavorite = GetComponentInChildren<Toggle>().isOn;
-        isFavorite = true;
         UserController manager = UserController.GetInstance();
+        imagePanel.SetActive(isFavorite);
 
         WWWForm form = new WWWForm();
         form.AddField("number", manager.CurrentUser.telephonenr);
@@ -53,6 +51,7 @@ public class FavoriteController : MonoBehaviour
             if (webRequest.isNetworkError)
             {
                 Debug.Log("Error: " + webRequest.error);
+                imagePanel.SetActive(false);
             }
             else
             {
@@ -63,6 +62,7 @@ public class FavoriteController : MonoBehaviour
 
                 if (handler.statusCode == true)
                 {
+                    
                     loc.favorite = isFavorite;
                 }
             }
