@@ -16,7 +16,7 @@ public class LocationListManager : MonoBehaviour
     {
         parent = transform.gameObject;
         locationArray = LocationController.GetInstance().locationList.ToArray();
-        prefabName = "ListItem";
+        prefabName = "LocationListItem";
         isInitiated = true;
     }
 
@@ -53,9 +53,10 @@ public class LocationListManager : MonoBehaviour
         }
 
         itemList = new GameObject[locations.Length];
-
+        Debug.Log("LENGTH OF LOCATIONS BEFORE CREATING LIST: " + locations.Length);
         for (int i = 0; i < locations.Length; i++)
         {
+            Debug.Log(i + " location " + locations[i].name);
             itemList[i] = GetListItem(i, locations);
         }
     }
@@ -65,12 +66,9 @@ public class LocationListManager : MonoBehaviour
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<LocationListItem>().location = locations[index];
-        if (arrayType == ArrayType.Favorites)
-        {
-            Debug.Log("Favorite List Item index: " + index + locations[index].name);
-        }
-        GameObject favoriteButton = GameObject.FindGameObjectWithTag("FavoriteButton");
-        favoriteButton.GetComponent<Toggle>().isOn = locations[index].favorite;
+        Debug.Log("Location in new prefab = " + locations[index].name);
+        //GameObject favoriteButton = GameObject.FindGameObjectWithTag("FavoriteButton");
+        //favoriteButton.GetComponent<Toggle>().isOn = locations[index].favorite;
 
         return go;
     }

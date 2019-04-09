@@ -24,6 +24,7 @@ TagManager:
   - MapMarker
   - LocationPopupInfo
   - LocationPopupContainer
+  - ListItemTextPanel
   layers:
   - Default
   - TransparentFX
