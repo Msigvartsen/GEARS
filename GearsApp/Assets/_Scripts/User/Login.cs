@@ -51,6 +51,8 @@ public class Login : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
+                    UIController.GetInstance().PanelAnim("Main");
+                    //UIController.GetInstance().ChangeTopTitle("Main");
                     //LoadingScreen.LoadScene("MainMenu");
                 }
                 else

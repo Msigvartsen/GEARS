@@ -50,7 +50,7 @@ public class Registration : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     UIController.GetInstance().PanelAnim("Main");
-                    UIController.GetInstance().ChangeTopTitle("Main");
+                    //UIController.GetInstance().ChangeTopTitle("Main");
                     //LoadingScreen.LoadScene("MainMenu");
                 }
             }

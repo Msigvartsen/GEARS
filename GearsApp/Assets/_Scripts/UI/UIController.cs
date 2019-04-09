@@ -36,9 +36,11 @@ public class UIController : MonoBehaviour
     [Header("TITLE")]
     public Text topTitleText;
 
-    private string panelFadeIn = "Panel In";
-    private string panelFadeOut = "Panel Out";
+    // [Header("PANEL ANIMS")]
+    private string panelFadeIn = "Demo Panel In";
+    private string panelFadeOut = "Demo Panel Out";
 
+    // [Header("BUTTON ANIMS")]
     private string buttonFadeIn = "HB Hover to Pressed";
     private string buttonFadeOut = "HB Pressed to Normal";
 
@@ -64,7 +66,7 @@ public class UIController : MonoBehaviour
         currentButtonAnimator = currentButton.GetComponent<Animator>();
         currentButtonAnimator.Play(buttonFadeIn);
 
-        currentPanel = panelList[0];
+        currentPanel = panelList[currentPanelIndex];
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
     }
@@ -79,7 +81,7 @@ public class UIController : MonoBehaviour
         if (newPanel != currentPanelIndex)
         {
             currentPanel = panelList[currentPanelIndex];
-
+            Debug.Log("CurrentIndex: " + currentPanelIndex);
             currentPanelIndex = newPanel;
             nextPanel = panelList[currentPanelIndex];
 
@@ -99,40 +101,55 @@ public class UIController : MonoBehaviour
 
             currentButtonAnimator.Play(buttonFadeOut);
             nextButtonAnimator.Play(buttonFadeIn);
+
+            ChangeTopTitle(currentPanel.name);
+            Debug.Log("CurrentIndex: " + currentPanelIndex);
+
         }
     }
 
     public void PanelAnim(string newPanel)
     {
+        int index = GetPanelIndexByName(newPanel);
+        if (index != currentPanelIndex)
+        {
+            currentPanel = panelList[currentPanelIndex];
+            currentPanelIndex = index;
+            nextPanel = panelList[currentPanelIndex];
+
+            currentPanelAnimator = currentPanel.GetComponent<Animator>();
+            nextPanelAnimator = nextPanel.GetComponent<Animator>();
+
+            currentPanelAnimator.Play(panelFadeOut);
+            nextPanelAnimator.Play(panelFadeIn);
+
+            currentButton = buttonList[currentButtonlIndex];
+
+            currentButtonlIndex = index;
+            nextButton = buttonList[currentButtonlIndex];
+
+            currentButtonAnimator = currentButton.GetComponent<Animator>();
+            nextButtonAnimator = nextButton.GetComponent<Animator>();
+
+            currentButtonAnimator.Play(buttonFadeOut);
+            nextButtonAnimator.Play(buttonFadeIn);
+
+            ChangeTopTitle(currentPanel.name);
+
+        }
+    }
+
+    private int GetPanelIndexByName(string newPanel)
+    {
         for (int i = 0; i < panelList.Count; i++)
         {
             var panel = panelList[i];
-
             if (panel.name == newPanel)
             {
-                currentPanel = panel;
-
-                currentPanelIndex = i;
-                nextPanel = panelList[currentPanelIndex];
-
-                currentPanelAnimator = currentPanel.GetComponent<Animator>();
-                nextPanelAnimator = nextPanel.GetComponent<Animator>();
-
-                currentPanelAnimator.Play(panelFadeOut);
-                nextPanelAnimator.Play(panelFadeIn);
-
-                currentButton = buttonList[currentButtonlIndex];
-
-                currentButtonlIndex = i;
-                nextButton = buttonList[currentButtonlIndex];
-
-                currentButtonAnimator = currentButton.GetComponent<Animator>();
-                nextButtonAnimator = nextButton.GetComponent<Animator>();
-
-                currentButtonAnimator.Play(buttonFadeOut);
-                nextButtonAnimator.Play(buttonFadeIn);
+                return i;
             }
         }
+        return 0;
     }
 }
 
