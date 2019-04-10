@@ -78,7 +78,6 @@ public class LocationController : MonoBehaviour
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
 
-            Debug.Log("REQUESTED IN LOCATION" + req);
             if (request.isNetworkError)
             {
                 Debug.Log("Error: " + request.error);
@@ -94,7 +93,6 @@ public class LocationController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Code:" + res.handler.text);
                     foreach (Location loc in res.objectList)
                     {
                         Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");

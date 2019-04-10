@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public static class FTPHandler
 {
@@ -79,7 +80,7 @@ public static class FTPHandler
         else
             return null;
     }
-
+    
     private static WebClient ConnectToFTPClient(Uri serverUri)
     {
         if (serverUri.Scheme != Uri.UriSchemeFtp)
@@ -88,8 +89,16 @@ public static class FTPHandler
         }
 
         WebClient request = new WebClient();
-        request.Credentials = new NetworkCredential("bardrg.com_gearsa", "zg5M2o8S8bDkE9iI");
+        var json = Resources.Load <TextAsset>("_Text/credentials");
+        Credentials creds = JsonUtility.FromJson<Credentials>(json.ToString());
+        request.Credentials = new NetworkCredential(creds.servername, creds.password);
 
         return request;
     }
+}
+
+class Credentials
+{
+    public string servername;
+    public string password;
 }
