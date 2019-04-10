@@ -92,7 +92,6 @@ public static class FTPHandler
         var json = Resources.Load <TextAsset>("_Text/credentials");
         Credentials creds = JsonUtility.FromJson<Credentials>(json.ToString());
         request.Credentials = new NetworkCredential(creds.servername, creds.password);
-
         return request;
     }
 }
