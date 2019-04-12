@@ -26,6 +26,7 @@ public class LocationController : MonoBehaviour
         favoriteOutline = Resources.Load<Sprite>("_Icons/star_outline_white");
 
         LocationServiceNS.LocationService.CallUserPermission();
+        LocationServiceNS.LocationService.StartLocationService();
     }
 
     public static LocationController GetInstance()
@@ -96,8 +97,8 @@ public class LocationController : MonoBehaviour
                     foreach (Location loc in res.objectList)
                     {
                         Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
-                        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
-                        loc.thumbnail = tex;
+                        //Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
+                        //loc.thumbnail = tex;
                         locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }

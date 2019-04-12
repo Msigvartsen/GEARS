@@ -57,8 +57,8 @@ public class MediaController : MonoBehaviour
                     {
                         Debug.Log("Media name = " + media.medianame);
                         Uri uri = new Uri(ConstantsNS.Constants.FTPPath + "Media/" + media.mediatype + "/" + media.medianame);
-                        Texture2D image = FTPHandler.DownloadImageFromFTP(uri);
-                        media.image = image;
+                        //Texture2D image = FTPHandler.DownloadImageFromFTP(uri);
+                        //media.image = image;
                         mediaList.Add(media);
                     }
                 }

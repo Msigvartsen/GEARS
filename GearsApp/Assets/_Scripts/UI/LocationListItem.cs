@@ -20,6 +20,25 @@ public class LocationListItem : MonoBehaviour
         Init();
     }
 
+    private void Update()
+    {
+        float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
+        float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
+
+        string length = string.Empty;
+
+        if (CalculateDistance(locationLat, locationLong) < 5)
+        {
+            length = "< 5 km";
+        }
+        else
+        {
+            length = CalculateDistance(locationLat, locationLong).ToString() + " km";
+        }
+
+        lengthToLocation.text = length;
+    }
+
     private void Init()
     {
         float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
