@@ -12,10 +12,10 @@ public class UIPanelController : MonoBehaviour
     [Header("TITLE")]
     public Text topTitleText;
 
-    // [Header("PANEL ANIMS")]
-    private string panelFadeIn = "Demo Panel In";
-    private string panelFadeOut = "Demo Panel Out";
+    private string panelFadeIn = "PanelIn";
+    private string panelFadeOut = "PanelOut";
 
+    private GameObject previousPanel;
     private GameObject currentPanel;
     private GameObject nextPanel;
 
@@ -42,6 +42,7 @@ public class UIPanelController : MonoBehaviour
         if (newPanel != currentPanelIndex)
         {
             currentPanel = panelList[currentPanelIndex];
+            previousPanel = currentPanel;
             currentPanelIndex = newPanel;
             nextPanel = panelList[currentPanelIndex];
 
@@ -51,7 +52,7 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            ChangeTopTitle(nextPanel.name);
+            //ChangeTopTitle(nextPanel.name);
         }
     }
 
@@ -61,6 +62,8 @@ public class UIPanelController : MonoBehaviour
         if (index != currentPanelIndex)
         {
             currentPanel = panelList[currentPanelIndex];
+            previousPanel = currentPanel;
+
             currentPanelIndex = index;
             nextPanel = panelList[currentPanelIndex];
 
@@ -70,9 +73,21 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            ChangeTopTitle(nextPanel.name);
-
+            //ChangeTopTitle(nextPanel.name);
         }
+    }
+
+    public void PanelAnimPreviousPanel()
+    {
+        PanelAnim(previousPanel.name);
+        //currentPanel = GetCurrentPanel();
+        //nextPanel = previousPanel;
+        //previousPanel = currentPanel;
+    }
+
+    private GameObject GetCurrentPanel()
+    {
+        return panelList[currentPanelIndex];
     }
 
     private int GetPanelIndexByName(string newPanel)
