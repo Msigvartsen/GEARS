@@ -15,8 +15,8 @@ public class Login : MonoBehaviour
     public TMP_InputField passwordField;
     [Header("Buttons")]
     public Button loginButton;
-    [SerializeField]
-    private UserProfile userProfile;
+    //[SerializeField]
+    //private UserProfile userProfile;
 
     public void CallLogin()
     {
@@ -53,8 +53,9 @@ public class Login : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
-                    userProfile.UpdateUserProfileUI();
-                    UIController.GetInstance().PanelAnim("Main");
+                    LoadingScreen.LoadScene("Main");
+                    //userProfile.UpdateUserProfileUI();
+                    //UIController.GetInstance().PanelAnim("Main");
                 }
                 else
                 {

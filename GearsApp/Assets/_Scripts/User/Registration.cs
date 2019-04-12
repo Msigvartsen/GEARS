@@ -16,8 +16,8 @@ public class Registration : MonoBehaviour
     [Header("Buttons")]
     public Button submitButton;
 
-    [SerializeField]
-    private UserProfile userProfile;
+    //[SerializeField]
+    //private UserProfile userProfile;
 
     public void CallRegister()
     {
@@ -52,9 +52,10 @@ public class Registration : MonoBehaviour
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
                     LocationController.GetInstance().CallGetFavorites();
-                    UIController.GetInstance().PanelAnim("Main");
+                    LoadingScreen.LoadScene("MainMenu");
+                    //UIController.GetInstance().PanelAnim("Main");
+
                     //UIController.GetInstance().ChangeTopTitle("Main");
-                    //LoadingScreen.LoadScene("MainMenu");
                 }
             }
         }
