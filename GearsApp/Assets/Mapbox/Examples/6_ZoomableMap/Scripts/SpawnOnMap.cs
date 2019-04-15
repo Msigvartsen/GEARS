@@ -86,6 +86,11 @@ public class SpawnOnMap : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<MapMarker>().SpawnLocationPopupInfo();
                 }
+
+                if (hit.collider.gameObject.tag == "StationMarker")
+                {
+                    hit.collider.gameObject.GetComponent<StationMarker>().SpawnStationPoputInfo();
+                }
             }
             else
             {
@@ -105,7 +110,7 @@ public class SpawnOnMap : MonoBehaviour
     {
         for (int i = 0; i < _spawnedObjects.Count; i++)
         {
-            if (GetComponent<AbstractMap>().Zoom > 4.1f)
+            if (GetComponent<AbstractMap>().Zoom > 4f)
             {
                 _spawnedObjects[i].SetActive(true);
                 GameObject spawnedObject = _spawnedObjects[i];
@@ -124,7 +129,7 @@ public class SpawnOnMap : MonoBehaviour
     {
         for (int i = 0; i < _spawnedStations.Count; i++)
         {
-            if (GetComponent<AbstractMap>().Zoom > 15f)
+            if (GetComponent<AbstractMap>().Zoom > 13.5f)
             {
                 _spawnedStations[i].SetActive(true);
                 GameObject spawnedStation = _spawnedStations[i];
@@ -187,6 +192,9 @@ public class SpawnOnMap : MonoBehaviour
             foreach (var item in stations)
             {
                 GameObject go = SetLocationOnMap(new Vector2d(item.latitude, item.longitude), _stationPrefab);
+                var stationMarker = go.GetComponent<StationMarker>();
+                stationMarker.StationMarkerStation = item;
+
                 go.transform.localScale = new Vector3(_stationSize, _stationSize, _stationSize);
                 go.GetComponentInChildren<TextMesh>().text = "Station " + item.station_NR;
                 _spawnedStations.Add(go);
@@ -217,7 +225,7 @@ public class SpawnOnMap : MonoBehaviour
 
     private void ZoomOnLocation()
     {
-        float targetZoom = 16.7f;
+        float targetZoom = 16f;
 
         if (GetComponent<AbstractMap>().Zoom < targetZoom)
         {
