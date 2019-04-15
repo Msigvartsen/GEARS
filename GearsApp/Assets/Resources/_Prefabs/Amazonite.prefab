@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5030217693361721534}
   - component: {fileID: 6837024776853868038}
   - component: {fileID: 8805592564847950689}
-  - component: {fileID: 1016803249478742913}
+  - component: {fileID: 1609792628492427087}
   m_Layer: 0
   m_Name: Stone_layers
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5898509639432023387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3700681712388404263}
   m_RootOrder: 0
@@ -78,7 +78,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1016803249478742913
+--- !u!65 &1609792628492427087
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,8 +89,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 19.866611, y: 16.580824, z: 34.093094}
-  m_Center: {x: -2.8805757, y: 8.518704, z: 1.1341057}
+  m_Size: {x: 0.9933306, y: 0.82904124, z: 1.7046547}
+  m_Center: {x: -0.1440288, y: 0.4259352, z: 0.056705296}
 --- !u!1 &7537227980249766617
 GameObject:
   m_ObjectHideFlags: 0

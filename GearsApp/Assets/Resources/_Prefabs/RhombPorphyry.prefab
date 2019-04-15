@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1320852912182947325}
   - component: {fileID: 1851628662542496491}
   - component: {fileID: 8701269897856868286}
-  - component: {fileID: 3350004464436303535}
+  - component: {fileID: 4830943110821762170}
   m_Layer: 0
   m_Name: Stone_RedVolcano
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 3603870856981396532}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.3, z: -0.54}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5211669993119610424}
   m_RootOrder: 0
@@ -71,7 +71,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603870856981396532}
-  m_Mesh: {fileID: 4300000, guid: 9c267ada13a233e41a8b4d53e12104f6, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 36e029d28a26d2e4585a4fb2878d1549, type: 3}
 --- !u!23 &8701269897856868286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3350004464436303535
+--- !u!65 &4830943110821762170
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,5 +120,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 26.50657, y: 22.27436, z: 21.18278}
-  m_Center: {x: 1.374855, y: -3.5325193, z: 10.78192}
+  m_Size: {x: 1.3253286, y: 1.113718, z: 1.059139}
+  m_Center: {x: 0.06874275, y: -0.17662597, z: 0.539096}
