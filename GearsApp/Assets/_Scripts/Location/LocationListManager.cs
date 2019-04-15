@@ -24,10 +24,10 @@ public class LocationListManager : MonoBehaviour
     public void AddLocationList()
     {
         if (!isInitiated)
-        {
             Init();
-            UpdateLocationList();
-        }
+
+        UpdateLocationList();
+        
     }
 
     private void UpdateLocationList()
