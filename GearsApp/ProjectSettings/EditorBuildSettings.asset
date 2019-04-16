@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/__Scenes/Mapbox.unity
     guid: 8040f216808d75342a9bb9b5905843e4
-  - enabled: 0
+  - enabled: 1
     path: Assets/__Scenes/GearsApp.unity
     guid: 2ea46f813cefdeb42b6f798a72185f9f
   m_configObjects: {}
