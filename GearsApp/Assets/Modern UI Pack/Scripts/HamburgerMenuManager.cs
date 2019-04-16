@@ -20,6 +20,7 @@ namespace Michsky.UI.ModernUIPack
         void Start()
         {
             menuAnimator = gameObject.GetComponent<Animator>();
+
             title.text = titleAtStart;
 
             if(openAtStart == true)

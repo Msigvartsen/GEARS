@@ -80,9 +80,6 @@ public class UIPanelController : MonoBehaviour
     public void PanelAnimPreviousPanel()
     {
         PanelAnim(previousPanel.name);
-        //currentPanel = GetCurrentPanel();
-        //nextPanel = previousPanel;
-        //previousPanel = currentPanel;
     }
 
     private GameObject GetCurrentPanel()
