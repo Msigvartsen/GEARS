@@ -1,24 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangePanel : MonoBehaviour
 {
     [SerializeField]
-    private GameObject loginPanel;
+    private GameObject newPanel;
     [SerializeField]
-    private GameObject registerPanel;
+    private GameObject previousPanel;
 
-    public void Login()
+    private void Start()
     {
-        loginPanel.SetActive(true);
-        registerPanel.SetActive(false);
+        if (GetComponent<Toggle>().isOn)
+            SetNewActivePanel();
     }
-    public void Register()
+
+    public void SetNewActivePanel()
     {
-        registerPanel.SetActive(true);
-        loginPanel.SetActive(false);
-        
+        newPanel.SetActive(true);
+        previousPanel.SetActive(false);
     }
 }
 
