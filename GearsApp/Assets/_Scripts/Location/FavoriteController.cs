@@ -12,11 +12,14 @@ public class FavoriteController : MonoBehaviour
     private LocationListItem listItem;
     [SerializeField]
     private GameObject imagePanel; //For filled/unfilled favorite icon
+    [SerializeField]
+    private Toggle toggleButton;
 
     private void Start()
     {
         bool active = listItem.location.favorite;
-        GetComponentInChildren<Toggle>().isOn = active;
+        if (toggleButton != null)
+            toggleButton.isOn = active;
         imagePanel.SetActive(active);
     }
 
@@ -29,7 +32,7 @@ public class FavoriteController : MonoBehaviour
     {
         Debug.Log("CALL FAV");
         Location loc = listItem.location;
-        bool isFavorite = GetComponentInChildren<Toggle>().isOn;
+        bool isFavorite = toggleButton.isOn;
         UserController manager = UserController.GetInstance();
         imagePanel.SetActive(isFavorite);
 
@@ -62,7 +65,6 @@ public class FavoriteController : MonoBehaviour
 
                 if (handler.statusCode == true)
                 {
-                    
                     loc.favorite = isFavorite;
                 }
             }

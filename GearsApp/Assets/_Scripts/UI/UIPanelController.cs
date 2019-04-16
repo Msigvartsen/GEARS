@@ -52,7 +52,8 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            ChangeTopTitle(nextPanel.name);
+            if (topTitleText != null)
+                ChangeTopTitle(nextPanel.name);
         }
     }
 
@@ -73,7 +74,8 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            ChangeTopTitle(nextPanel.name);
+            if (topTitleText != null)
+                ChangeTopTitle(nextPanel.name);
         }
     }
 

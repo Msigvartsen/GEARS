@@ -22,21 +22,21 @@ public class LocationListItem : MonoBehaviour
 
     private void Update()
     {
-        float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
-        float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
+        //float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
+        //float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
 
-        string length = string.Empty;
+        //string length = string.Empty;
 
-        if (CalculateDistance(locationLat, locationLong) < 5)
-        {
-            length = "< 5 km";
-        }
-        else
-        {
-            length = CalculateDistance(locationLat, locationLong).ToString() + " km";
-        }
+        //if (CalculateDistance(locationLat, locationLong) < 5)
+        //{
+        //    length = "< 5 km";
+        //}
+        //else
+        //{
+        //    length = CalculateDistance(locationLat, locationLong).ToString() + " km";
+        //}
 
-        lengthToLocation.text = length;
+        //lengthToLocation.text = length;
     }
 
     private void Init()
@@ -45,15 +45,22 @@ public class LocationListItem : MonoBehaviour
         float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
 
         string length = string.Empty;
-
-        if (CalculateDistance(locationLat, locationLong) < 5)
+        if(Input.location.isEnabledByUser)
         {
-            length = "< 5 km";
+            if (CalculateDistance(locationLat, locationLong) < 5)
+            {
+                length = "< 5 km";
+            }
+            else
+            {
+                length = CalculateDistance(locationLat, locationLong).ToString() + " km";
+            }
         }
         else
         {
-            length = CalculateDistance(locationLat, locationLong).ToString() + " km";
+            length = "Location status not found";
         }
+        
 
         placeName.text = location.name;
         lengthToLocation.text = length;

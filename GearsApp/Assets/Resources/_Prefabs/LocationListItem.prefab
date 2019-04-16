@@ -641,6 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItem: {fileID: 3162642276121484870}
   imagePanel: {fileID: 7016534620971619558}
+  toggleButton: {fileID: 1494982257910956602}
 --- !u!1 &7016534622424973909
 GameObject:
   m_ObjectHideFlags: 0
