@@ -10,7 +10,7 @@ public class UIPanelController : MonoBehaviour
     public List<GameObject> panelList = new List<GameObject>();
 
     [Header("TITLE")]
-    public Text topTitleText;
+    public TMPro.TextMeshProUGUI topTitleText;
 
     private string panelFadeIn = "PanelIn";
     private string panelFadeOut = "PanelOut";
@@ -52,7 +52,7 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            //ChangeTopTitle(nextPanel.name);
+            ChangeTopTitle(nextPanel.name);
         }
     }
 
@@ -73,7 +73,7 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            //ChangeTopTitle(nextPanel.name);
+            ChangeTopTitle(nextPanel.name);
         }
     }
 
