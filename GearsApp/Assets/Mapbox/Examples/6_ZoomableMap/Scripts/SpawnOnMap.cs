@@ -27,6 +27,9 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     GameObject _stationPrefab;
 
+    [SerializeField]
+    GameObject _moveToUserPositionButton;
+
     LocationController locationController;
     Location[] locations;
     List<Station> stations;
@@ -39,13 +42,11 @@ public class SpawnOnMap : MonoBehaviour
 
     bool stationsSpawned = false;
     bool focusLocation = false;
+    bool focusUser = false;
     float zoomSpeed = 5f;
 
     void Start()
     {
-        //LocationServiceNS.LocationService.CallUserPermission();
-        //StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
-        //Invoke("SetMarkers", 2); // Temporary:  needs a delay to retreive locations first.
         SetMarkers();
     }
 
@@ -72,6 +73,11 @@ public class SpawnOnMap : MonoBehaviour
         if (focusLocation)
         {
             ZoomOnLocation();
+        }
+
+        if (focusUser)
+        {
+            FocusUserPosition();
         }
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
@@ -171,6 +177,8 @@ public class SpawnOnMap : MonoBehaviour
             Vector2d userLoc = LocationServiceNS.LocationService.GetLatitudeLongitude();
             userObject = SetLocationOnMap(userLoc, _userPrefab);
         }
+
+        _moveToUserPositionButton.GetComponent<Button>().onClick.AddListener(EnableFocusUser);
     }
 
     public void SetStationMarkers(Location location)
@@ -236,5 +244,26 @@ public class SpawnOnMap : MonoBehaviour
             focusLocation = false;
         }
 
+    }
+
+    private void FocusUserPosition()
+    {
+        float targetZoom = 12f;
+        targetCenter = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
+
+        if (GetComponent<AbstractMap>().Zoom < targetZoom)
+        {
+            GetComponent<AbstractMap>().UpdateMap(targetCenter, GetComponent<AbstractMap>().Zoom + Time.deltaTime * zoomSpeed);
+        }
+        else
+        {
+            GetComponent<AbstractMap>().UpdateMap(targetCenter);
+            focusUser = false;
+        }
+    }
+
+    private void EnableFocusUser()
+    {
+        focusUser = true;
     }
 }

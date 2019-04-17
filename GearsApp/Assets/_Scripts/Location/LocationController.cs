@@ -98,8 +98,8 @@ public class LocationController : MonoBehaviour
                     foreach (Location loc in res.objectList)
                     {
                         Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
-                        //Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
-                        //loc.thumbnail = tex;
+                        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
+                        loc.thumbnail = tex;
                         locationList.Add(loc);
                         Debug.Log("Locs = " + loc.name);
                     }
