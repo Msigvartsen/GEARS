@@ -117,7 +117,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1494982257910956602
+--- !u!114 &5849532372653705291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7015255507570503004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 2109663825, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -154,10 +154,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6973904799427545580}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7248903257296811298}
@@ -171,9 +168,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
+      - m_Target: {fileID: 3162642276121484870}
+        m_MethodName: UpdateFavorite
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
 --- !u!1 &7016534620971619558
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +594,7 @@ MonoBehaviour:
     information: 
     favorite: 0
     thumbnail: {fileID: 0}
+  imagePanel: {fileID: 7016534622171913471}
   placeName: {fileID: 7016534622424973911}
   lengthToLocation: {fileID: 7016534621053138479}
 --- !u!1 &7016534622175884091
@@ -641,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItem: {fileID: 3162642276121484870}
   imagePanel: {fileID: 7016534620971619558}
-  toggleButton: {fileID: 1494982257910956602}
+  toggleButton: {fileID: 0}
 --- !u!1 &7016534622424973909
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,8 @@ public class LocationListItem : MonoBehaviour
     private GameObject parent;
     private Button listButton;
     public Location location;
-
+    [SerializeField]
+    private GameObject imagePanel;
     [SerializeField]
     private TMPro.TextMeshProUGUI placeName;
     [SerializeField]
@@ -22,30 +23,28 @@ public class LocationListItem : MonoBehaviour
 
     private void Update()
     {
-        //float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
-        //float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
-
-        //string length = string.Empty;
-
-        //if (CalculateDistance(locationLat, locationLong) < 5)
-        //{
-        //    length = "< 5 km";
-        //}
-        //else
-        //{
-        //    length = CalculateDistance(locationLat, locationLong).ToString() + " km";
-        //}
-
-        //lengthToLocation.text = length;
+        //DistanceBewteenUserAndLocation();
     }
 
     private void Init()
+    {
+        string length = DistanceBetweenUserAndLocation();
+
+        placeName.text = location.name;
+        lengthToLocation.text = length;
+        //GetComponentInChildren<RawImage>().texture = location.thumbnail;
+        //listButton = GetComponentInChildren<Button>();
+        //listButton.onClick.AddListener(OpenLocationTab);
+
+    }
+
+    private string DistanceBetweenUserAndLocation()
     {
         float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
         float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
 
         string length = string.Empty;
-        if(Input.location.isEnabledByUser)
+        if (Input.location.isEnabledByUser)
         {
             if (CalculateDistance(locationLat, locationLong) < 5)
             {
@@ -60,14 +59,19 @@ public class LocationListItem : MonoBehaviour
         {
             length = "Location status not found";
         }
-        
 
-        placeName.text = location.name;
-        lengthToLocation.text = length;
-        //GetComponentInChildren<RawImage>().texture = location.thumbnail;
-        //listButton = GetComponentInChildren<Button>();
-        //listButton.onClick.AddListener(OpenLocationTab);
+        return length;
+    }
 
+    public void UpdateFavorite()
+    {
+        Debug.Log("Update favorite");
+        if (transform.parent.GetComponent<LocationListManager>().displayFavoriteOnly)
+        {
+            Debug.Log("Hide favorite");
+
+            imagePanel.SetActive(false);
+        }
     }
 
     private void OpenLocationTab()

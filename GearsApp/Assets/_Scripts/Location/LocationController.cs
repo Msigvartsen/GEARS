@@ -44,7 +44,7 @@ public class LocationController : MonoBehaviour
         {
             _instance = this;
         }
-        if(locationList == null)
+        if (locationList == null)
         {
             locationList = new List<Location>();
         }
@@ -60,9 +60,26 @@ public class LocationController : MonoBehaviour
         else
         {
             Debug.Log("Error Retreiving Latitude and Longitude from Location, return 0, 0");
-            return new Vector2d(0,0);
+            return new Vector2d(0, 0);
         }
 
+    }
+
+    public void ResetFavorites()
+    {
+        foreach(Location loc in locationList)
+        {
+            loc.favorite = false;
+        }
+    }
+
+    public void UpdateLocation(Location updatedLocation)
+    {
+        for(int i = 0; i < locationList.Count; i++)
+        {
+            if(locationList[i].location_ID == updatedLocation.location_ID)
+                locationList[i] = updatedLocation;
+        }
     }
 
     public void CallGetFavorites()
@@ -134,20 +151,33 @@ public class LocationController : MonoBehaviour
                 {
                     foreach (Location loc in res.objectList)
                     {
-                        foreach(Location location in locationList)
+                        for (int i = 0; i < locationList.Count; i++)
                         {
-                            if(location.location_ID == loc.location_ID)
+                            int locationID = locationList[i].location_ID;
+                            if (locationID == loc.location_ID)
                             {
-                                location.favorite = true;
+                                locationList[i].favorite = true;
                             }
-                            else
-                            {
-                                location.favorite = false;
-                            }
+                            //else
+                            //{
+                            //    locationList[i].favorite = false;
+                            //}
                         }
+                        //foreach(Location location in locationList)
+                        //{
+                        //    if(location.location_ID == loc.location_ID)
+                        //    {
+                        //        location.favorite = true;
+                        //        Debug.Log("Location: " + location.name + " = " + location.favorite);
+                        //    }
+                        //    else
+                        //    {
+                        //        location.favorite = false;
+                        //    }
                     }
                 }
             }
         }
     }
 }
+

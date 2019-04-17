@@ -12,6 +12,7 @@ public class LocationListManager : MonoBehaviour
     private Location[] locationArray;
     private string prefabName;
     private bool isInitiated = false;
+    public bool displayFavoriteOnly = false;
 
     private void Init()
     {
@@ -28,11 +29,48 @@ public class LocationListManager : MonoBehaviour
             Init();
             UpdateLocationList();
         }
-
     }
+
+    public void ToggleFavoriteList()
+    {
+        displayFavoriteOnly = !displayFavoriteOnly;
+
+        if (displayFavoriteOnly)
+        {
+            foreach (var item in itemList)
+            {
+                if (item.GetComponent<LocationListItem>().location.favorite)
+                {
+                    item.SetActive(true);
+                }
+                else
+                {
+                    item.SetActive(false);
+                }
+            }
+
+        }
+        else
+        {
+            foreach (var item in itemList)
+            {
+                item.SetActive(true);
+            }
+        }
+    }
+
+
     public void UpdateFavorites()
     {
-        //List<Location> list = GetFavoriteList();
+        foreach (var item in itemList)
+        {
+            if (arrayType == ArrayType.Favorites)
+            {
+                item.SetActive(item.GetComponent<LocationListItem>().location.favorite);
+            }
+        }
+        List<Location> list = GetFavoriteList();
+
         Debug.Log("UPDATE FAV LIST)");
         Location[] locations = GetFavoriteList().ToArray();
         bool isActive = false;
@@ -53,6 +91,10 @@ public class LocationListManager : MonoBehaviour
                 go.GetComponent<LocationListItem>().location = fav;
                 itemList.Add(go);
                 isActive = false;
+            }
+            else
+            {
+
             }
         }
     }
@@ -89,7 +131,6 @@ public class LocationListManager : MonoBehaviour
         for (int i = 0; i < locations.Length; i++)
         {
             Debug.Log(i + " location " + locations[i].name);
-            //itemList[i] = GetListItem(i, locations);
             itemList.Add(GetListItem(i, locations));
         }
     }
@@ -99,6 +140,10 @@ public class LocationListManager : MonoBehaviour
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<LocationListItem>().location = locations[index];
+        if (arrayType == ArrayType.Favorites)
+        {
+            go.SetActive(go.GetComponent<LocationListItem>().location.favorite);
+        }
         Debug.Log("Location in new prefab = " + locations[index].name);
 
         return go;

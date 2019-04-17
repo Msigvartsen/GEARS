@@ -9,14 +9,9 @@ using TMPro;
 public class Login : MonoBehaviour
 {
     [Header("Input Fields")]
-    //public InputField usernameField;
-    //public InputField passwordField;
     public TMP_InputField usernameField;
     public TMP_InputField passwordField;
-    [Header("Buttons")]
-    public Button loginButton;
-    //[SerializeField]
-    //private UserProfile userProfile;
+
 
     public void CallLogin()
     {

@@ -14,13 +14,12 @@ public class FavoriteController : MonoBehaviour
     private GameObject imagePanel; //For filled/unfilled favorite icon
     [SerializeField]
     private Toggle toggleButton;
+    private bool isFavorite;
 
     private void Start()
     {
-        bool active = listItem.location.favorite;
-        if (toggleButton != null)
-            toggleButton.isOn = active;
-        imagePanel.SetActive(active);
+        isFavorite = listItem.location.favorite;
+        imagePanel.SetActive(isFavorite);
     }
 
     public void CallAddToFavorite()
@@ -30,11 +29,11 @@ public class FavoriteController : MonoBehaviour
 
     IEnumerator AddToFavorite()
     {
-        Debug.Log("CALL FAV");
-        Location loc = listItem.location;
-        bool isFavorite = toggleButton.isOn;
-        UserController manager = UserController.GetInstance();
+        isFavorite = !isFavorite;
         imagePanel.SetActive(isFavorite);
+        Location loc = listItem.location;
+        UserController manager = UserController.GetInstance();
+        
 
         WWWForm form = new WWWForm();
         form.AddField("number", manager.CurrentUser.telephonenr);
@@ -54,18 +53,17 @@ public class FavoriteController : MonoBehaviour
             if (webRequest.isNetworkError)
             {
                 Debug.Log("Error: " + webRequest.error);
-                imagePanel.SetActive(false);
             }
             else
             {
                 string req = webRequest.downloadHandler.text;
-                Debug.Log("FAVORITE: + " + req);
                 LocationController locManager = LocationController.GetInstance();
                 PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req, Constants.JsonSettings);
 
                 if (handler.statusCode == true)
                 {
                     loc.favorite = isFavorite;
+                    LocationController.GetInstance().UpdateLocation(loc);
                 }
             }
         }
