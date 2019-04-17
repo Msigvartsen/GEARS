@@ -64,46 +64,51 @@ public class PlaneFinderManager : MonoBehaviour
 
         if (transform.parent.name == "ARPanel")
         {
-            closestStation = GetClosestStation();
-
-            if (closestStation != null)
+            // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
+            if (CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) * 1000 < 25)
             {
-                // Check if the user in close enough to the station to view its content
-                if (CheckDistanceToStation(closestStation, 18))
+                closestStation = GetClosestStation();
+
+                if (closestStation != null)
                 {
-                    htm.DisableButton();
-                    LoadModelAtStation(closestStation);
-
-                    // Check if the model has been placed on the ground
-                    if (CheckForActiveChildren())
+                    // Check if the user in close enough to the station to view its content
+                    if (CheckDistanceToStation(closestStation, 18))
                     {
-                        // The user has now "Scanned" a station. Update this data to database
-                        UpdateStationData(closestStation);
+                        htm.DisableButton();
+                        LoadModelAtStation(closestStation);
 
-                        // Disable user input regarding placing the model
-                        TurnOffInputOnGround();
+                        // Check if the model has been placed on the ground
+                        if (CheckForActiveChildren())
+                        {
+                            // The user has now "Scanned" a station. Update this data to database
+                            UpdateStationData(closestStation);
+
+                            // Disable user input regarding placing the model
+                            TurnOffInputOnGround();
+                        }
+                        else
+                        {
+                            // Enable user to scan and place the model on the ground
+                            TurnOnInputOnGround();
+                        }
                     }
                     else
                     {
-                        // Enable user to scan and place the model on the ground
-                        TurnOnInputOnGround();
+                        TurnOffInputOnGround();
+                        htm.SetHelpText((int)Help.DISTANCE);
+                        htm.EnableButton();
+                        htm.FadeInHelpText();
                     }
-                }
-                else
-                {
-                    TurnOffInputOnGround();
-                    htm.SetHelpText((int)Help.DISTANCE);
-                    htm.EnableButton();
-                    htm.FadeInHelpText();
                 }
             }
         }
     }
 
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
+
     private void UpdateStationData(Station station)
     {
+        // Update database with userprogress
         for (int i = 0; i < stationController.stationList.Count; i++)
         {
             if (station.station_NR == stationController.stationList[i].station_NR && station.location_ID == stationController.stationList[i].location_ID)
@@ -121,6 +126,7 @@ public class PlaneFinderManager : MonoBehaviour
         int lowestDistance = 0;
         int indexToReturn = -1;
 
+        // Find the station closest to the users position
         for (int i = 0; i < stationsAtLocation.Count; i++)
         {
             currentDistance = (int)CalculateDistanceInMeters((float)stationsAtLocation[i].latitude, (float)stationsAtLocation[i].longitude);
@@ -166,6 +172,7 @@ public class PlaneFinderManager : MonoBehaviour
 
     private bool CheckDistanceToStation(Station station, int range)
     {
+        // Check if the distance to the station is close enough
         double distance = CalculateDistanceInMeters((float)station.latitude, (float)station.longitude);
 
         if (distance < range)
