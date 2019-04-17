@@ -65,7 +65,7 @@ public class PlaneFinderManager : MonoBehaviour
         if (transform.parent.name == "ARPanel")
         {
             // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
-            if (CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) * 1000 < 25)
+            if ( (int) CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) / 1000 < 25)
             {
                 closestStation = GetClosestStation();
 
@@ -85,6 +85,7 @@ public class PlaneFinderManager : MonoBehaviour
 
                             // Disable user input regarding placing the model
                             TurnOffInputOnGround();
+                            htm.FadeOutHelpText();
                         }
                         else
                         {
@@ -100,6 +101,13 @@ public class PlaneFinderManager : MonoBehaviour
                         htm.FadeInHelpText();
                     }
                 }
+            }
+            else
+            {
+                TurnOffInputOnGround();
+                htm.SetHelpText((int)Help.LOCATION_DISTANCE);
+                htm.EnableButton();
+                htm.FadeInHelpText();
             }
         }
     }
@@ -286,7 +294,6 @@ public class PlaneFinderManager : MonoBehaviour
         planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = false;
         planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(false);
         groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = false;
-        htm.FadeOutHelpText();
     }
 
     private void TurnOnInputOnGround()

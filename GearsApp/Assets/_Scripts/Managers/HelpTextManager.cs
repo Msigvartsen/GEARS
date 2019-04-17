@@ -9,7 +9,8 @@ public enum Help
     SEARCH,
     PLACE,
     DISTANCE,
-    STATION_PLACEMENT
+    STATION_PLACEMENT,
+    LOCATION_DISTANCE
 };
 
 public class HelpTextManager : MonoBehaviour
@@ -54,10 +55,13 @@ public class HelpTextManager : MonoBehaviour
                 messageText = "Tap to place the model on the indicator";
                 break;
             case (int) Help.DISTANCE:
-                messageText = "Too far away from nearest station, tap here to see map";
+                messageText = "Too far away from nearest station, tap here to see the map";
                 break;
-            case (int)Help.STATION_PLACEMENT:
+            case (int) Help.STATION_PLACEMENT:
                 messageText = "Look around and find *this* to get the best experience, then tap the screen";
+                break;
+            case (int) Help.LOCATION_DISTANCE:
+                messageText = "Not close enough to selected location, tap here to see the map";
                 break;
             default:
                 messageText = "Look here for tips and help";
