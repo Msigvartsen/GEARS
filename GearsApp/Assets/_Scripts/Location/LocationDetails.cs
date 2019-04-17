@@ -7,9 +7,20 @@ using System;
 
 public class LocationDetails : MonoBehaviour
 {
+    [Header("Text")]
+    [SerializeField]
+    private TMPro.TextMeshProUGUI locationNameText;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI InfoText;
+    //[SerializeField]
+    //private RawImage[] imagePanel; //Update ImagePanel with correct images from location
+    private Location currentLocation;
+
     private void Start()
     {
-        StartCoroutine(UpdateInfoText());
+        currentLocation = LocationController.GetInstance().CurrentLocation;
+        locationNameText.text = currentLocation.name;
+        //StartCoroutine(UpdateInfoText());
     }
 
     IEnumerator UpdateInfoText()

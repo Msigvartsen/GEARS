@@ -30,11 +30,13 @@ public class UIPanelController : MonoBehaviour
         currentPanel = panelList[currentPanelIndex];
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
+        ChangeTopTitle(currentPanel.name);
     }
 
     public void ChangeTopTitle(string newTitle)
     {
-        topTitleText.text = newTitle;
+        if (topTitleText != null)
+            topTitleText.text = newTitle;
     }
 
     public void PanelAnim(int newPanel)
@@ -52,8 +54,8 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            if (topTitleText != null)
-                ChangeTopTitle(nextPanel.name);
+
+            ChangeTopTitle(nextPanel.name);
         }
     }
 
@@ -74,8 +76,7 @@ public class UIPanelController : MonoBehaviour
             currentPanelAnimator.Play(panelFadeOut);
             nextPanelAnimator.Play(panelFadeIn);
 
-            if (topTitleText != null)
-                ChangeTopTitle(nextPanel.name);
+            ChangeTopTitle(nextPanel.name);
         }
     }
 

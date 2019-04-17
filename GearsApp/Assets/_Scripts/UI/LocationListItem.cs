@@ -74,11 +74,12 @@ public class LocationListItem : MonoBehaviour
         }
     }
 
-    private void OpenLocationTab()
+    public void OpenLocationTab()
     {
+        Debug.Log("BUTTON PRESSED");
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = location;
-        LoadingScreen.LoadScene("Location");
+        LoadingScreen.LoadScene("LocationNew");
     }
 
     private double CalculateDistance(float locationLat, float locationLong)

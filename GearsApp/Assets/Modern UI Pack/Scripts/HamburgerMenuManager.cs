@@ -25,14 +25,18 @@ namespace Michsky.UI.ModernUIPack
 
             if(openAtStart == true)
             {
-                menuAnimator.Play("Expand");
+                if(menuAnimator != null)
+                    menuAnimator.Play("Expand");
+
                 animatedButton.Play("HTE Expand");
                 isOpen = true;
             }
 
             else
             {
-                menuAnimator.Play("Minimize");
+                if (menuAnimator != null)
+                    menuAnimator.Play("Minimize");
+
                 animatedButton.Play("HTE Hamburger");
                 isOpen = false;
             }
@@ -42,14 +46,18 @@ namespace Michsky.UI.ModernUIPack
         {
             if (isOpen == true)
             {
-                menuAnimator.Play("Minimize");
+                if (menuAnimator != null)
+                    menuAnimator.Play("Minimize");
+
                 animatedButton.Play("HTE Hamburger");
                 isOpen = false;
             }
 
             else
-            {          
-                menuAnimator.Play("Expand");
+            {
+                if (menuAnimator != null)
+                    menuAnimator.Play("Expand");
+
                 animatedButton.Play("HTE Exit");
                 isOpen = true;
             }
