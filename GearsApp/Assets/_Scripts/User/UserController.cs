@@ -69,10 +69,7 @@ public class UserController : MonoBehaviour
     {
         CurrentUser = null;
         LocationController.GetInstance().ResetFavorites();
-        LoadingScreen.LoadScene("GearsApp");
-        //Scene loadedLevel = SceneManager.GetActiveScene();
-        //SceneManager.LoadScene(loadedLevel.buildIndex);
-        //UIController.GetInstance().PanelAnim("LoginOrRegister");
+        LoadingScreen.LoadScene("RegistrationAndLogin");
     }
 
     public void CallUpdateUserPicture(int mediaID)
@@ -143,8 +140,7 @@ public class UserController : MonoBehaviour
                 }
                 else
                 {
-                    CurrentUser = null;
-                    LoadingScreen.LoadScene("RegistrationAndLogin");
+                    LogOut();
                 }
             }
         }
