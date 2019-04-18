@@ -2055,7 +2055,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameField: {fileID: 216123689}
   passwordField: {fileID: 68557062}
-  loginButton: {fileID: 0}
 --- !u!1 &639409168
 GameObject:
   m_ObjectHideFlags: 0

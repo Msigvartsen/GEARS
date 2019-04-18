@@ -10,11 +10,12 @@ public class ImageListItem : MonoBehaviour
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(UpdateProfilePicture);
+        GetComponent<Button>().onClick.AddListener(CloseProfilePictureWindow);
     }
 
     public void RefreshImage()
     {
-        if(media != null)
+        if (media != null)
         {
             GetComponent<RawImage>().texture = media.image;
         }
@@ -23,16 +24,23 @@ public class ImageListItem : MonoBehaviour
     public void UpdateProfilePicture()
     {
         UserController uc = UserController.GetInstance();
-        GameObject profilePicture = GameObject.FindGameObjectWithTag("ProfilePicture");
+        GameObject[] profilePictures = GameObject.FindGameObjectsWithTag("ProfilePicture");
         uc.CallUpdateUserPicture(media.media_ID);
 
-        if(media != null)
+        if (media != null)
         {
-            profilePicture.GetComponent<SetProfilePicture>().RefreshImage();
-            //profilePicture.GetComponent<RawImage>().texture = media.image;
+            foreach (var pictures in profilePictures)
+            {
+                pictures.GetComponent<RawImage>().texture = media.image;
+                pictures.GetComponent<SetProfilePicture>().RefreshImage();
+            }
         }
-        profilePicture.GetComponent<PopupPanel>().SetPopupPanelActive(false);
-        
+    }
+
+    public void CloseProfilePictureWindow()
+    {
+        GameObject p = GameObject.FindGameObjectWithTag("NewProfilePictureWindow");
+        p.GetComponent<Animator>().Play("Fade-out");
     }
 
 }

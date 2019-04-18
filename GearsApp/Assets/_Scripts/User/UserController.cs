@@ -68,10 +68,11 @@ public class UserController : MonoBehaviour
     public void LogOut()
     {
         CurrentUser = null;
-        //LoadingScreen.LoadScene("GearsApp");
+        LocationController.GetInstance().ResetFavorites();
+        LoadingScreen.LoadScene("GearsApp");
         //Scene loadedLevel = SceneManager.GetActiveScene();
         //SceneManager.LoadScene(loadedLevel.buildIndex);
-        UIController.GetInstance().PanelAnim("LoginOrRegister");
+        //UIController.GetInstance().PanelAnim("LoginOrRegister");
     }
 
     public void CallUpdateUserPicture(int mediaID)

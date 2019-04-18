@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 643226980405162928}
   - component: {fileID: 643226980405162934}
   - component: {fileID: 4359126043836546577}
+  - component: {fileID: 4735647391519165091}
   m_Layer: 5
   m_Name: PP
   m_TagString: ProfilePicture
@@ -348,10 +349,10 @@ RectTransform:
   m_Father: {fileID: 643226978963392665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -78}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &643226980405162934
 CanvasRenderer:
@@ -388,6 +389,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &4735647391519165091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643226980405162931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743f8c00379acbb4f9a193cbb9791863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2180372280830816362
 GameObject:
   m_ObjectHideFlags: 0
