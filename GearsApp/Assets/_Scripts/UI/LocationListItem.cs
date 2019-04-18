@@ -32,10 +32,18 @@ public class LocationListItem : MonoBehaviour
 
         placeName.text = location.name;
         lengthToLocation.text = length;
-        //GetComponentInChildren<RawImage>().texture = location.thumbnail;
-        //listButton = GetComponentInChildren<Button>();
-        //listButton.onClick.AddListener(OpenLocationTab);
 
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject go = transform.GetChild(i).gameObject;
+            Debug.Log("Checking children " + go.name);
+            if(go.name == "ThumbnailMask")
+            {
+                GameObject child = go.transform.GetChild(0).gameObject;
+                if (child.name == "Thumbnail")
+                    child.GetComponent<RawImage>().texture = location.thumbnail;
+            }
+        }
     }
 
     private string DistanceBetweenUserAndLocation()

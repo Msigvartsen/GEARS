@@ -117,7 +117,6 @@ public class LocationController : MonoBehaviour
                         Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
                         loc.thumbnail = tex;
                         locationList.Add(loc);
-                        Debug.Log("Locs = " + loc.name);
                     }
                 }
             }

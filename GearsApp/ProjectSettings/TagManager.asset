@@ -26,6 +26,7 @@ TagManager:
   - LocationPopupContainer
   - ListItemTextPanel
   - NewProfilePictureWindow
+  - LocationListThumbnail
   layers:
   - Default
   - TransparentFX
