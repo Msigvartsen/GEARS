@@ -7,7 +7,10 @@ public enum Help
 {
     SELECT,
     SEARCH,
-    PLACE
+    PLACE,
+    DISTANCE,
+    STATION_PLACEMENT,
+    LOCATION_DISTANCE
 };
 
 public class HelpTextManager : MonoBehaviour
@@ -16,6 +19,7 @@ public class HelpTextManager : MonoBehaviour
 
     private GameObject helpPanel;
     private Text helpText;
+    private Button helpButton;
     private CanvasGroup helpGroup;
 
     private float fadeSpeed = 0.5f;
@@ -28,16 +32,12 @@ public class HelpTextManager : MonoBehaviour
         if(helpPanel != null)
         {
             helpText = helpPanel.GetComponentInChildren<Text>();
+            helpButton = helpPanel.GetComponentInChildren<Button>();
+            helpButton.onClick.AddListener(OpenMap);
             helpGroup = helpPanel.GetComponent<CanvasGroup>();
             helpGroup.alpha = 0;
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void SetHelpText(int message)
@@ -53,6 +53,15 @@ public class HelpTextManager : MonoBehaviour
                 break;
             case (int) Help.PLACE:
                 messageText = "Tap to place the model on the indicator";
+                break;
+            case (int) Help.DISTANCE:
+                messageText = "Too far away from nearest station, tap here to see the map";
+                break;
+            case (int) Help.STATION_PLACEMENT:
+                messageText = "Look around and find *this* to get the best experience, then tap the screen";
+                break;
+            case (int) Help.LOCATION_DISTANCE:
+                messageText = "Not close enough to selected location, tap here to see the map";
                 break;
             default:
                 messageText = "Look here for tips and help";
@@ -80,5 +89,19 @@ public class HelpTextManager : MonoBehaviour
         return instance;
     }
 
+    public void EnableButton()
+    {
+        helpButton.interactable = true;
+    }
+
+    public void DisableButton()
+    {
+        helpButton.interactable = false;
+    }
+
+    public void OpenMap()
+    {
+        LoadingScreen.LoadScene("SelectLocation");
+    }
 
 }

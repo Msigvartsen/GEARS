@@ -31,8 +31,8 @@ public class ModelController : MonoBehaviour
         {
             modelList = new List<Model>();
         }
-        StartCoroutine(Models());
-        //StartCoroutine(Request());
+        //StartCoroutine(Models());
+        StartCoroutine(Request());
     }
 
     IEnumerator Models()
@@ -69,14 +69,8 @@ public class ModelController : MonoBehaviour
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
-            Uri test = new Uri("ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php");
 
-            if (DisplayFileFromServer(test))
-            {
-                Debug.Log("FOUND SERVER");
-            }
-
-            Debug.Log(req);
+            Debug.Log("REQUESTED IN MODEL: " + req);
             if (request.isNetworkError)
             {
                 Debug.Log("Error: " + request.error);
@@ -91,6 +85,7 @@ public class ModelController : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Code:" + response.handler.text);
                     foreach (Model model in response.objectList)
                     {
                         modelList.Add(model);

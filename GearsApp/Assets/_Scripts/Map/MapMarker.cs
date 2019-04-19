@@ -13,7 +13,7 @@ public class MapMarker : MonoBehaviour
         if (MapMarkerLocation != null)
             GetComponentInChildren<TextMesh>().text = MapMarkerLocation.name;
         //Add other relevant info :)
-    }    
+    }
 
     public void SpawnLocationPopupInfo()
     {
