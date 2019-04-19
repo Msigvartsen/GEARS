@@ -36,12 +36,13 @@ public class LocationListItem : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject go = transform.GetChild(i).gameObject;
-            Debug.Log("Checking children " + go.name);
-            if(go.name == "ThumbnailMask")
+            if (go.name == "ThumbnailMask")
             {
                 GameObject child = go.transform.GetChild(0).gameObject;
                 if (child.name == "Thumbnail")
+                {
                     child.GetComponent<RawImage>().texture = location.thumbnail;
+                }
             }
         }
     }

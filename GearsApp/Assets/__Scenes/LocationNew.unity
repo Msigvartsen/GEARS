@@ -433,7 +433,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationNameText: {fileID: 1382902923}
-  InfoText: {fileID: 1558973751}
+  infoText: {fileID: 1558973751}
+  imagePanel: []
 --- !u!1 &207656888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1168272124, guid: 9d8a7a2b395fe84478ab2da42cbb2575, type: 3}
       propertyPath: imageList.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1168272124, guid: 9d8a7a2b395fe84478ab2da42cbb2575, type: 3}
       propertyPath: imageList.Array.data[0]
@@ -2969,7 +2970,7 @@ MonoBehaviour:
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 5
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

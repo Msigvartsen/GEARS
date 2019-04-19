@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 public class ImagePanelUpdater : MonoBehaviour
 {
 
-    public Texture[] imageList;
+    public Texture2D[] imageList;
     public float imageLifetime = 3.0f;
 
     private RawImage activeImage;
@@ -16,16 +17,22 @@ public class ImagePanelUpdater : MonoBehaviour
 
     void Start()
     {
+        //var currentLocation = LocationController.GetInstance().CurrentLocation;
+        //Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + currentLocation.name + "/Images/");
+        //imageList = FTPHandler.DownloadAllImagesFromFTP(uri).ToArray();
+        //imageList = transform.parent.GetComponent<LocationDetails>().imagePanel;
+
         activeImage = GetComponentInChildren<RawImage>();
         arraySize = imageList.Length;
-        activeImage.texture = imageList[0];
-        lifetimeCountdown = imageLifetime;
+        SetTexture();
+        //activeImage.texture = imageList[0];
+        //lifetimeCountdown = imageLifetime;
     }
 
     private void Update()
     {
         lifetimeCountdown -= Time.deltaTime;
-        if(lifetimeCountdown <= 0)
+        if (lifetimeCountdown <= 0)
         {
             imageIndex++;
             SetTexture();
@@ -45,16 +52,19 @@ public class ImagePanelUpdater : MonoBehaviour
     }
     private void SetTexture()
     {
-        if (imageIndex < 0)
+        if (arraySize > 0)
         {
-            imageIndex = (arraySize - 1);
+            if (imageIndex < 0)
+            {
+                imageIndex = (arraySize - 1);
+            }
+            else if (imageIndex >= arraySize)
+            {
+                imageIndex = 0;
+            }
+            activeImage.texture = imageList[imageIndex];
+            lifetimeCountdown = imageLifetime;
         }
-        else if (imageIndex >= arraySize)
-        {
-            imageIndex = 0;
-        }
-        activeImage.texture = imageList[imageIndex];
-        lifetimeCountdown = imageLifetime;
     }
 
 }
