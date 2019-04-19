@@ -29,4 +29,11 @@ public class SceneLoader : MonoBehaviour
         else
             uiController.PanelAnimPreviousPanel();
     }
+
+    public void ChangePanel(string nextPanel)
+    {
+        UserController.GetInstance().PreviousPage = nextPanel;
+
+        LoadingScreen.LoadScene("Main");
+    }
 }
