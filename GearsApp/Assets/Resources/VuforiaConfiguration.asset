@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: -2067402452, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: VuforiaConfiguration
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   vuforia:
     vuforiaLicenseKey: AST13Xb/////AAABmY6wZc1mzku1hOSIvZMBW4uCLLHCm4E5AzKiHuYHDMMd0Xv7snKKKORqLxLkiOQA0/prXCGkroLzBXA95AvliwOkJYDzsihbtVu+4uMAPk2Ws8eqmy6a8DmGkcuqNeet0bt4dxWILYRLPTMor5L/e+1Qv/kDF24GYGdRB8ayDhRvAKCciEI7uUVe1hx/yFYWPI2ui0ldzAH0mtPFW/HObflVow85S8C/KZUJIHoeJxYtKUCnxH+AN1PsJARuRqs1mAEZci+ohPbPkdkRBSDmLYB2QS8ToK05EmUTrmk8Ft9wuixtZiOg6Wc9YEo9E01n2Tw/VZ9F5MUwz7MQYBaBEQjP6WUNgqp1l9Fh9UeUAeXZ
     ufoLicenseKey: QVhZNlYwWC8vLy8vQUFBQUtBcnc3RERuMDBlVnJBUEFzTDlsUlJOS01kdjlhdE42eDlqZWpTUmxBeDhZT3FHK3NFRUt5UFRGMnpLZXByalB0cUF4dGpVVHNaT3BPTUVJZkJpVEt4ZUhLRStZb1NmWnkyOVc3R2pFalNHRmU2bUttdVhrNEVmMVNMM1pCMHVRWi95L2ZMdk5wbFVjOWZBV25PMWM3ZS9hYVo4bTMyMlppVkd1NFpneWJiSGRMaTRSOVJkRUREMnNLOUllVnlMSllWZURxd2NGeUIvc2ttbXVLcTdka3pMek42YXFwQjhCZXZUeHpCTHkxOUdiS056NCtoTGNuNjgwYk12bjI5R2xZTmhDWUpNMDZkSnY2Z3RFaFZHd3FNRHRXU3VOWGlKZlVjdVdPZnNSRnFpUnBTOVhIQVlULzB6enlLOTJOU0lpS3BSb1RlanhsTERmUDU5b0MybDZGa1hFWVphdEUwQStnbGVzaTY2RnVHSU8=
@@ -21,20 +21,20 @@ MonoBehaviour:
     maxSimultaneousObjectTargets: 3
     useDelayedLoadingObjectTargets: 0
     version: 8.1.7
-    eulaAcceptedVersions: '{"Values":["7.5","8.0","0.0","8.1"]}'
+    eulaAcceptedVersions: '{"Values":["7.5","8.0","0.0","8.1","7.1","7.2","7.7"]}'
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
     eyewearType: 0
     stereoFramework: 0
     seeThroughConfiguration: 0
-    viewerName:
-    viewerManufacturer:
+    viewerName: 
+    viewerManufacturer: 
     useCustomViewer: 0
     customViewer:
       Version: 0
-      Name:
-      Manufacturer:
+      Name: 
+      Manufacturer: 
       ButtonType: 0
       ScreenToLensDistance: 0
       InterLensDistance: 0
@@ -64,6 +64,6 @@ MonoBehaviour:
     autoInitTracker: 0
     autoStartTracker: 0
   webcam:
-    deviceNameSetInEditor:
+    deviceNameSetInEditor: 
     turnOffWebCam: 0
     renderTextureLayer: 30

@@ -154,7 +154,7 @@ public class SpawnOnMap : MonoBehaviour
         locationController = LocationController.GetInstance();
         locations = locationController.locationList.ToArray();
         _spawnedObjects = new List<GameObject>();
-
+        Debug.Log("Creating markers");
         // Set up markers for each location
         foreach (Location loc in locations)
         {

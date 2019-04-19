@@ -18,15 +18,18 @@ public class MapMarker : MonoBehaviour
     public void SpawnLocationPopupInfo()
     {
         GameObject popupWindow = GameObject.FindGameObjectWithTag("LocationPopupContainer");
-        popupWindow.GetComponent<PopupPanel>().SetPopupPanelActive(true);
+        popupWindow.GetComponent<Animator>().Play("Fade-in");
+
+        //popupWindow.GetComponent<PopupPanel>().SetPopupPanelActive(true);
 
         if (MapMarkerLocation != null)
         {
+            Debug.Log("Trying to find panel for info");
             GameObject popupInfo = GameObject.FindGameObjectWithTag("LocationPopupInfo");
-            popupInfo.GetComponentInChildren<Text>().text = MapMarkerLocation.name;
+            popupInfo.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = MapMarkerLocation.name;
             popupInfo.GetComponentInChildren<RawImage>().texture = MapMarkerLocation.thumbnail;
 
-            Button button = popupInfo.GetComponent<Button>();
+            Button button = popupInfo.GetComponentInChildren<Button>();
             button.onClick.AddListener(OpenLocationTab);
         }
     }
@@ -35,6 +38,7 @@ public class MapMarker : MonoBehaviour
     {
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = MapMarkerLocation;
-        LoadingScreen.LoadScene("Location");
+        UserController.GetInstance().PreviousPage = "Locations";
+        LoadingScreen.LoadScene("LocationNew");
     }
 }

@@ -59,7 +59,12 @@ namespace LocationServiceNS
 
         public static Vector2d GetLatitudeLongitude()
         {
-            Vector2d latlong = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Vector2d latlong = new Vector2d(0,0);
+            if(Input.location.status == LocationServiceStatus.Running)
+            {
+                latlong = new Vector2d(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            }
+
             return latlong;
         }
     }
