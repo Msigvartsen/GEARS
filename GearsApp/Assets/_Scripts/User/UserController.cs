@@ -15,6 +15,8 @@ public class UserController : MonoBehaviour
     [SerializeField]
     private int experienceCapPerLevel = 100;
 
+    //To load correct page when changing scene
+    public string PreviousPage;
     
     public static UserController GetInstance()
     {
@@ -33,6 +35,7 @@ public class UserController : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
+        PreviousPage = "Main";
         LocationServiceNS.LocationService.CallUserPermission();
     }
 

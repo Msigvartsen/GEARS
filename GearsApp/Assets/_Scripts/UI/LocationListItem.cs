@@ -88,6 +88,7 @@ public class LocationListItem : MonoBehaviour
         Debug.Log("BUTTON PRESSED");
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = location;
+        UserController.GetInstance().PreviousPage = "Locations";
         LoadingScreen.LoadScene("LocationNew");
     }
 

@@ -19,8 +19,11 @@ public class LocationDetails : MonoBehaviour
     private void Start()
     {
         currentLocation = LocationController.GetInstance().CurrentLocation;
-        locationNameText.text = currentLocation.name;
-        UpdateInfoText();
+        if (currentLocation != null)
+        {
+            locationNameText.text = currentLocation.name;
+            UpdateInfoText();
+        }
     }
 
     private void UpdateInfoText()

@@ -21,12 +21,20 @@ public class UIPanelController : MonoBehaviour
 
     [Header("SETTINGS")]
     public int currentPanelIndex = 0;
+    [SerializeField]
+    private bool updateOnStart = false;
 
     private Animator currentPanelAnimator;
     private Animator nextPanelAnimator;
 
+
     void Start()
     {
+        if(updateOnStart)
+        {
+            PanelAnim(UserController.GetInstance().PreviousPage);
+        }
+
         currentPanel = panelList[currentPanelIndex];
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);

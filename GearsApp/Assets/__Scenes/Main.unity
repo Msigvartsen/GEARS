@@ -10636,6 +10636,7 @@ MonoBehaviour:
   - {fileID: 816711798}
   topTitleText: {fileID: 1531145531}
   currentPanelIndex: 0
+  updateOnStart: 1
 --- !u!4 &1708591496
 Transform:
   m_ObjectHideFlags: 0
