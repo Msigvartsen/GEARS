@@ -346,7 +346,7 @@ public class PlaneFinderManager : MonoBehaviour
         {
             for (int i = 0; i < groundPlane.transform.childCount; i++)
             {
-                Destroy(groundPlane.transform.GetChild(i));
+                Destroy(groundPlane.transform.GetChild(i).gameObject);
             }
         }
     }
