@@ -16,7 +16,7 @@ public class UserController : MonoBehaviour
     private int experienceCapPerLevel = 100;
 
     //To load correct page when changing scene
-    public string PreviousPage;
+    public string PreviousPage { get; set; }
     
     public static UserController GetInstance()
     {
