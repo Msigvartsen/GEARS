@@ -1887,15 +1887,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1627437438}
     m_Modifications:
-    - target: {fileID: 5188671332179468768, guid: 79c2646c95a7a02408ed45199be5b14a,
-        type: 3}
-      propertyPath: m_Text
-      value: Login
-      objectReference: {fileID: 0}
     - target: {fileID: 5356345255027509398, guid: 77b01b7f2932f78479069eebe39366dc,
         type: 3}
       propertyPath: m_Name
       value: OkButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188671332179468768, guid: 79c2646c95a7a02408ed45199be5b14a,
+        type: 3}
+      propertyPath: m_Text
+      value: Login
       objectReference: {fileID: 0}
     - target: {fileID: 5356345255027509401, guid: 77b01b7f2932f78479069eebe39366dc,
         type: 3}

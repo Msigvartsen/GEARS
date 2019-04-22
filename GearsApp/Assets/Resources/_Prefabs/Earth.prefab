@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7194917082761151672}
   - component: {fileID: 7194917082761921694}
   - component: {fileID: 7194917082763052638}
+  - component: {fileID: 4925232050957805264}
   m_Layer: 0
   m_Name: GeoSphere002
   m_TagString: Untagged
@@ -77,6 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4925232050957805264
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194917082760861848}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 115.108986, y: 115.74301, z: 115.74306}
+  m_Center: {x: 0.0000028610234, y: -0.0000019073484, z: 57.87153}
 --- !u!1 &7194917082760861852
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,12 +74,12 @@ public class ModelInteraction : MonoBehaviour
             if (selectedObject != null)
             {
                 // If the user interacts with a station model
-                if (transform.parent.gameObject.name == "ARPanel")
+                if (transform.parent.gameObject.name == "AR")
                 {
                     MoveModel(inTouch);
                 }
                 // If the user interacts with model on the 3D model panel
-                else if (transform.parent.gameObject.name == "3DModelsPanel")
+                else if (transform.parent.gameObject.name == "Models")
                 {
                     RotateSelectedObject(inTouch);
                 }
@@ -103,7 +103,7 @@ public class ModelInteraction : MonoBehaviour
 
     void DetermineTouchCountTwoAction()
     {
-        if (transform.parent.gameObject.name == "3DModelsPanel")
+        if (transform.parent.gameObject.name == "Models")
         {
             ScaleSelectedObject(Input.GetTouch(0));
         }

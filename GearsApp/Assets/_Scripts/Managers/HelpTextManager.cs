@@ -18,7 +18,7 @@ public class HelpTextManager : MonoBehaviour
     private HelpTextManager instance;
 
     private GameObject helpPanel;
-    private Text helpText;
+    private TMPro.TextMeshProUGUI helpText;
     private Button helpButton;
     private CanvasGroup helpGroup;
 
@@ -31,8 +31,8 @@ public class HelpTextManager : MonoBehaviour
         helpPanel = GameObject.FindGameObjectWithTag("HelpPanel");
         if(helpPanel != null)
         {
-            helpText = helpPanel.GetComponentInChildren<Text>();
-            helpButton = helpPanel.GetComponentInChildren<Button>();
+            helpText = helpPanel.GetComponent<TMPro.TextMeshProUGUI>();
+            helpButton = helpPanel.GetComponent<Button>();
             helpButton.onClick.AddListener(OpenMap);
             helpGroup = helpPanel.GetComponent<CanvasGroup>();
             helpGroup.alpha = 0;
@@ -101,7 +101,9 @@ public class HelpTextManager : MonoBehaviour
 
     public void OpenMap()
     {
-        LoadingScreen.LoadScene("SelectLocation");
+        Debug.Log("BUtton pressed OPEN MAP");
+        UserController.GetInstance().PreviousPage = "Locations";
+        LoadingScreen.LoadScene("Main");
     }
 
 }

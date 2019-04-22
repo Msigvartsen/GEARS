@@ -7,8 +7,13 @@ using Vuforia;
 
 public class PlaneFinderManager : MonoBehaviour
 {
+    [SerializeField]
     private GameObject planeFinder;
+    [SerializeField]
     private GameObject groundPlane;
+    [SerializeField]
+    Toggle toggleStationSearch;
+
     private GameObject modelOnPlane;
 
     private HelpTextManager htm;
@@ -24,23 +29,22 @@ public class PlaneFinderManager : MonoBehaviour
 
     private Station closestStation;
 
+
     // Start is called before the first frame update
     void Start()
     {
         SetInstances();
 
-
-        if (transform.parent.name == "ARPanel")
-        {
-            GetModelsAtStations();
-        }
+        GetModelsAtStations();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent.name == "3DModelsPanel")
+
+        if (!toggleStationSearch.isOn)
         {
+            htm.DisableButton();
             if (CheckForChildren())
             {
                 // Check if the model has been placed on the ground
@@ -61,11 +65,10 @@ public class PlaneFinderManager : MonoBehaviour
                 htm.FadeInHelpText();
             }
         }
-
-        if (transform.parent.name == "ARPanel")
+        else
         {
             // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
-            if ( (int) CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) / 1000 < 25)
+            if ((int)CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) / 1000 < 25)
             {
                 closestStation = GetClosestStation();
 
@@ -213,8 +216,11 @@ public class PlaneFinderManager : MonoBehaviour
 
     private void SetInstances()
     {
-        planeFinder = GameObject.FindGameObjectWithTag("PlaneFinder");
-        groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
+
+
+        //planeFinder = GameObject.FindGameObjectWithTag("PlaneFinder");
+        //groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
+
         //htm = GameObject.FindGameObjectWithTag("HTM").GetComponent<HelpTextManager>();
 
         htm = GetComponent<HelpTextManager>();
@@ -298,16 +304,16 @@ public class PlaneFinderManager : MonoBehaviour
         // Set correct help text
         if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
         {
-            if (transform.parent.name == "3DModelsPanel")
+            if (!toggleStationSearch.isOn)
                 htm.SetHelpText((int)Help.PLACE);
-            else if (transform.parent.name == "ARPanel")
+            else
                 htm.SetHelpText((int)Help.STATION_PLACEMENT);
         }
         else
         {
-            if (transform.parent.name == "3DModelsPanel")
+            if (!toggleStationSearch.isOn)
                 htm.SetHelpText((int)Help.SEARCH);
-            else if (transform.parent.name == "ARPanel")
+            else
                 htm.SetHelpText((int)Help.STATION_PLACEMENT);
         }
 
@@ -332,6 +338,17 @@ public class PlaneFinderManager : MonoBehaviour
         var total_dist = R * c * 1000;
 
         return total_dist;
+    }
+
+    public void DestroyAllChildren()
+    {
+        if (groundPlane.transform.childCount > 0)
+        {
+            for (int i = 0; i < groundPlane.transform.childCount; i++)
+            {
+                Destroy(groundPlane.transform.GetChild(i));
+            }
+        }
     }
 
 }
