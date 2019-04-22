@@ -24,7 +24,6 @@ public class MapMarker : MonoBehaviour
 
         if (MapMarkerLocation != null)
         {
-            Debug.Log("Trying to find panel for info");
             GameObject popupInfo = GameObject.FindGameObjectWithTag("LocationPopupInfo");
             popupInfo.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = MapMarkerLocation.name;
             popupInfo.GetComponentInChildren<RawImage>().texture = MapMarkerLocation.thumbnail;

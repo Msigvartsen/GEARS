@@ -33,15 +33,17 @@ public class StationMarker : MonoBehaviour
     public void SpawnStationPoputInfo()
     {
         GameObject popupWindow = GameObject.FindGameObjectWithTag("LocationPopupContainer");
-        popupWindow.GetComponent<PopupPanel>().SetPopupPanelActive(true);
+        //popupWindow.GetComponent<PopupPanel>().SetPopupPanelActive(true);
+        popupWindow.GetComponent<Animator>().Play("Fade-in");
 
         if (StationMarkerStation != null)
         {
             GameObject popupInfo = GameObject.FindGameObjectWithTag("LocationPopupInfo");
-            popupInfo.GetComponentInChildren<Text>().text = coherentLocation.name + " " + StationMarkerStation.helptext;
+            popupInfo.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = coherentLocation.name + " " + StationMarkerStation.helptext;
             popupInfo.GetComponentInChildren<RawImage>().texture = coherentLocation.thumbnail;
 
-            Button button = popupInfo.GetComponent<Button>();
+            //Button button = popupInfo.GetComponent<Button>();
+            Button button = popupInfo.GetComponentInChildren<Button>();
             button.onClick.AddListener(OpenLocationTab);
         }
     }
@@ -50,6 +52,7 @@ public class StationMarker : MonoBehaviour
     {
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = coherentLocation;
-        LoadingScreen.LoadScene("Location");
+        UserController.GetInstance().PreviousPage = "Locations";
+        LoadingScreen.LoadScene("LocationNew");
     }
 }

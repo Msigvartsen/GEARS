@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1320852912182947325}
   - component: {fileID: 1851628662542496491}
   - component: {fileID: 8701269897856868286}
-  - component: {fileID: 4830943110821762170}
+  - component: {fileID: 2773930033583792407}
   m_Layer: 0
   m_Name: Stone_RedVolcano
   m_TagString: Untagged
@@ -71,7 +71,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3603870856981396532}
-  m_Mesh: {fileID: 4300000, guid: 36e029d28a26d2e4585a4fb2878d1549, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 4a6d4a3e2e4032947b3c0ffb75e6e66c, type: 3}
 --- !u!23 &8701269897856868286
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4830943110821762170
+--- !u!65 &2773930033583792407
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

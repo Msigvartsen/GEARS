@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3052448305559632936}
   - component: {fileID: 4526745536401517456}
   - component: {fileID: 3176628352255586737}
-  - component: {fileID: 417567171563038107}
+  - component: {fileID: 3137145735279211254}
   m_Layer: 0
   m_Name: Stone_Layers
   m_TagString: Untagged
@@ -71,7 +71,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743560089821094428}
-  m_Mesh: {fileID: 4300000, guid: c382f6bf77355574b860bf8e10b7280d, type: 3}
+  m_Mesh: {fileID: 4300000, guid: c7bfb406da8c0a144bea107f80d2b693, type: 3}
 --- !u!23 &3176628352255586737
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &417567171563038107
+--- !u!65 &3137145735279211254
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
