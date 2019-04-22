@@ -130,21 +130,18 @@ public class PlaneFinderManager : MonoBehaviour
     private Station GetClosestStation()
     {
         int currentDistance = 0;
-        int prevDistance = -1;
-        int lowestDistance = 0;
+        int lowestDistance = -1;
         int indexToReturn = -1;
 
         // Find the station closest to the users position
         for (int i = 0; i < stationsAtLocation.Count; i++)
         {
             currentDistance = (int)CalculateDistanceInMeters((float)stationsAtLocation[i].latitude, (float)stationsAtLocation[i].longitude);
-            if (currentDistance < prevDistance || prevDistance == -1)
+            if (currentDistance < lowestDistance || lowestDistance == -1)
             {
                 lowestDistance = currentDistance;
                 indexToReturn = i;
             }
-
-            prevDistance = currentDistance;
         }
         return stationsAtLocation[indexToReturn];
     }
