@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8361486463963894857}
   - component: {fileID: 8361486463966794857}
   - component: {fileID: 8361486463965796009}
-  - component: {fileID: 8464740318621424436}
+  - component: {fileID: 1277955578563863251}
   m_Layer: 0
   m_Name: Troll
   m_TagString: Untagged
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361486463963596905}
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.3879971, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &8361486463966794857
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8464740318621424436
+--- !u!65 &1277955578563863251
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,5 +89,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0032759956, y: 0.0067685517, z: 0.00436716}
-  m_Center: {x: 0.0000022822642, y: 0.002580247, z: -0.00014948007}
+  m_Size: {x: 0.006551991, y: 0.013537103, z: 0.00873432}
+  m_Center: {x: 0.0000045645284, y: 0.005160494, z: -0.00029896013}

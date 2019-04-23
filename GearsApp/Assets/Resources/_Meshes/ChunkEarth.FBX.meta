@@ -46,7 +46,37 @@ ModelImporter:
     4300008: Sphere004
     4300010: Sphere005
     4300012: Sphere006
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 04 - Default
+    second: {fileID: 2100000, guid: 9c524a60eed8fa34c96591acf1fc8540, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: adc3f9f76eeb07441aef93de3f593e0e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10 - Default
+    second: {fileID: 2100000, guid: c25ffce681d6c2747ad1d8fe4d27d6af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11 - Default
+    second: {fileID: 2100000, guid: e2915fdd85443bf4d95b848cec6e8794, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13 - Default
+    second: {fileID: 2100000, guid: ca8c3041af38f97478b25a2637cd9cea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PineTree_06___Default
+    second: {fileID: 2100000, guid: 7006f28e63da60a47adfad106d08904a, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -77,7 +107,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.35
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
