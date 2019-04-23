@@ -229,6 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19f50be6b51258a429308c3a6340b4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  locationNameText: {fileID: 0}
+  infoText: {fileID: 0}
+  imagePanel: []
 --- !u!1 &55234795
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +416,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e895965753d6d0e4ba1fb0893c89221f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planeFinder: {fileID: 0}
+  groundPlane: {fileID: 0}
+  toggleStationSearch: {fileID: 0}
 --- !u!114 &420487882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,11 +554,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 684918666}
     m_Modifications:
-    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
-        type: 3}
-      propertyPath: m_Name
-      value: 3DModelsButton
-      objectReference: {fileID: 0}
     - target: {fileID: 872286423713691539, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -657,6 +658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
+        type: 3}
+      propertyPath: m_Name
+      value: 3DModelsButton
       objectReference: {fileID: 0}
     - target: {fileID: 2644926789027539136, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
@@ -1934,11 +1940,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 684918666}
     m_Modifications:
-    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
-        type: 3}
-      propertyPath: m_Name
-      value: InformationButton
-      objectReference: {fileID: 0}
     - target: {fileID: 872286423713691539, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2043,6 +2044,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
+        type: 3}
+      propertyPath: m_Name
+      value: InformationButton
       objectReference: {fileID: 0}
     - target: {fileID: 2644926789027539136, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
@@ -2195,6 +2201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e895965753d6d0e4ba1fb0893c89221f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planeFinder: {fileID: 0}
+  groundPlane: {fileID: 0}
+  toggleStationSearch: {fileID: 0}
 --- !u!114 &1632720406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,11 +2223,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 27483030}
     m_Modifications:
-    - target: {fileID: 8704545816397266340, guid: 98e422264593a074ab6e13c8ece73158,
-        type: 3}
-      propertyPath: m_Name
-      value: Header
-      objectReference: {fileID: 0}
     - target: {fileID: 8704545816397266341, guid: 98e422264593a074ab6e13c8ece73158,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2324,6 +2328,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8704545816397266340, guid: 98e422264593a074ab6e13c8ece73158,
+        type: 3}
+      propertyPath: m_Name
+      value: Header
+      objectReference: {fileID: 0}
     - target: {fileID: 8704545815834963413, guid: 98e422264593a074ab6e13c8ece73158,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -2369,6 +2378,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: '*LocationName*'
       objectReference: {fileID: 0}
+    - target: {fileID: 1731126808782649293, guid: 98e422264593a074ab6e13c8ece73158,
+        type: 3}
+      propertyPath: m_LayoutPriority
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 800693683355183612, guid: 98e422264593a074ab6e13c8ece73158,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2409,11 +2423,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: SelectLocation
       objectReference: {fileID: 0}
-    - target: {fileID: 1731126808782649293, guid: 98e422264593a074ab6e13c8ece73158,
-        type: 3}
-      propertyPath: m_LayoutPriority
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98e422264593a074ab6e13c8ece73158, type: 3}
 --- !u!1 &1674677892 stripped
@@ -2434,6 +2443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184bf5855d65e724788b305d62d8fcb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 0}
+  rootPanel: {fileID: 0}
 --- !u!1001 &1741515390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2441,11 +2452,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 684918666}
     m_Modifications:
-    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
-        type: 3}
-      propertyPath: m_Name
-      value: ProgressButton
-      objectReference: {fileID: 0}
     - target: {fileID: 872286423713691539, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2550,6 +2556,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
+        type: 3}
+      propertyPath: m_Name
+      value: ProgressButton
       objectReference: {fileID: 0}
     - target: {fileID: 2644926789027539136, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
@@ -2887,11 +2898,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 684918666}
     m_Modifications:
-    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
-        type: 3}
-      propertyPath: m_Name
-      value: ARButton
-      objectReference: {fileID: 0}
     - target: {fileID: 872286423713691539, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2996,6 +3002,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274259055765255082, guid: aeb403fad9b75f14798365ffb570b2a0,
+        type: 3}
+      propertyPath: m_Name
+      value: ARButton
       objectReference: {fileID: 0}
     - target: {fileID: 2644926789027539136, guid: aeb403fad9b75f14798365ffb570b2a0,
         type: 3}

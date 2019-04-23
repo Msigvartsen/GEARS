@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4730625444491126292}
   - component: {fileID: 4730625444492420662}
   - component: {fileID: 4730625444493419766}
-  - component: {fileID: 5173530792193803711}
+  - component: {fileID: 4228490886629100062}
   m_Layer: 0
   m_Name: Sphere008
   m_TagString: Untagged
@@ -309,7 +309,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5173530792193803711
+--- !u!65 &4228490886629100062
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -320,8 +320,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 161.92726, y: 80.964165, z: 161.92786}
-  m_Center: {x: 0.000003619376, y: 40.482048, z: -0.0000011290311}
+  m_Size: {x: 56.674545, y: 28.337458, z: 56.674747}
+  m_Center: {x: 0.0000012667815, y: 14.1687155, z: -0.0000003951609}
 --- !u!1 &4730625444491491894
 GameObject:
   m_ObjectHideFlags: 0
