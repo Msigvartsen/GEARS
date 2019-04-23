@@ -9,8 +9,14 @@ using TMPro;
 public class Login : MonoBehaviour
 {
     [Header("Input Fields")]
-    public TMP_InputField usernameField;
-    public TMP_InputField passwordField;
+    [SerializeField]
+    private TMP_InputField usernameField;
+    [SerializeField]
+    private TMP_InputField passwordField;
+
+    [SerializeField]
+    private PopupNotification popupNotification;
+
 
 
     public void CallLogin()
@@ -49,12 +55,14 @@ public class Login : MonoBehaviour
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
                     LoadingScreen.LoadScene("Main");
-                    //userProfile.UpdateUserProfileUI();
-                    //UIController.GetInstance().PanelAnim("Main");
                 }
                 else
                 {
                     Debug.Log("Error: Login Failed -> Wrong Username or Password");
+                    if (popupNotification != null)
+                    {
+                        popupNotification.ShowPopup(obj.handler.text);
+                    }
                 }
             }
         }

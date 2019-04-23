@@ -10,14 +10,16 @@ using TMPro;
 public class Registration : MonoBehaviour
 {
     [Header("Input Fields")]
-    public TMP_InputField mobileField;
-    public TMP_InputField nameField;
-    public TMP_InputField passwordField;
-    [Header("Buttons")]
-    public Button submitButton;
+    [SerializeField]
+    private TMP_InputField mobileField;
+    [SerializeField]
+    private TMP_InputField nameField;
+    [SerializeField]
+    private TMP_InputField passwordField;
 
-    //[SerializeField]
-    //private UserProfile userProfile;
+
+    [SerializeField]
+    private PopupNotification popupNotification;
 
     public void CallRegister()
     {
@@ -53,16 +55,15 @@ public class Registration : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     LoadingScreen.LoadScene("Main");
-                    //UIController.GetInstance().PanelAnim("Main");
-
-                    //UIController.GetInstance().ChangeTopTitle("Main");
+                }
+                else
+                {
+                    if (popupNotification != null)
+                    {
+                        popupNotification.ShowPopup("User Already Exist!");
+                    }
                 }
             }
         }
-    }
-
-    public void VerifyInputs()
-    {
-        submitButton.interactable = (nameField.text.Length >= 8 && passwordField.text.Length >= 8);
     }
 }
