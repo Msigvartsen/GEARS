@@ -174,7 +174,7 @@ public class ModelInteraction : MonoBehaviour
 
         Vector3 zoomVector = new Vector3(deltaMagnitudeDifference, deltaMagnitudeDifference, deltaMagnitudeDifference);
 
-        if (selectedObject.transform.localScale.x <= 1.0f || selectedObject.transform.localScale.x >= 0.5f)
+        if (selectedObject.transform.localScale.x <= 1.5f || selectedObject.transform.localScale.x >= 0.5f)
         {
             selectedObject.transform.localScale -= zoomVector * Time.deltaTime;
         }

@@ -61,6 +61,7 @@ public class PlaneFinderManager : MonoBehaviour
             }
             else
             {
+                TurnOffInputOnGround();
                 htm.SetHelpText((int)Help.SELECT);
                 htm.FadeInHelpText();
             }

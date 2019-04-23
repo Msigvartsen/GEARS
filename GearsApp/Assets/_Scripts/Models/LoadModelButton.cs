@@ -10,6 +10,7 @@ public class LoadModelButton : MonoBehaviour
     private Button button;
     private bool loaded = false;
     private GameObject modelToShow;
+    private GameObject groundPlane;
 
     void Start()
     {
@@ -17,15 +18,19 @@ public class LoadModelButton : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(CloseProfilePictureWindow);
         button.onClick.AddListener(LoadModel);
+        groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
     }
 
     public void LoadModel()
     {
-        if (modelToShow != null && modelToShow.name != model.model_name)
+        if (groundPlane.transform.childCount > 0)
         {
-            Destroy(modelToShow.gameObject);
-            modelToShow = null;
-            loaded = false;
+            Debug.Log("DESTROY EXISTING MODEL");
+            if (groundPlane.transform.GetChild(0).name != model.model_name)
+            {
+                Destroy(groundPlane.transform.GetChild(0).gameObject);
+                loaded = false;
+            }
         }
 
         // Create the prefab if it is not loaded
@@ -48,7 +53,7 @@ public class LoadModelButton : MonoBehaviour
             }
 
             // Set the ground plane to be the models parent
-            modelToShow.transform.parent = GameObject.FindGameObjectWithTag("GroundPlane").transform;
+            modelToShow.transform.parent = groundPlane.transform;
             print("LoadModelButton found groundplane");
             modelToShow.transform.localPosition = new Vector3(0, 0, 0);
             loaded = true;
