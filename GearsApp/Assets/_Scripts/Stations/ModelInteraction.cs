@@ -17,6 +17,9 @@ public class ModelInteraction : MonoBehaviour
     Vector2 endTouchPos = new Vector2(0, 0);
     float startTime;
 
+    [SerializeField]
+    Toggle toggleStationSearch;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,12 +77,12 @@ public class ModelInteraction : MonoBehaviour
             if (selectedObject != null)
             {
                 // If the user interacts with a station model
-                if (transform.parent.gameObject.name == "AR")
+                if (toggleStationSearch.isOn)
                 {
                     MoveModel(inTouch);
                 }
                 // If the user interacts with model on the 3D model panel
-                else if (transform.parent.gameObject.name == "Models")
+                else
                 {
                     RotateSelectedObject(inTouch);
                 }
@@ -103,7 +106,7 @@ public class ModelInteraction : MonoBehaviour
 
     void DetermineTouchCountTwoAction()
     {
-        if (transform.parent.gameObject.name == "Models")
+        if (!toggleStationSearch.isOn)
         {
             ScaleSelectedObject(Input.GetTouch(0));
         }

@@ -41,7 +41,6 @@ public class PlaneFinderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!toggleStationSearch.isOn)
         {
             htm.DisableButton();
@@ -52,6 +51,7 @@ public class PlaneFinderManager : MonoBehaviour
                 {
                     // Disable user input regarding placing the model
                     TurnOffInputOnGround();
+                    htm.FadeOutHelpText();
                 }
                 else
                 {
