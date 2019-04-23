@@ -43,80 +43,91 @@ public class PlaneFinderManager : MonoBehaviour
     {
         if (!toggleStationSearch.isOn)
         {
-            htm.DisableButton();
-            if (CheckForChildren())
+            HandleModelViewingAndPlacement();
+        }
+        else
+        {
+            HandleStationSearch();
+        }
+    }
+
+    private void HandleStationSearch()
+    {
+        // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
+        if ((int)CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) / 1000 < 25)
+        {
+            closestStation = GetClosestStation();
+
+            if (closestStation != null)
             {
-                // Check if the model has been placed on the ground
-                if (CheckForActiveChildren())
+                // Check if the user in close enough to the station to view its content
+                if (CheckDistanceToStation(closestStation, 18))
                 {
-                    // Disable user input regarding placing the model
-                    TurnOffInputOnGround();
-                    htm.FadeOutHelpText();
+                    htm.DisableButton();
+                    LoadModelAtStation(closestStation);
+
+                    // Check if the model has been placed on the ground
+                    if (CheckForActiveChildren())
+                    {
+                        // The user has now "Scanned" a station. Update this data to database
+                        UpdateStationData(closestStation);
+
+                        // Disable user input regarding placing the model
+                        TurnOffInputOnGround();
+                        htm.FadeOutHelpText();
+                    }
+                    else
+                    {
+                        // Enable user to scan and place the model on the ground
+                        TurnOnInputOnGround();
+                    }
                 }
                 else
                 {
-                    // Enable user to scan and place the model on the ground
-                    TurnOnInputOnGround();
+                    // User is too far away from closest station
+                    TurnOffInputOnGround();
+                    htm.SetHelpText((int)Help.DISTANCE);
+                    htm.EnableButton();
+                    htm.FadeInHelpText();
                 }
-            }
-            else
-            {
-                TurnOffInputOnGround();
-                htm.SetHelpText((int)Help.SELECT);
-                htm.FadeInHelpText();
             }
         }
         else
         {
-            // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
-            if ((int)CalculateDistanceInMeters((float)locationController.CurrentLocation.latitude, (float)locationController.CurrentLocation.longitude) / 1000 < 25)
-            {
-                closestStation = GetClosestStation();
-
-                if (closestStation != null)
-                {
-                    // Check if the user in close enough to the station to view its content
-                    if (CheckDistanceToStation(closestStation, 18))
-                    {
-                        htm.DisableButton();
-                        LoadModelAtStation(closestStation);
-
-                        // Check if the model has been placed on the ground
-                        if (CheckForActiveChildren())
-                        {
-                            // The user has now "Scanned" a station. Update this data to database
-                            UpdateStationData(closestStation);
-
-                            // Disable user input regarding placing the model
-                            TurnOffInputOnGround();
-                            htm.FadeOutHelpText();
-                        }
-                        else
-                        {
-                            // Enable user to scan and place the model on the ground
-                            TurnOnInputOnGround();
-                        }
-                    }
-                    else
-                    {
-                        TurnOffInputOnGround();
-                        htm.SetHelpText((int)Help.DISTANCE);
-                        htm.EnableButton();
-                        htm.FadeInHelpText();
-                    }
-                }
-            }
-            else
-            {
-                TurnOffInputOnGround();
-                htm.SetHelpText((int)Help.LOCATION_DISTANCE);
-                htm.EnableButton();
-                htm.FadeInHelpText();
-            }
+            // User is too far away from selected location
+            TurnOffInputOnGround();
+            htm.SetHelpText((int)Help.LOCATION_DISTANCE);
+            htm.EnableButton();
+            htm.FadeInHelpText();
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------------------------------------------------------------
+    private void HandleModelViewingAndPlacement()
+    {
+        htm.DisableButton();
+        if (CheckForChildren())
+        {
+            // Check if the model has been placed on the ground
+            if (CheckForActiveChildren())
+            {
+                // Disable user input regarding placing the model
+                TurnOffInputOnGround();
+                htm.FadeOutHelpText();
+            }
+            else
+            {
+                // Enable user to scan and place the model on the ground
+                TurnOnInputOnGround();
+            }
+        }
+        else
+        {
+            // User has not selected any models to view
+            TurnOffInputOnGround();
+            htm.SetHelpText((int)Help.SELECT);
+            htm.FadeInHelpText();
+        }
+    }
 
     private void UpdateStationData(Station station)
     {
@@ -217,18 +228,11 @@ public class PlaneFinderManager : MonoBehaviour
 
     private void SetInstances()
     {
-
-
-        //planeFinder = GameObject.FindGameObjectWithTag("PlaneFinder");
-        //groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
-
-        //htm = GameObject.FindGameObjectWithTag("HTM").GetComponent<HelpTextManager>();
-
-        htm = GetComponent<HelpTextManager>();
-
         stationController = StationController.GetInstance();
         locationController = LocationController.GetInstance();
         modelController = ModelController.GetInstance();
+
+        htm = GetComponent<HelpTextManager>();
         stationsAtLocation = new List<Station>();
         stationModelsAtLocation = new List<Model>();
     }
