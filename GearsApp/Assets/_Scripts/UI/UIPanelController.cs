@@ -34,7 +34,7 @@ public class UIPanelController : MonoBehaviour
         {
             PanelAnim(UserController.GetInstance().PreviousPage);
         }
-
+        
         currentPanel = panelList[currentPanelIndex];
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
