@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StationListItem : MonoBehaviour
 {
-    public Station station;
+    public Station Station { get; set; }
 
     private GameObject parent;
     private Button listButton;
@@ -13,7 +13,7 @@ public class StationListItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponentInChildren<Text>().text = "Station " + station.station_NR.ToString();
+        GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station " + Station.station_NR.ToString();
         listButton = GetComponentInChildren<Button>();
         listButton.onClick.AddListener(OpenStationTab);
     }
@@ -21,7 +21,7 @@ public class StationListItem : MonoBehaviour
     void OpenStationTab()
     {
         StationController manager = StationController.GetInstance();
-        manager.CurrentStation = station;
+        manager.CurrentStation = Station;
         // LoadingScreen.LoadScene("Station");
     }
 }

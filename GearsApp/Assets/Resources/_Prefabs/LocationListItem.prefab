@@ -722,6 +722,7 @@ MonoBehaviour:
     information: 
     favorite: 0
     thumbnail: {fileID: 0}
+    images: []
   imagePanel: {fileID: 7016534622171913471}
   placeName: {fileID: 7016534622424973911}
   lengthToLocation: {fileID: 7016534621053138479}

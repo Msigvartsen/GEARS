@@ -40,7 +40,7 @@ public class StationListManager : MonoBehaviour
         // Create buttons to each station, meant to check on progress at current location
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
-        go.GetComponent<StationListItem>().station = station;
+        go.GetComponent<StationListItem>().Station = station;
 
         SetButtonValues(go, station);
 
@@ -68,7 +68,7 @@ public class StationListManager : MonoBehaviour
     {
         // Set the buttons value based on whether the station has been scanned or not
         Toggle visitedToggle = ListItem.GetComponentInChildren<Toggle>();
-        visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().station.visited;
+        visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().Station.visited;
 
         Debug.Log("Station nr = " + station.station_NR + " at location id = " + station.location_ID + ", visited = " + visitedToggle.isOn);
 

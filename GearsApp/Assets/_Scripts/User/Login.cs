@@ -17,8 +17,6 @@ public class Login : MonoBehaviour
     [SerializeField]
     private PopupNotification popupNotification;
 
-
-
     public void CallLogin()
     {
         StartCoroutine(UserLogin());
