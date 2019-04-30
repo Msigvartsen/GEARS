@@ -45,8 +45,11 @@ public class LightEstimate : MonoBehaviour
         VuforiaARController.Instance.RegisterTrackablesUpdatedCallback(OnTrackablesUpdated);
 
         //text used for debugging
+        if (debugging)
+        {
         LightOutput1.text = "";
         LightOutput2.text = "";
+        }
 
     }
 
@@ -56,14 +59,10 @@ public class LightEstimate : MonoBehaviour
 
         if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))
         {
-            Debug.Log("Successfully registered pixel format " + mPixelFormat.ToString());
             mFormatRegistered = true;
         }
         else
         {
-            Debug.LogError("Failed to register pixel format " + mPixelFormat.ToString() +
-                "\n the format may be unsupported by your device;" +
-                "\n consider using a different pixel format.");
             mFormatRegistered = false;
         }
     }
@@ -73,12 +72,10 @@ public class LightEstimate : MonoBehaviour
     {
         if (paused)
         {
-            Debug.Log("App was paused");
             UnregisterFormat();
         }
         else
         {
-            Debug.Log("App was resumed");
             RegisterFormat();
         }
     }
@@ -101,8 +98,6 @@ public class LightEstimate : MonoBehaviour
                     byte[] pixels = image.Pixels;
                     if (pixels != null && pixels.Length > 0)
                     {
-                        Debug.Log("Image pixels: " + pixels[0] + "," + pixels[1] + "," + pixels[2] + ",...");
-
                         double totalLuminance = 0.0;
                         for (int p = 0; p < pixels.Length; p += 4)
                         {
@@ -122,11 +117,9 @@ public class LightEstimate : MonoBehaviour
                         // This adjusts the Ambient light that's always present in a scene.
                         RenderSettings.ambientIntensity = m_LightToEffect.intensity;
                         RenderSettings.ambientLight = lightColor;
-                        Debug.Log("light intensity = " + m_LightToEffect.intensity);
 
                         colorTemperature = (float?)(totalLuminance * temperatureModifier);
                         m_LightToEffect.colorTemperature = (float)colorTemperature;
-                        Debug.Log("calculating color temperature =========================" + colorTemperature);
 
                         //Used for debugging so you can see if light changes;
                         if (debugging == true)
@@ -150,7 +143,6 @@ public class LightEstimate : MonoBehaviour
     // Unregister the camera pixel format (e.g. call this when app is paused)
     private void UnregisterFormat()
     {
-        Debug.Log("Unregistering camera pixel format " + mPixelFormat.ToString());
         CameraDevice.Instance.SetFrameFormat(mPixelFormat, false);
         mFormatRegistered = false;
     }
@@ -160,12 +152,10 @@ public class LightEstimate : MonoBehaviour
     {
         if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))
         {
-            Debug.Log("Successfully registered camera pixel format " + mPixelFormat.ToString());
             mFormatRegistered = true;
         }
         else
         {
-            Debug.LogError("Failed to register camera pixel format " + mPixelFormat.ToString());
             mFormatRegistered = false;
         }
     }

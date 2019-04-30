@@ -306,30 +306,27 @@ public class PlaneFinderManager : MonoBehaviour
 
     private void TurnOnInputOnGround()
     {
-        if (Input.GetTouch(0).position.y < Screen.height * 0.7)
+        // Set correct help text
+        if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
         {
-            // Set correct help text
-            if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
-            {
-                if (!toggleStationSearch.isOn)
-                    htm.SetHelpText((int)Help.PLACE);
-                else
-                    htm.SetHelpText((int)Help.STATION_PLACEMENT);
-            }
+            if (!toggleStationSearch.isOn)
+                htm.SetHelpText((int)Help.PLACE);
             else
-            {
-                if (!toggleStationSearch.isOn)
-                    htm.SetHelpText((int)Help.SEARCH);
-                else
-                    htm.SetHelpText((int)Help.STATION_PLACEMENT);
-            }
-
-            // Enable components
-            planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
-            planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
-            groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
-            htm.FadeInHelpText();
+                htm.SetHelpText((int)Help.STATION_PLACEMENT);
         }
+        else
+        {
+            if (!toggleStationSearch.isOn)
+                htm.SetHelpText((int)Help.SEARCH);
+            else
+                htm.SetHelpText((int)Help.STATION_PLACEMENT);
+        }
+
+        // Enable components
+        planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
+        planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
+        groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
+        htm.FadeInHelpText();
     }
 
     private double CalculateDistanceInMeters(float lat, float longi)
