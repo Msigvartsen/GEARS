@@ -94,7 +94,7 @@ public class LightEstimate : MonoBehaviour
                     imageInfo += " size: " + image.Width + " x " + image.Height + "\n";
                     imageInfo += " bufferSize: " + image.BufferWidth + " x " + image.BufferHeight + "\n";
                     imageInfo += " stride: " + image.Stride;
-                    Debug.Log(imageInfo);
+
                     byte[] pixels = image.Pixels;
                     if (pixels != null && pixels.Length > 0)
                     {

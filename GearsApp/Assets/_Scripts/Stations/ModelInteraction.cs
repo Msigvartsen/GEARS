@@ -20,16 +20,19 @@ public class ModelInteraction : MonoBehaviour
     [SerializeField]
     Toggle toggleStationSearch;
 
+    private GameObject groundPlane;
+
     // Start is called before the first frame update
     void Start()
     {
         currentCamera = Camera.main;
+        groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).position.y < Screen.height*0.7)
+        if (Input.touchCount > 0 && Input.GetTouch(0).position.y < Screen.height * 0.7)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -65,41 +68,46 @@ public class ModelInteraction : MonoBehaviour
 
     void DetermineTouchCountOneAction(Touch inTouch)
     {
-        if (inTouch.phase == TouchPhase.Began)
+        if (groundPlane.transform.childCount > 0)
         {
-            // Get position and time of first touch
-            beginTouchPos = inTouch.position;
-            startTime = Time.time;
-        }
+            selectedObject = groundPlane.transform.GetChild(0).gameObject;
 
-        if (inTouch.phase == TouchPhase.Moved)
-        {
-            if (selectedObject != null)
+            if (inTouch.phase == TouchPhase.Began)
             {
-                // If the user interacts with a station model
-                if (toggleStationSearch.isOn)
+                // Get position and time of first touch
+                beginTouchPos = inTouch.position;
+                startTime = Time.time;
+            }
+
+            if (inTouch.phase == TouchPhase.Moved)
+            {
+                if (selectedObject != null)
                 {
-                    MoveModel(inTouch);
-                }
-                // If the user interacts with model on the 3D model panel
-                else
-                {
-                    RotateSelectedObject(inTouch);
+                    // If the user interacts with a station model
+                    if (toggleStationSearch.isOn)
+                    {
+                        MoveModel(inTouch);
+                    }
+                    // If the user interacts with model on the 3D model panel
+                    else
+                    {
+                        RotateSelectedObject(inTouch);
+                    }
                 }
             }
-        }
 
-        if (inTouch.phase == TouchPhase.Ended)
-        {
-            // Check how far the user has moved their finger since the beginning of the touchphase
-            endTouchPos = inTouch.position;
-            float distance = (endTouchPos - beginTouchPos).magnitude;
-
-            // Try to select a model if the users finger has moved relatively 
-            // little and make sure the user is not holding down
-            if (distance < selectModelThreshold && (Time.time - startTime) < 1)
+            if (inTouch.phase == TouchPhase.Ended)
             {
-                SelectModel(inTouch);
+                // Check how far the user has moved their finger since the beginning of the touchphase
+                endTouchPos = inTouch.position;
+                float distance = (endTouchPos - beginTouchPos).magnitude;
+
+                // Try to select a model if the users finger has moved relatively 
+                // little and make sure the user is not holding down
+                if (distance < selectModelThreshold && (Time.time - startTime) < 1)
+                {
+                    // SelectModel(inTouch);
+                }
             }
         }
     }
@@ -145,6 +153,8 @@ public class ModelInteraction : MonoBehaviour
 
     void RotateSelectedObject(Touch inTouch)
     {
+        selectedObject = groundPlane.transform.GetChild(0).gameObject;
+
         // Get previous touch positions and magnitudes
         Vector2 touchPrevPos = inTouch.position - inTouch.deltaPosition;
         float prevTouchDeltaMagnitude = (touchPrevPos).magnitude;
@@ -159,30 +169,35 @@ public class ModelInteraction : MonoBehaviour
 
     void ScaleSelectedObject(Touch inTouch)
     {
-        // Get previous touch positions and deltapositions
-        Touch touchZero = inTouch;
-        Touch touchOne = Input.GetTouch(1);
-        Vector2 touchZeroPrevPos = (touchZero.position - touchZero.deltaPosition);
-        Vector2 touchOnePrevPos = (touchOne.position - touchOne.deltaPosition);
-
-        // Get magnitudes
-        float prevTouchDeltaMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-        float touchDeltaMagnitude = (touchZero.position - touchOne.position).magnitude;
-
-        // Use magnitude differences between previous and current touch to determine scale amount
-        float deltaMagnitudeDifference = (prevTouchDeltaMagnitude - touchDeltaMagnitude) * scaleSpeed;
-
-        Vector3 zoomVector = new Vector3(deltaMagnitudeDifference, deltaMagnitudeDifference, deltaMagnitudeDifference);
-
-        if (selectedObject.transform.localScale.x <= 1.5f || selectedObject.transform.localScale.x >= 0.5f)
+        if (groundPlane.transform.childCount > 0)
         {
-            selectedObject.transform.localScale -= zoomVector * Time.deltaTime;
-        }
+            selectedObject = groundPlane.transform.GetChild(0).gameObject;
 
-        // Configure max and minimum scale size
-        if (selectedObject.transform.localScale.x > 1.0f)
-            selectedObject.transform.localScale = new Vector3(1, 1, 1);
-        if (selectedObject.transform.localScale.x < 0.5f)
-            selectedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            // Get previous touch positions and deltapositions
+            Touch touchZero = inTouch;
+            Touch touchOne = Input.GetTouch(1);
+            Vector2 touchZeroPrevPos = (touchZero.position - touchZero.deltaPosition);
+            Vector2 touchOnePrevPos = (touchOne.position - touchOne.deltaPosition);
+
+            // Get magnitudes
+            float prevTouchDeltaMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float touchDeltaMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            // Use magnitude differences between previous and current touch to determine scale amount
+            float deltaMagnitudeDifference = (prevTouchDeltaMagnitude - touchDeltaMagnitude) * scaleSpeed;
+
+            Vector3 zoomVector = new Vector3(deltaMagnitudeDifference, deltaMagnitudeDifference, deltaMagnitudeDifference);
+
+            if (selectedObject.transform.localScale.x <= 1.5f || selectedObject.transform.localScale.x >= 0.5f)
+            {
+                selectedObject.transform.localScale -= zoomVector * Time.deltaTime;
+            }
+
+            // Configure max and minimum scale size
+            if (selectedObject.transform.localScale.x > 1.0f)
+                selectedObject.transform.localScale = new Vector3(1, 1, 1);
+            if (selectedObject.transform.localScale.x < 0.5f)
+                selectedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
     }
 }
