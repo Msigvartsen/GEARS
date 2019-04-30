@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1250768378}
   m_IndirectSpecularColor: {r: 0.4503373, g: 0.5003607, b: 0.57529306, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -1159,7 +1159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83b32d801149a646a0fcf40e506a2dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LightOutput1: {fileID: 0}
+  LightOutput2: {fileID: 0}
+  debugging: 0
   m_LightToEffect: {fileID: 1250768378}
+  intesityModifier: 11
+  temperatureModifier: 3000
 --- !u!4 &391639260
 Transform:
   m_ObjectHideFlags: 0

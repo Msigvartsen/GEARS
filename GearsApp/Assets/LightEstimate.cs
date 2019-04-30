@@ -2,55 +2,171 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class LightEstimate : MonoBehaviour
-
 {
+    private bool mAccessCameraImage = true;
+    private Vuforia.PIXEL_FORMAT mPixelFormat; // or RGBA8888, RGB888, RGB565, YUV, GRAYSCALE
+    private bool mFormatRegistered = false;
+
+    public Text LightOutput1;
+    public Text LightOutput2;
+
+    public bool debugging;
     public Light m_LightToEffect;
-    private IlluminationManager m_IlluminationManager;
 
-    private float? m_Temperature;
-    private float? m_AmbientIntensity;
+    private Color lightColor = new Color(1, 1, 1, 1);
+    private float ligtColorNum;
+    public double intesityModifier = 10.0;
+    public int temperatureModifier = 3000;
 
-    Color color;
-    float r, g, b;
+    public float? intensity { get; private set; }
+    public float? colorTemperature { get; private set; }
 
-    private void Start()
+
+    void Start()
     {
-        m_IlluminationManager = TrackerManager.Instance.GetStateManager().GetIlluminationManager();
+        mPixelFormat = Vuforia.PIXEL_FORMAT.UNKNOWN_FORMAT;
+        GraphicsSettings.lightsUseLinearIntensity = true;
+        GraphicsSettings.lightsUseColorTemperature = true;
+        // set up pixel format
+#if UNITY_EDITOR
+        mPixelFormat = Vuforia.PIXEL_FORMAT.GRAYSCALE; // Need Grayscale for Editor
+#else
+        mPixelFormat = Vuforia.PIXEL_FORMAT.RGB888; // Use RGB888 for mobile
+#endif
+
+        // API for getting Vuforia Callbacks as of Unity 2018.1.0f2. 
+        //The OnVuforiaStarted event is required for getting the camera pixel data for sure
+        VuforiaARController.Instance.RegisterVuforiaStartedCallback(OnVuforiaStarted);
+        VuforiaARController.Instance.RegisterOnPauseCallback(OnVuforiaPaused);
+        VuforiaARController.Instance.RegisterTrackablesUpdatedCallback(OnTrackablesUpdated);
+
+        //text used for debugging
+        LightOutput1.text = "";
+        LightOutput2.text = "";
+
     }
 
-    private void Update()
+    private void OnVuforiaStarted()
     {
-        if (m_IlluminationManager == null)
-            return;
+        // Try register camera image format
 
-        if (m_LightToEffect != null)
+        if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))
         {
+            Debug.Log("Successfully registered pixel format " + mPixelFormat.ToString());
+            mFormatRegistered = true;
+        }
+        else
+        {
+            Debug.LogError("Failed to register pixel format " + mPixelFormat.ToString() +
+                "\n the format may be unsupported by your device;" +
+                "\n consider using a different pixel format.");
+            mFormatRegistered = false;
+        }
+    }
 
-            m_Temperature = m_IlluminationManager.AmbientColorTemperature;
-            if (m_Temperature != null)
+    // Called when app is paused / resumed
+    private void OnVuforiaPaused(bool paused)
+    {
+        if (paused)
+        {
+            Debug.Log("App was paused");
+            UnregisterFormat();
+        }
+        else
+        {
+            Debug.Log("App was resumed");
+            RegisterFormat();
+        }
+    }
+
+    // Called each time the Vuforia state is updated
+    private void OnTrackablesUpdated()
+    { 
+        if (mFormatRegistered)
+        {
+            if (mAccessCameraImage)
             {
+                Vuforia.Image image = CameraDevice.Instance.GetCameraImage(mPixelFormat);
+                if (image != null)
+                {
+                    string imageInfo = mPixelFormat + " image: \n";
+                    imageInfo += " size: " + image.Width + " x " + image.Height + "\n";
+                    imageInfo += " bufferSize: " + image.BufferWidth + " x " + image.BufferHeight + "\n";
+                    imageInfo += " stride: " + image.Stride;
+                    Debug.Log(imageInfo);
+                    byte[] pixels = image.Pixels;
+                    if (pixels != null && pixels.Length > 0)
+                    {
+                        Debug.Log("Image pixels: " + pixels[0] + "," + pixels[1] + "," + pixels[2] + ",...");
 
-                color = Mathf.CorrelatedColorTemperatureToRGB((float)m_Temperature);
+                        double totalLuminance = 0.0;
+                        for (int p = 0; p < pixels.Length; p += 4)
+                        {
+                            totalLuminance += pixels[p] * 0.299 + pixels[p + 1] * 0.587 + pixels[p + 2] * 0.114;
 
-                //m_LightToEffect.colorTemperature = (float)m_Temperature;
+                        }
+
+                        totalLuminance /= (pixels.Length);
+                        //this takes the totalLuminance in the line above and puts it in the decimal range
+                        ligtColorNum = (float)totalLuminance * 0.0255f;
+                        //ligtColorNum is put in for RGB. will change color along the gray scale
+                        lightColor = new Color(ligtColorNum, ligtColorNum, ligtColorNum, 1.0f);
+                        totalLuminance /= 255.0;
+                        totalLuminance *= intesityModifier;
+                        m_LightToEffect.intensity = (float)totalLuminance;
+
+                        // This adjusts the Ambient light that's always present in a scene.
+                        RenderSettings.ambientIntensity = m_LightToEffect.intensity;
+                        RenderSettings.ambientLight = lightColor;
+                        Debug.Log("light intensity = " + m_LightToEffect.intensity);
+
+                        colorTemperature = (float?)(totalLuminance * temperatureModifier);
+                        m_LightToEffect.colorTemperature = (float)colorTemperature;
+                        Debug.Log("calculating color temperature =========================" + colorTemperature);
+
+                        //Used for debugging so you can see if light changes;
+                        if (debugging == true)
+                        {
+                            if (m_LightToEffect.intensity != null)
+                            {
+                                LightOutput1.text = "light intensity = " + m_LightToEffect.intensity;
+                            }
+                            else
+                            {
+                                LightOutput1.text = "ambient intensity = " + RenderSettings.ambientIntensity;
+                            }
+                            LightOutput2.text = "color temp = " + m_LightToEffect.colorTemperature;
+                        }
+                    }
+                }
             }
+        }
+    }
 
-            m_AmbientIntensity = m_IlluminationManager.AmbientIntensity;
-            if (m_AmbientIntensity != null && color != null)
-            {
-                color = color * ((float) m_AmbientIntensity / 1000);
-                //m_LightToEffect.intensity = (float)m_AmbientIntensity;
-
-
-                m_LightToEffect.color = color;
-                m_LightToEffect.intensity = ((float)m_AmbientIntensity / 1000);
-                RenderSettings.ambientSkyColor = color;
-                RenderSettings.ambientEquatorColor = color;
-                RenderSettings.ambientGroundColor = color;
-            }
-
+    // Unregister the camera pixel format (e.g. call this when app is paused)
+    private void UnregisterFormat()
+    {
+        Debug.Log("Unregistering camera pixel format " + mPixelFormat.ToString());
+        CameraDevice.Instance.SetFrameFormat(mPixelFormat, false);
+        mFormatRegistered = false;
+    }
+    
+    // Register the camera pixel format
+    private void RegisterFormat()
+    {
+        if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))
+        {
+            Debug.Log("Successfully registered camera pixel format " + mPixelFormat.ToString());
+            mFormatRegistered = true;
+        }
+        else
+        {
+            Debug.LogError("Failed to register camera pixel format " + mPixelFormat.ToString());
+            mFormatRegistered = false;
         }
     }
 }

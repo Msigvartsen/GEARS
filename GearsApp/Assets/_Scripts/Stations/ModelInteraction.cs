@@ -29,7 +29,7 @@ public class ModelInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).position.y < Screen.height*0.7)
         {
             Touch touch = Input.GetTouch(0);
 
