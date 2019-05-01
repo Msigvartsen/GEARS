@@ -307,6 +307,9 @@ public class PlaneFinderManager : MonoBehaviour
         // Set correct help text
         if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
         {
+            Vector3 optimalSize = groundPlane.transform.GetChild(0).GetComponentInChildren<BoxCollider>().size;
+            planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.transform.GetChild(0).localScale = optimalSize;
+
             if (!toggleStationSearch.isOn)
                 htm.SetHelpText((int)Help.PLACE);
             else
