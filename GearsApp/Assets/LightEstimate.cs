@@ -47,8 +47,8 @@ public class LightEstimate : MonoBehaviour
         //text used for debugging
         if (debugging)
         {
-        LightOutput1.text = "";
-        LightOutput2.text = "";
+            LightOutput1.text = "";
+            LightOutput2.text = "";
         }
 
     }
@@ -82,7 +82,7 @@ public class LightEstimate : MonoBehaviour
 
     // Called each time the Vuforia state is updated
     private void OnTrackablesUpdated()
-    { 
+    {
         if (mFormatRegistered)
         {
             if (mAccessCameraImage)
@@ -146,7 +146,7 @@ public class LightEstimate : MonoBehaviour
         CameraDevice.Instance.SetFrameFormat(mPixelFormat, false);
         mFormatRegistered = false;
     }
-    
+
     // Register the camera pixel format
     private void RegisterFormat()
     {

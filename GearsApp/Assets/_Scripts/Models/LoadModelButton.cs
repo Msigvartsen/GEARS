@@ -37,8 +37,8 @@ public class LoadModelButton : MonoBehaviour
         // Create the prefab if it is not loaded
         if (!loaded)
         {
-            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name));
-            shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"));
+            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name), groundPlane.transform);
+            shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), modelToShow.transform);
             shadowPlane.GetComponent<Renderer>().enabled = false;
 
             // Get the renderer component in either child or on current object and turn it off
@@ -55,10 +55,6 @@ public class LoadModelButton : MonoBehaviour
                 modelToShow.GetComponent<Renderer>().enabled = false;
             }
 
-            // Set the ground plane to be the models parent
-            modelToShow.transform.parent = groundPlane.transform;
-            shadowPlane.transform.parent = modelToShow.transform;
-            print("LoadModelButton found groundplane");
             modelToShow.transform.localPosition = new Vector3(0, 0, 0);
             loaded = true;
         }

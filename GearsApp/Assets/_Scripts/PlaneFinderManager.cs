@@ -14,20 +14,16 @@ public class PlaneFinderManager : MonoBehaviour
     [SerializeField]
     Toggle toggleStationSearch;
 
-    private GameObject modelOnPlane;
-
-    private HelpTextManager htm;
-
-
     private StationController stationController;
     private LocationController locationController;
     private ModelController modelController;
+    private HelpTextManager htm;
 
     private List<Station> stationsAtLocation;
     private List<Model> stationModelsAtLocation;
     private GameObject modelAtStation;
-
     private Station closestStation;
+    private GameObject shadowPlane;
 
 
     // Start is called before the first frame update
@@ -171,6 +167,8 @@ public class PlaneFinderManager : MonoBehaviour
                 if (modelAtStation == null)
                 {
                     modelAtStation = Instantiate(Resources.Load<GameObject>("_Prefabs/" + stationModelsAtLocation[i].model_name), groundPlane.transform);
+                    shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/ShadowPlane"), modelAtStation.transform);
+                    shadowPlane.GetComponent<Renderer>().enabled = false;
 
                     // Get the renderer component in either child or on current object and turn it off
                     if (modelAtStation.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -262,10 +260,11 @@ public class PlaneFinderManager : MonoBehaviour
     private int GetActiveChild()
     {
         int index = -1;
-        // Loop through all children to see if any are active
-        for (int i = 0; i < groundPlane.transform.childCount; i++)
+
+        // Check for children
+        if (groundPlane.transform.childCount > 0)
         {
-            Transform child = groundPlane.transform.GetChild(i);
+            Transform child = groundPlane.transform.GetChild(0);
 
             // Check if the child is enabled
             if (child.gameObject.activeSelf)
@@ -273,13 +272,12 @@ public class PlaneFinderManager : MonoBehaviour
                 if (child.childCount > 0)
                 {
                     // Check if the renderer components is enabled
-                    var rendererComponents = groundPlane.transform.GetChild(i).GetComponentsInChildren<Renderer>(true);
+                    var rendererComponents = child.GetComponentsInChildren<Renderer>(true);
                     foreach (var componenent in rendererComponents)
                     {
                         if (componenent.enabled)
                         {
-                            index = i;
-                            modelOnPlane = child.gameObject;
+                            index = 0;
                         }
                     }
                 }
@@ -287,12 +285,12 @@ public class PlaneFinderManager : MonoBehaviour
                 {
                     if (child.GetComponent<Renderer>().enabled)
                     {
-                        index = i;
-                        modelOnPlane = child.gameObject;
+                        index = 0;
                     }
                 }
             }
         }
+
         return index;
     }
 
