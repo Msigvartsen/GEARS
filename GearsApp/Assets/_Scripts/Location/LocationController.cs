@@ -14,17 +14,8 @@ public class LocationController : MonoBehaviour
 
     public Location CurrentLocation;
 
-    private Sprite favoriteFilled;
-    private Sprite favoriteOutline;
-
-    public Sprite FavoriteFilled { get => favoriteFilled; set => favoriteFilled = value; }
-    public Sprite FavoriteOutline { get => favoriteOutline; set => favoriteOutline = value; }
-
     private void Start()
     {
-        favoriteFilled = Resources.Load<Sprite>("_Icons/star_white");
-        favoriteOutline = Resources.Load<Sprite>("_Icons/star_outline_white");
-
         LocationServiceNS.LocationService.CallUserPermission();
         StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
     }
@@ -67,7 +58,7 @@ public class LocationController : MonoBehaviour
 
     public void ResetFavorites()
     {
-        foreach(Location loc in locationList)
+        foreach (Location loc in locationList)
         {
             loc.favorite = false;
         }
@@ -75,9 +66,9 @@ public class LocationController : MonoBehaviour
 
     public void UpdateLocation(Location updatedLocation)
     {
-        for(int i = 0; i < locationList.Count; i++)
+        for (int i = 0; i < locationList.Count; i++)
         {
-            if(locationList[i].location_ID == updatedLocation.location_ID)
+            if (locationList[i].location_ID == updatedLocation.location_ID)
                 locationList[i] = updatedLocation;
         }
     }
@@ -89,7 +80,6 @@ public class LocationController : MonoBehaviour
 
     IEnumerator Request()
     {
-        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/locations.php"))
         string path = ConstantsNS.Constants.PhpPath + "locations.php";
         using (UnityWebRequest request = UnityWebRequest.Get(path))
         {
@@ -113,12 +103,14 @@ public class LocationController : MonoBehaviour
                 {
                     foreach (Location loc in res.objectList)
                     {
-                        Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/img.jpg");
-                        Texture2D tex = FTPHandler.DownloadImageFromFTP(uri);
-                        loc.thumbnail = tex;
-                        //Uri uri2 = new Uri(ConstantsNS.Constants.FTPLocationPath + loc.name + "/Images/");
-                        //loc.images = FTPHandler.DownloadAllImagesFromFTP(uri2).ToArray();
-                        //loc.thumbnail = loc.images[0];
+                        object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
+                        loc.images = new Texture2D[obj.Length];
+                        for (int i = 0; i < obj.Length; i++)
+                        {
+                            loc.images[i] = (Texture2D)obj[i];
+                            if (loc.images[i].name == "thumbnail")
+                                loc.thumbnail = loc.images[i];
+                        }
                         locationList.Add(loc);
                     }
                 }

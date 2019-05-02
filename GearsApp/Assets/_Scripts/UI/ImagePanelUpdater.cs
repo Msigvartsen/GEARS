@@ -21,7 +21,7 @@ public class ImagePanelUpdater : MonoBehaviour
         //Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + currentLocation.name + "/Images/");
         //imageList = FTPHandler.DownloadAllImagesFromFTP(uri).ToArray();
         //imageList = transform.parent.GetComponent<LocationDetails>().imagePanel;
-
+        imageList = LocationController.GetInstance().CurrentLocation.images;
         activeImage = GetComponentInChildren<RawImage>();
         arraySize = imageList.Length;
         SetTexture();
