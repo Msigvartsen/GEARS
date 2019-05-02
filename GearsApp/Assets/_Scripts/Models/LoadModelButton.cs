@@ -11,6 +11,7 @@ public class LoadModelButton : MonoBehaviour
     private bool loaded = false;
     private GameObject modelToShow;
     private GameObject groundPlane;
+    private GameObject shadowPlane;
 
     void Start()
     {
@@ -36,7 +37,9 @@ public class LoadModelButton : MonoBehaviour
         // Create the prefab if it is not loaded
         if (!loaded)
         {
-            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name));
+            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name), groundPlane.transform);
+            shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), modelToShow.transform);
+            shadowPlane.GetComponent<Renderer>().enabled = false;
 
             // Get the renderer component in either child or on current object and turn it off
             if (modelToShow.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -52,9 +55,6 @@ public class LoadModelButton : MonoBehaviour
                 modelToShow.GetComponent<Renderer>().enabled = false;
             }
 
-            // Set the ground plane to be the models parent
-            modelToShow.transform.parent = groundPlane.transform;
-            print("LoadModelButton found groundplane");
             modelToShow.transform.localPosition = new Vector3(0, 0, 0);
             loaded = true;
         }
@@ -62,8 +62,10 @@ public class LoadModelButton : MonoBehaviour
         {
             // Activate the model if its selected and loaded
             modelToShow.SetActive(true);
+            shadowPlane.SetActive(true);
         }
     }
+
     public void CloseProfilePictureWindow()
     {
         GameObject p = GameObject.FindGameObjectWithTag("NewProfilePictureWindow");
