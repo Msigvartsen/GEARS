@@ -71,10 +71,8 @@ public class LocationListManager : MonoBehaviour
         }
         List<Location> list = GetFavoriteList();
 
-        Debug.Log("UPDATE FAV LIST)");
         Location[] locations = GetFavoriteList().ToArray();
         bool isActive = false;
-        Debug.Log("# Fav: " + locations.Length + " # items = " + itemList.Count);
         foreach (var fav in locations)
         {
             foreach (var item in itemList)
@@ -127,7 +125,6 @@ public class LocationListManager : MonoBehaviour
             locations = locationArray;
         }
 
-        //itemList = new GameObject[locations.Length];
         for (int i = 0; i < locations.Length; i++)
         {
             Debug.Log(i + " location " + locations[i].name);

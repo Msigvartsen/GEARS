@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2147,6 +2147,7 @@ GameObject:
   - component: {fileID: 713353955}
   - component: {fileID: 713353959}
   - component: {fileID: 713353960}
+  - component: {fileID: 713353961}
   m_Layer: 0
   m_Name: SingeltonControllers
   m_TagString: Untagged
@@ -2194,7 +2195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationList: []
-  favoriteLocationList: []
   CurrentLocation:
     location_ID: 0
     name: 
@@ -2253,6 +2253,18 @@ MonoBehaviour:
     helptext: 
     score: 0
     visited: 0
+--- !u!114 &713353961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713353954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebdb28e18e47394d97d27d1a144dbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &769402940
 GameObject:
   m_ObjectHideFlags: 0

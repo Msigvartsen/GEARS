@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 public class LocationController : MonoBehaviour
 {
     public List<Location> locationList;
-    public List<Location> favoriteLocationList;
     private static LocationController _instance;
 
     public Location CurrentLocation;
