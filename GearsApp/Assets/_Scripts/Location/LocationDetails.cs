@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System.Net;
-using System;
+﻿using UnityEngine;
 
 public class LocationDetails : MonoBehaviour
 {
@@ -29,30 +24,7 @@ public class LocationDetails : MonoBehaviour
     private void UpdateInfoText()
     {
         LocationController manager = LocationController.GetInstance();
-        Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Information/basicinfo.txt");
-        string infotext = FTPHandler.DownloadTextFromFTP(uri);
-        infoText.text = infotext;
+        var infotext = Resources.Load<TextAsset>("_Locations/" + manager.CurrentLocation.name + "/Information/basicinfo");
+        infoText.text = infotext.text;
     }
-
-    //IEnumerator UpdateInfoText()
-    //{
-    //    LocationController manager = LocationController.GetInstance();
-
-    //    GameObject gameObject = GameObject.FindGameObjectWithTag("HeaderButton");
-    //    gameObject.GetComponentInChildren<Text>().text = manager.CurrentLocation.name;
-
-    //    Transform[] children = GetComponentsInChildren<Transform>();
-    //    foreach (Transform obj in children)
-    //    {
-    //        if (obj.name == "InfoPanel")
-    //        {
-    //            GameObject infoPanel = obj.gameObject;
-    //            Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + manager.CurrentLocation.name + "/Information/basicinfo.txt");
-    //            string infotext = FTPHandler.DownloadTextFromFTP(uri);
-    //            infoPanel.GetComponentInChildren<Text>().text = infotext;//manager.CurrentLocation.information;
-    //            infoPanel.GetComponentInChildren<RawImage>().texture = manager.CurrentLocation.thumbnail;
-    //            yield return infotext;
-    //        }
-    //    }
-    //}
 }

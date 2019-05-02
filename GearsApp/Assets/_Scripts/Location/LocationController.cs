@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using Mapbox.Utils;
 using System;
+using System.Text.RegularExpressions;
 
 public class LocationController : MonoBehaviour
 {

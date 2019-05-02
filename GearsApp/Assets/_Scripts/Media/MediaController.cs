@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -55,11 +54,11 @@ public class MediaController : MonoBehaviour
                     Debug.Log("Code:" + res.handler.text);
                     foreach (Media media in res.objectList)
                     {
-                        Debug.Log("Media name = " + media.medianame);
-                        Uri uri = new Uri(ConstantsNS.Constants.FTPPath + "Media/" + media.mediatype + "/" + media.medianame);
-                        Texture2D image = FTPHandler.DownloadImageFromFTP(uri);
+                        string mediapath = "_Media/" + media.mediatype + "/" + media.medianame;
+                        Texture2D image = Resources.Load<Texture2D>(mediapath);
                         media.image = image;
                         mediaList.Add(media);
+
                     }
                 }
             }
