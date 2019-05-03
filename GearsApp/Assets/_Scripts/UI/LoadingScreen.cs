@@ -10,7 +10,6 @@ public class LoadingScreen : MonoBehaviour
 
     [Header("Resources")]
     public CanvasGroup canvasAlpha;
-    public Text status;
     public static string prefabName = "ScreenLoader";
 
 
@@ -19,7 +18,7 @@ public class LoadingScreen : MonoBehaviour
     [Range(0.1f, 3.0f)] public float imageRadialSpeed = 1f;
 
     [Header("Settings")]
-    [Range(0.1f, 4.0f)] public float fadingAnimationSpeed = 2f;
+    [Range(0.1f, 4.0f)] public float fadingAnimationSpeed = 4f;
 
     private AsyncOperation loadingProcess;
 
@@ -67,16 +66,6 @@ public class LoadingScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        try
-        {
-            status.text = Mathf.Round(loadingProcess.progress * 100f).ToString() + "%";
-        }
-        catch
-        {
-            Debug.Log("Cannot update status.text.");
-        }
-
-
         if (loadingProcess.isDone)
         {
             canvasAlpha.alpha -= fadingAnimationSpeed * Time.deltaTime;
