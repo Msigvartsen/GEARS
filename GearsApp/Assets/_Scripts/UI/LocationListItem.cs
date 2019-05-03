@@ -85,7 +85,6 @@ public class LocationListItem : MonoBehaviour
 
     public void OpenLocationTab()
     {
-        Debug.Log("BUTTON PRESSED");
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = location;
         UserController.GetInstance().PreviousPage = "Locations";

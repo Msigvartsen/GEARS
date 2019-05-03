@@ -70,7 +70,6 @@ public class StationListManager : MonoBehaviour
         Toggle visitedToggle = ListItem.GetComponentInChildren<Toggle>();
         visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().Station.visited;
 
-        Debug.Log("Station nr = " + station.station_NR + " at location id = " + station.location_ID + ", visited = " + visitedToggle.isOn);
 
         if (!visitedToggle.isOn)
         {

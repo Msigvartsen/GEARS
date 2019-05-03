@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TrophyListItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Trophy CurrentTrophy { get; set; }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private TMPro.TextMeshProUGUI trophyName;
+    [SerializeField]
+    private RawImage trophyImage;
+
+    private void Start()
     {
-        
+        if (trophyImage != null)
+            trophyImage.texture = CurrentTrophy.image;
+        if (trophyName != null)
+            trophyName.text = CurrentTrophy.trophyname;
     }
 }

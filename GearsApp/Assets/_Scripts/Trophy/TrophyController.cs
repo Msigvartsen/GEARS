@@ -55,9 +55,8 @@ public class TrophyController : MonoBehaviour
                 {
                     foreach (Trophy trophy in res.objectList)
                     {
-                        Texture2D tex = Resources.Load<Texture2D>("_Trophies/" + trophy.name);
+                        Texture2D tex = Resources.Load<Texture2D>("_Trophies/" + trophy.trophyname);
                         trophy.image = tex;
-                        Debug.Log("ADDING TO TROPHY LIST " + trophy.name);
                         TrophyList.Add(trophy);
                     }
                 }

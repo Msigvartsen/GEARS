@@ -89,36 +89,9 @@ public class ModelController : MonoBehaviour
                     foreach (Model model in response.objectList)
                     {
                         modelList.Add(model);
-                        Debug.Log("Models = " + model.model_name);
                     }
                 }
             }
         }
-    }
-
-    public static bool DisplayFileFromServer(Uri serverUri)
-    {
-        //string serverUri = "ftp://ftp.bardrg.com/GEARS/PHPScripts/models.php";
-        // The serverUri parameter should start with the ftp:// scheme.
-        if (serverUri.Scheme != Uri.UriSchemeFtp)
-        {
-            return false;
-        }
-        // Get the object used to communicate with the server.
-        WebClient request = new WebClient();
-
-        // This example assumes the FTP site uses anonymous logon.
-        request.Credentials = new NetworkCredential("bardrg.com_gearsa", "zg5M2o8S8bDkE9iI");
-        try
-        {
-            byte[] newFileData = request.DownloadData(serverUri.ToString());
-            string fileString = System.Text.Encoding.UTF8.GetString(newFileData);
-            Debug.Log("File string: " + fileString);
-        }
-        catch (WebException e)
-        {
-            Debug.Log(e.ToString());
-        }
-        return true;
     }
 }

@@ -77,7 +77,6 @@ public class StationController : MonoBehaviour
                     foreach (Station stat in res.objectList)
                     {
                         stationList.Add(stat);
-                        Debug.Log("Station nr = " + stat.station_NR + " with location_ID = " + stat.location_ID);
                     }
                 }
             }

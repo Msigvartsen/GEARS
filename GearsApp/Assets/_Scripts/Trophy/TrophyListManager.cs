@@ -21,8 +21,8 @@ public class TrophyListManager : MonoBehaviour
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(transform, false);
-        //go.GetComponent<TrophyListItem>().trophy = trophylist[index];
-        Debug.Log("Adding Trophy" + trophies[index].name);
+
+        go.GetComponent<TrophyListItem>().CurrentTrophy = trophies[index];
         return go;
     }
 

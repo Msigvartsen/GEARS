@@ -127,7 +127,6 @@ public class LocationListManager : MonoBehaviour
 
         for (int i = 0; i < locations.Length; i++)
         {
-            Debug.Log(i + " location " + locations[i].name);
             itemList.Add(GetListItem(i, locations));
         }
     }
@@ -141,7 +140,6 @@ public class LocationListManager : MonoBehaviour
         {
             go.SetActive(go.GetComponent<LocationListItem>().location.favorite);
         }
-        Debug.Log("Location in new prefab = " + locations[index].name);
 
         return go;
     }
