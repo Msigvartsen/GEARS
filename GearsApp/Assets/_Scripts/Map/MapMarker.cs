@@ -20,8 +20,6 @@ public class MapMarker : MonoBehaviour
         GameObject popupWindow = GameObject.FindGameObjectWithTag("LocationPopupContainer");
         popupWindow.GetComponent<Animator>().Play("Fade-in");
 
-        //popupWindow.GetComponent<PopupPanel>().SetPopupPanelActive(true);
-
         if (MapMarkerLocation != null)
         {
             GameObject popupInfo = GameObject.FindGameObjectWithTag("LocationPopupInfo");

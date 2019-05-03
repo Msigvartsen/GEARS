@@ -18,4 +18,24 @@ public class TrophyListItem : MonoBehaviour
         if (trophyName != null)
             trophyName.text = CurrentTrophy.trophyname;
     }
+
+    public void TrophyDetailPopup()
+    {
+        GameObject popupWindow = GameObject.FindGameObjectWithTag("TrophyPopupContainer");
+        popupWindow.GetComponent<Animator>().Play("Fade-in");
+
+        if (CurrentTrophy != null)
+        {
+            GameObject popupInfo = GameObject.FindGameObjectWithTag("TrophyPopupInfo");
+            var textComponents = popupInfo.GetComponentsInChildren<TMPro.TextMeshProUGUI>();//.text = CurrentTrophy.trophyname;
+            foreach(var component in textComponents)
+            {
+                if (component.name == "Name")
+                    component.text = CurrentTrophy.trophyname;
+                if (component.name == "Details")
+                    component.text = CurrentTrophy.details;
+            }
+            popupInfo.GetComponentInChildren<RawImage>().texture = CurrentTrophy.image;
+        }
+    }
 }
