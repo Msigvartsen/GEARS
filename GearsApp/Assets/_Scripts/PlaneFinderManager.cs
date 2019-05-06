@@ -127,15 +127,23 @@ public class PlaneFinderManager : MonoBehaviour
 
     private void UpdateStationData(Station station)
     {
-        // Update database with userprogress
-        for (int i = 0; i < stationController.stationList.Count; i++)
+        // Add experience to user and update database with userprogress
+        if (!station.visited)
         {
-            if (station.station_NR == stationController.stationList[i].station_NR && station.location_ID == stationController.stationList[i].location_ID)
+            UserController.GetInstance().UpdateUserExperience(station.score);
+
+            // Update database with userprogress
+            for (int i = 0; i < stationController.stationList.Count; i++)
             {
-                stationController.CurrentStation = stationController.stationList[i];
-                stationController.CallUpdateUserProgress();
+                if (station.station_NR == stationController.stationList[i].station_NR && station.location_ID == stationController.stationList[i].location_ID)
+                {
+                    stationController.CurrentStation = stationController.stationList[i];
+                    stationController.CallUpdateUserProgress();
+                }
             }
         }
+
+
     }
 
     private Station GetClosestStation()
