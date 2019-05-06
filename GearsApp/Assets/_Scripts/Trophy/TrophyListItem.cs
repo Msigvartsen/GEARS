@@ -12,6 +12,8 @@ public class TrophyListItem : MonoBehaviour
     [SerializeField]
     private RawImage trophyImage;
 
+    public GameObject overlayPanel;
+
     private void Start()
     {
         if (trophyImage != null)
@@ -29,7 +31,7 @@ public class TrophyListItem : MonoBehaviour
         {
             GameObject popupInfo = GameObject.FindGameObjectWithTag("TrophyPopupInfo");
             var textComponents = popupInfo.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
-            foreach(var component in textComponents)
+            foreach (var component in textComponents)
             {
                 if (component.name == "Name")
                     component.text = CurrentTrophy.trophyname;

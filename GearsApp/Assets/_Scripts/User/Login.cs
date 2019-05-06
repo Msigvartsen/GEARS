@@ -52,6 +52,7 @@ public class Login : MonoBehaviour
 
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
+                    TrophyController.GetInstance().CallCollectedTrophies();
                     LoadingScreen.LoadScene("Main");
                 }
                 else

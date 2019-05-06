@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class CollectedTrophy
 {
-    int telephonenr;
-    string trophyname;
+    public int telephonenr;
+    public string trophyname;
 }

@@ -34,6 +34,11 @@ public class TrophyController : MonoBehaviour
         StartCoroutine(RequestTrophies());
     }
 
+    public void CallCollectedTrophies()
+    {
+        StartCoroutine(RequestCollectedTrophies());
+    }
+
     IEnumerator RequestTrophies()
     {
         string path = ConstantsNS.Constants.PhpPath + "trophies.php";
@@ -67,13 +72,17 @@ public class TrophyController : MonoBehaviour
         }
     }
 
-    IEnumerator RequestCollectedTrohpies()
+    IEnumerator RequestCollectedTrophies()
     {
         var currentUser = UserController.GetInstance().CurrentUser;
+
+        if (CollectedTrophies == null)
+            CollectedTrophies = new List<CollectedTrophy>();
+
         WWWForm form = new WWWForm();
         form.AddField("number", currentUser.telephonenr);
         string path = ConstantsNS.Constants.PhpPath + "collectedtrophies.php";
-        using (UnityWebRequest request = UnityWebRequest.Get(path))
+        using (UnityWebRequest request = UnityWebRequest.Post(path,form))
         {
             yield return request.SendWebRequest();
             string req = request.downloadHandler.text;
@@ -92,11 +101,9 @@ public class TrophyController : MonoBehaviour
                 }
                 else
                 {
-                    if (CollectedTrophies == null)
-                        CollectedTrophies = new List<CollectedTrophy>();
-
                     foreach (CollectedTrophy collectedtrophy in res.objectList)
                     {
+                        Debug.Log("Found trophy");
                         CollectedTrophies.Add(collectedtrophy);
                     }
                 }
