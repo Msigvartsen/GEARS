@@ -7,7 +7,10 @@ using UnityEngine.Networking;
 public class TrophyController : MonoBehaviour
 {
     private static TrophyController _instance;
+
+    public List<CollectedTrophy> CollectedTrophies { get; set; }
     public List<Trophy> TrophyList { get; set; }
+
     public static TrophyController GetInstance()
     {
         return _instance;
@@ -58,6 +61,43 @@ public class TrophyController : MonoBehaviour
                         Texture2D tex = Resources.Load<Texture2D>("_Trophies/" + trophy.trophyname);
                         trophy.image = tex;
                         TrophyList.Add(trophy);
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator RequestCollectedTrohpies()
+    {
+        var currentUser = UserController.GetInstance().CurrentUser;
+        WWWForm form = new WWWForm();
+        form.AddField("number", currentUser.telephonenr);
+        string path = ConstantsNS.Constants.PhpPath + "collectedtrophies.php";
+        using (UnityWebRequest request = UnityWebRequest.Get(path))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                WebResponse<CollectedTrophy> res = JsonConvert.DeserializeObject<WebResponse<CollectedTrophy>>(req);
+
+                if (res.handler.statusCode == false)
+                {
+                    Debug.Log(req + ": ERROR: No CollectedTrophies found from database");
+                }
+                else
+                {
+                    if (CollectedTrophies == null)
+                        CollectedTrophies = new List<CollectedTrophy>();
+
+                    foreach (CollectedTrophy collectedtrophy in res.objectList)
+                    {
+                        CollectedTrophies.Add(collectedtrophy);
                     }
                 }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class TrophyListItem : MonoBehaviour
 {
     public Trophy CurrentTrophy { get; set; }
@@ -27,7 +28,7 @@ public class TrophyListItem : MonoBehaviour
         if (CurrentTrophy != null)
         {
             GameObject popupInfo = GameObject.FindGameObjectWithTag("TrophyPopupInfo");
-            var textComponents = popupInfo.GetComponentsInChildren<TMPro.TextMeshProUGUI>();//.text = CurrentTrophy.trophyname;
+            var textComponents = popupInfo.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
             foreach(var component in textComponents)
             {
                 if (component.name == "Name")
