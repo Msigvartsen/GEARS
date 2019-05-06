@@ -16,19 +16,22 @@ public class TrophyListManager : MonoBehaviour
         {
             itemList.Add(GetListItem(i, trophylist[i]));
         }
+        //Trophy t = itemList[1].GetComponent<TrophyListItem>().CurrentTrophy;
+        //Debug.Log("HI=AEGHAEIGHAEI NAME " + t.trophyname);
+        //TrophyController.GetInstance().CallAddCollectedTrophy(t);
     }
 
     private GameObject GetListItem(int index, Trophy trophy)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(transform, false);
-        SetCollectedTrophies(index, trophy, go);
+        SetCollectedTrophies(trophy, go);
         go.GetComponent<TrophyListItem>().CurrentTrophy = trophy;
         
         return go;
     }
 
-    private static void SetCollectedTrophies(int index, Trophy trophy, GameObject go)
+    private static void SetCollectedTrophies(Trophy trophy, GameObject go)
     {
         foreach (var collectedtrophy in TrophyController.GetInstance().CollectedTrophies)
         {
@@ -42,6 +45,18 @@ public class TrophyListManager : MonoBehaviour
             {
                 go.GetComponent<Button>().interactable = false;
                 go.GetComponent<TrophyListItem>().overlayPanel.SetActive(true);
+            }
+        }
+    }
+
+    public void UpdateTrophyList(string trophyname)
+    {
+        foreach (var item in itemList)
+        {
+            var trophy = item.GetComponent<TrophyListItem>().CurrentTrophy;
+            if (trophy.trophyname == trophyname)
+            {
+                SetCollectedTrophies(trophy, item);
             }
         }
     }

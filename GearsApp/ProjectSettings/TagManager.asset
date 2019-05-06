@@ -30,6 +30,7 @@ TagManager:
   - StationMarker
   - TrophyPopupContainer
   - TrophyPopupInfo
+  - TrophyListManager
   layers:
   - Default
   - TransparentFX
