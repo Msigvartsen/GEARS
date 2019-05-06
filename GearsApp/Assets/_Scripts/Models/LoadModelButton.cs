@@ -15,7 +15,7 @@ public class LoadModelButton : MonoBehaviour
 
     void Start()
     {
-        GetComponentInChildren<Text>().text = model.model_name;
+        //GetComponentInChildren<Text>().text = model.model_name;
         button = GetComponent<Button>();
         button.onClick.AddListener(CloseProfilePictureWindow);
         button.onClick.AddListener(LoadModel);
