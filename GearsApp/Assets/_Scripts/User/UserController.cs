@@ -86,6 +86,11 @@ public class UserController : MonoBehaviour
         StartCoroutine(DeleteUser());
     }
 
+    public void CallUpdateUserExperience()
+    {
+        StartCoroutine(UpdateUserExperience());
+    }
+
 
     IEnumerator UpdateUserPicture()
     {
@@ -144,6 +149,37 @@ public class UserController : MonoBehaviour
                 else
                 {
                     LogOut();
+                }
+            }
+        }
+    }
+
+    IEnumerator UpdateUserExperience()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("number", CurrentUser.telephonenr);
+        form.AddField("experience", CurrentUser.experience);
+        string path = Constants.PhpPath + "updateuserexperience.php";
+        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+
+                if (handler.statusCode == false)
+                {
+                    Debug.Log(req);
+                }
+                else
+                {
+                    Debug.Log("Successful Update" + req);
                 }
             }
         }

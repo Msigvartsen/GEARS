@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3243964673943628490}
   - component: {fileID: 3243964673943628495}
   - component: {fileID: 3243964673943628488}
-  - component: {fileID: 7438388122147990100}
   - component: {fileID: 2662629528837042460}
   - component: {fileID: 1220163733195101090}
+  - component: {fileID: 2550808124389391832}
   m_Layer: 5
-  m_Name: LoadModelButton
+  m_Name: LoadCollectedModelsButton
   m_TagString: ModelButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 563.1, y: 237}
+  m_SizeDelta: {x: 900, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &3243964673943628495
 CanvasRenderer:
@@ -78,23 +78,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &7438388122147990100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3243964673943628491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c619c8ab0ddd944969095d3c721022, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model:
-    model_ID: 0
-    model_name: 
-    modeltype: 
-    score: 0
 --- !u!114 &2662629528837042460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,8 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 400
-  m_MinHeight: 250
+  m_MinWidth: 900
+  m_MinHeight: 100
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
@@ -157,6 +140,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &2550808124389391832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243964673943628491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa235991fe5f73a43869040ed797ea58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3243964674239067516
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.4, y: 2.7}
+  m_AnchoredPosition: {x: 3.399994, y: 2.699997}
   m_SizeDelta: {x: 488.4, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3243964674239067777
@@ -309,11 +304,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
