@@ -17,13 +17,19 @@ public class Registration : MonoBehaviour
     [SerializeField]
     private TMP_InputField passwordField;
 
-
     [SerializeField]
     private PopupNotification popupNotification;
 
     public void CallRegister()
     {
-        StartCoroutine(Register());
+        if (Inputcheck.ValidateInput(mobileField))
+        {
+            StartCoroutine(Register());
+        }
+        else
+        {
+            popupNotification.ShowPopup("Mobile number needs to have 8 digits!");
+        }
     }
 
     IEnumerator Register()
