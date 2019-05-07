@@ -16,6 +16,7 @@ public class TrophyListManager : MonoBehaviour
         {
             itemList.Add(GetListItem(i, trophylist[i]));
         }
+
         //Trophy t = itemList[1].GetComponent<TrophyListItem>().CurrentTrophy;
         //Debug.Log("Test: Adding trophy to collected trophy list " + t.trophyname);
         //TrophyController.GetInstance().CallAddCollectedTrophy(t);
