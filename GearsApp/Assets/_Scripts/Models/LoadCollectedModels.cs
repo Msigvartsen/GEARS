@@ -26,9 +26,9 @@ public class LoadCollectedModels : MonoBehaviour
         {
             if (allModels[i].modeltype == "Default")
             {
-                GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadModelButton"), gameObject.transform);
+                GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadCollectedModelsButton"), gameObject.transform);
                 go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = allModels[i].model_name;
-                go.GetComponent<LoadModelButton>().model = allModels[i];
+                go.GetComponent<LoadCollectedModelsButton>().myModel = allModels[i];
                 numberOfButtons++;
             }
         }
@@ -41,9 +41,9 @@ public class LoadCollectedModels : MonoBehaviour
                 {
                     if (collectedModelsID[j] == allModels[i].model_ID)
                     {
-                        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadModelButton"), gameObject.transform);
-                        go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = allModels[i].model_name;
-                        go.GetComponent<LoadModelButton>().model = allModels[i];
+                        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadCollectedModelsButton"), gameObject.transform);
+                        go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = allModels[i].model_name + " *";
+                        go.GetComponent<LoadCollectedModelsButton>().myModel = allModels[i];
                         numberOfButtons++;
                     }
                 }

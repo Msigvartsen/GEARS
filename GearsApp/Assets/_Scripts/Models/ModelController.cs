@@ -7,12 +7,19 @@ using System.Net;
 using System;
 using ConstantsNS;
 
+[System.Serializable]
+struct Model_id
+{
+    public int model_ID;
+}
+
 public class ModelController : MonoBehaviour
 {
     public List<Model> modelList;
     public List<LocationModel> locationModels;
     public List<int> foundModels;
     private static ModelController _instance;
+    public Model selectedCollectibleModel;
 
     public static ModelController GetInstance()
     {
@@ -139,7 +146,7 @@ public class ModelController : MonoBehaviour
             }
             else
             {
-                WebResponse<int> response = JsonConvert.DeserializeObject<WebResponse<int>>(req);
+                WebResponse<Model_id> response = JsonConvert.DeserializeObject<WebResponse<Model_id>>(req);
 
                 if (response.handler.statusCode == false)
                 {
@@ -148,9 +155,9 @@ public class ModelController : MonoBehaviour
                 else
                 {
                     Debug.Log("Code:" + response.handler.text);
-                    foreach (int foundModel in response.objectList)
+                    foreach (Model_id foundModel in response.objectList)
                     {
-                        foundModels.Add(foundModel);
+                        foundModels.Add(foundModel.model_ID);
                     }
                 }
             }

@@ -30,6 +30,9 @@ TagManager:
   - StationMarker
   - TrophyPopupContainer
   - TrophyPopupInfo
+  - CollectedModelsSelectPopup
+  - CollectedModelsSelectTitle
+  - CollectedModelsConfirmSelection
   layers:
   - Default
   - TransparentFX
