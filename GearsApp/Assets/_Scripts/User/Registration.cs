@@ -43,7 +43,8 @@ public class Registration : MonoBehaviour
         }
         if(!Inputcheck.ValidateTextInput(nameField))
         {
-            message = "Username needs to be atleaast 4 characters long. (A-Z) - No numbers or special characters";
+            message = "Username needs to be atleast 4 characters long. (A-Z) - No numbers or special characters";
+            return false;
         }
         if (!Inputcheck.ValidateTextInput(passwordField,true))
         {

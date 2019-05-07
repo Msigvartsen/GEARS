@@ -27,24 +27,24 @@ public class TrophyListManager : MonoBehaviour
         go.transform.SetParent(transform, false);
         SetCollectedTrophies(trophy, go);
         go.GetComponent<TrophyListItem>().CurrentTrophy = trophy;
-        
+
         return go;
     }
 
     private static void SetCollectedTrophies(Trophy trophy, GameObject go)
     {
-        foreach (var collectedtrophy in TrophyController.GetInstance().CollectedTrophies)
+        var trophies = TrophyController.GetInstance().CollectedTrophies;
+
+        if (trophies == null)
+            return;
+        
+        foreach (var collectedtrophy in trophies)
         {
             if (trophy.trophyname == collectedtrophy.trophyname)
             {
                 go.GetComponent<Button>().interactable = true;
                 go.GetComponent<TrophyListItem>().overlayPanel.SetActive(false);
                 return;
-            }
-            else
-            {
-                go.GetComponent<Button>().interactable = false;
-                go.GetComponent<TrophyListItem>().overlayPanel.SetActive(true);
             }
         }
     }
