@@ -22,14 +22,36 @@ public class Registration : MonoBehaviour
 
     public void CallRegister()
     {
-        if (Inputcheck.ValidateInput(mobileField))
+        string message = string.Empty;
+        if (!ValidateInput(ref message))
         {
-            StartCoroutine(Register());
+            popupNotification.ShowPopup(message);
         }
         else
         {
-            popupNotification.ShowPopup("Mobile number needs to have 8 digits!");
+            StartCoroutine(Register());
         }
+    }
+
+    private bool ValidateInput(ref string message)
+    {
+
+        if (!Inputcheck.ValidateNumberInput(mobileField))
+        {
+            message = "Mobile number needs to have 8 digits";
+            return false;
+        }
+        if(!Inputcheck.ValidateTextInput(nameField))
+        {
+            message = "Username needs to be atleaast 4 characters long. (A-Z) - No numbers or special characters";
+        }
+        if (!Inputcheck.ValidateTextInput(passwordField,true))
+        {
+            message = "Password needs atleast 6 characters, One upper case letter and one number";
+            return false;
+        }
+        
+        return true;
     }
 
     IEnumerator Register()
