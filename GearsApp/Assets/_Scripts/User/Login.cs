@@ -53,6 +53,7 @@ public class Login : MonoBehaviour
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
                     LoadingScreen.LoadScene("Main");
+                    ModelController.GetInstance().CallGetFoundModel();
                 }
                 else
                 {

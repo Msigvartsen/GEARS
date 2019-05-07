@@ -11,6 +11,7 @@ public class ModelController : MonoBehaviour
 {
     public List<Model> modelList;
     public List<LocationModel> locationModels;
+    public List<int> foundModels;
     private static ModelController _instance;
 
     public static ModelController GetInstance()
@@ -41,6 +42,16 @@ public class ModelController : MonoBehaviour
 
         StartCoroutine(Request());
         StartCoroutine(GetLocationModels());
+    }
+
+    public void CallGetFoundModel()
+    {
+        StartCoroutine(GetFoundModels());
+    }
+
+    public void CallUpdateFoundModel(int model_id)
+    {
+        StartCoroutine(UpdateFoundModels(model_id));
     }
 
     IEnumerator Request()
@@ -105,6 +116,75 @@ public class ModelController : MonoBehaviour
                     {
                         locationModels.Add(locationModel);
                     }
+                }
+            }
+        }
+    }
+
+    IEnumerator GetFoundModels()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("user", UserController.GetInstance().CurrentUser.telephonenr);
+
+        string path = Constants.PhpPath + "foundmodels.php";
+        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            Debug.Log("REQUESTED IN FOUNDMODEL: " + req);
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                WebResponse<int> response = JsonConvert.DeserializeObject<WebResponse<int>>(req);
+
+                if (response.handler.statusCode == false)
+                {
+                    Debug.Log(req + ": ERROR: NO FOUNDMODELS RETRIEVED FROM DATABASE");
+                }
+                else
+                {
+                    Debug.Log("Code:" + response.handler.text);
+                    foreach (int foundModel in response.objectList)
+                    {
+                        foundModels.Add(foundModel);
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator UpdateFoundModels(int model_id)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
+        form.AddField("model_ID", model_id);
+
+        string path = Constants.PhpPath + "updatefoundmodel.php";
+        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        {
+            yield return request.SendWebRequest();
+            string req = request.downloadHandler.text;
+
+            if (request.isNetworkError)
+            {
+                Debug.Log("Error: " + request.error);
+            }
+            else
+            {
+                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+
+                if (handler.statusCode == false)
+                {
+                    Debug.Log(req);
+                }
+                else
+                {
+                    Debug.Log("Successful Update" + req);
+                    CallGetFoundModel();
                 }
             }
         }

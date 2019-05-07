@@ -132,6 +132,8 @@ public class PlaneFinderManager : MonoBehaviour
         {
             UserController.GetInstance().UpdateUserExperience(station.score);
             UserController.GetInstance().CallUpdateUserExperience();
+            ModelController.GetInstance().CallUpdateFoundModel(station.model_ID);
+                
 
             // Update database with userprogress
             for (int i = 0; i < stationController.stationList.Count; i++)

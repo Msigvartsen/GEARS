@@ -6,7 +6,6 @@ using Vuforia;
 
 public class ModelLoader : MonoBehaviour
 {
-    private GameObject[] itemList;
     private GameObject selectedModel;
     private Model[] models;
     private LocationModel[] locationModels;
@@ -21,7 +20,6 @@ public class ModelLoader : MonoBehaviour
 
     void GetItemList()
     {
-        itemList = new GameObject[models.Length];
         int numberOfButtons = 0;
 
         // Load buttons for all models connected to selected location
