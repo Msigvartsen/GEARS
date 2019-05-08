@@ -131,7 +131,7 @@ public class PlaneFinderManager : MonoBehaviour
         if (!station.visited)
         {
             UserController.GetInstance().UpdateUserExperience(station.score);
-            UserController.GetInstance().CallUpdateUserExperience();
+            UserController.GetInstance().CallUpdateUserExpAndLevel();
             ModelController.GetInstance().CallUpdateFoundModel(station.model_ID);
                 
 
