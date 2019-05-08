@@ -4298,8 +4298,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1392233006}
-  - component: {fileID: 1392233008}
   - component: {fileID: 1392233007}
+  - component: {fileID: 1392233008}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1392233005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f72c0dadba9e84b9103662a57aeaf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 84f7629eee28b454599875ac98150e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1466615920
@@ -4717,8 +4717,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1512468651}
   - component: {fileID: 1512468654}
-  - component: {fileID: 1512468653}
   - component: {fileID: 1512468652}
+  - component: {fileID: 1512468653}
   m_Layer: 5
   m_Name: ARpanel
   m_TagString: Untagged
@@ -4769,12 +4769,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1512468650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e895965753d6d0e4ba1fb0893c89221f, type: 3}
+  m_Script: {fileID: 11500000, guid: 84642a5f0e3356d40bb91c1af9c86eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   planeFinder: {fileID: 2088943643}
   groundPlane: {fileID: 122880043}
-  toggleStationSearch: {fileID: 2069742759}
 --- !u!114 &1512468654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5903,7 +5902,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1512468653}
+      - m_Target: {fileID: 0}
         m_MethodName: DestroyAllChildren
         m_Mode: 1
         m_Arguments:

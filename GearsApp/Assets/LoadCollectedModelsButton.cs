@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LoadCollectedModelsButton : MonoBehaviour
 {
-    public Model myModel;
+    public Model model;
     private Button button;
     private GameObject popupObject;
     private GameObject popupTitle;
@@ -23,13 +23,13 @@ public class LoadCollectedModelsButton : MonoBehaviour
 
     void SelectMe()
     {
-        ModelController.GetInstance().selectedCollectibleModel = myModel;
+        ModelController.GetInstance().selectedCollectibleModel = model;
         LoadingScreen.LoadScene("CollectionAR");
     }
 
     void ConfirmButton()
     {
-        popupTitle.GetComponent<TMPro.TextMeshProUGUI>().text = myModel.model_name;
+        popupTitle.GetComponent<TMPro.TextMeshProUGUI>().text = model.model_name;
         popupConfirm.GetComponent<Button>().onClick.AddListener(SelectMe);
         popupObject.GetComponent<Animator>().Play("Fade-in");
     }

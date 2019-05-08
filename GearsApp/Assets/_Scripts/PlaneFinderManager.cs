@@ -33,11 +33,6 @@ public class PlaneFinderManager : MonoBehaviour
         SetInstances();
 
         GetModelsAtStations();
-
-        if (SceneManager.GetActiveScene().name == "CollectionAR")
-        {
-            Instantiate(Resources.Load<GameObject>("_Prefabs/" + modelController.selectedCollectibleModel.model_name), groundPlane.transform);
-        }
     }
 
     // Update is called once per frame
