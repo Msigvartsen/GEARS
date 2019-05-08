@@ -23,6 +23,8 @@ public class UIPanelController : MonoBehaviour
     public int currentPanelIndex = 0;
     [SerializeField]
     private bool updateOnStart = false;
+    [SerializeField]
+    private GameObject headerBackButton;
 
     private Animator currentPanelAnimator;
     private Animator nextPanelAnimator;
@@ -30,15 +32,32 @@ public class UIPanelController : MonoBehaviour
 
     void Start()
     {
-        if(updateOnStart)
+        if (updateOnStart)
         {
             PanelAnim(UserController.GetInstance().PreviousPage);
         }
-        
+
         currentPanel = panelList[currentPanelIndex];
+        nextPanel = currentPanel;
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
         ChangeTopTitle(currentPanel.name);
+    }
+
+    private void Update()
+    {
+        UpdateMainBackButton();
+    }
+
+    private void UpdateMainBackButton()
+    {
+        if (headerBackButton == null || nextPanel == null)
+            return;
+
+        if (nextPanel.name == "Main")
+            headerBackButton.SetActive(false);
+        else
+            headerBackButton.SetActive(true);
     }
 
     public void ChangeTopTitle(string newTitle)
