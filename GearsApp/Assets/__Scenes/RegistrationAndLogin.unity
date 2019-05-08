@@ -816,7 +816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 613}
+  m_AnchoredPosition: {x: 0, y: 694}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &133219931
@@ -2207,7 +2207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 16.119385}
+  m_AnchoredPosition: {x: 0, y: 99}
   m_SizeDelta: {x: -888.15, y: -2084}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &482231758
@@ -2486,7 +2486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -616}
+  m_AnchoredPosition: {x: 0, y: -1889}
   m_SizeDelta: {x: 641, y: 603.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &687109042
@@ -2641,6 +2641,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelList: []
+  locationModels: []
+  foundModels: 
+  selectedCollectibleModel:
+    model_ID: 0
+    model_name: 
+    modeltype: 
+    score: 0
 --- !u!114 &713353959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6458,6 +6465,7 @@ MonoBehaviour:
   topTitleText: {fileID: 0}
   currentPanelIndex: 0
   updateOnStart: 0
+  headerBackButton: {fileID: 0}
 --- !u!4 &1708591496
 Transform:
   m_ObjectHideFlags: 0
