@@ -86,7 +86,8 @@ public class ModelInteraction : MonoBehaviour
                     // If the user interacts with a station model
                     if (toggleStationSearch.isOn)
                     {
-                        MoveModel(inTouch);
+                        //MoveModel(inTouch);
+                        RotateSelectedObject(inTouch);
                     }
                     // If the user interacts with model on the 3D model panel
                     else
