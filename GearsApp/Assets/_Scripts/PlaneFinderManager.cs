@@ -82,6 +82,7 @@ public class PlaneFinderManager : MonoBehaviour
                 else
                 {
                     // User is too far away from closest station
+                    DestroyAllChildren();
                     TurnOffInputOnGround();
                     htm.SetHelpText((int)Help.DISTANCE);
                     htm.EnableButton();
