@@ -17,11 +17,12 @@ public class Login : MonoBehaviour
     [SerializeField]
     private PopupNotification popupNotification;
 
+
     public void CallLogin()
     {
         StartCoroutine(UserLogin());
     }
-    
+
     IEnumerator UserLogin()
     {
         WWWForm form = new WWWForm();
@@ -45,13 +46,14 @@ public class Login : MonoBehaviour
                 string req = webRequest.downloadHandler.text;
                 WebResponse<User> obj = JsonConvert.DeserializeObject<WebResponse<User>>(req, Constants.JsonSettings);
                 Debug.Log(obj.handler.text);
-                if(obj.handler.statusCode == true)
+                if (obj.handler.statusCode == true)
                 {
                     UserController manager = UserController.GetInstance();
                     manager.CurrentUser = obj.objectList.ToArray()[0];
 
                     LocationController.GetInstance().CallGetFavorites();
                     StationController.GetInstance().CallUserProgressRequest();
+                    TrophyController.GetInstance().CallCollectedTrophies();
                     LoadingScreen.LoadScene("Main");
                     ModelController.GetInstance().CallGetFoundModel();
                 }
