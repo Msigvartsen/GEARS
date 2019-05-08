@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/__Scenes/AR.unity
     guid: f6fb4464db17f0d41b1d19f911d0d0b7
-  - enabled: 1
-    path: Assets/__Scenes/CollectionAR.unity
-    guid: 835318e7ad8c549448d5f55a8dd2523c
   - enabled: 0
     path: Assets/__Scenes/MainMenu.unity
     guid: a4a2cb5c81a1ae944bccbd8552afdada

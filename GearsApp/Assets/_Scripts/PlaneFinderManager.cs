@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
@@ -33,11 +32,6 @@ public class PlaneFinderManager : MonoBehaviour
         SetInstances();
 
         GetModelsAtStations();
-
-        if (SceneManager.GetActiveScene().name == "CollectionAR")
-        {
-            Instantiate(Resources.Load<GameObject>("_Prefabs/" + modelController.selectedCollectibleModel.model_name), groundPlane.transform);
-        }
     }
 
     // Update is called once per frame
@@ -139,7 +133,7 @@ public class PlaneFinderManager : MonoBehaviour
             UserController.GetInstance().UpdateUserExperience(station.score);
             UserController.GetInstance().CallUpdateUserExperience();
             ModelController.GetInstance().CallUpdateFoundModel(station.model_ID);
-
+                
 
             // Update database with userprogress
             for (int i = 0; i < stationController.stationList.Count; i++)
