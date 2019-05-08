@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-
     [SerializeField]
     private UIPanelController uiController;
     [SerializeField]
@@ -16,16 +16,29 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadScene(string sceneName)
     {
-        if (sceneName == "SelectLocation")
-            StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
+        //string previousScene = SceneManager.GetActiveScene().name;
+        //if (previousScene == "Main" || previousScene == "LocationNew")
+        //{
+        //    UserController.GetInstance().PreviousScene = previousScene;
+        //}
+        //else
+        //{
+        //    UserController.GetInstance().PreviousScene = "Main";
+        //}
 
+        //UserController.GetInstance().PreviousScene = SceneManager.GetActiveScene().name;
         LoadingScreen.LoadScene(sceneName);
     }
 
     public void PreviousPage()
     {
+        string previousScene = string.Empty;
+
+        if (UserController.GetInstance() != null)
+            previousScene = UserController.GetInstance().PreviousScene;
+
         if (rootPanel.GetComponent<CanvasGroup>().alpha == 1)
-            LoadingScreen.LoadScene("Main");
+            LoadScene(previousScene);
         else
             uiController.PanelAnimPreviousPanel();
     }
@@ -33,7 +46,7 @@ public class SceneLoader : MonoBehaviour
     public void ChangePanel(string nextPanel)
     {
         UserController.GetInstance().PreviousPage = nextPanel;
-
-        LoadingScreen.LoadScene("Main");
+        LoadScene("Main");
+        //LoadingScreen.LoadScene("Main");
     }
 }

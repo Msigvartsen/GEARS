@@ -17,6 +17,7 @@ public class UserController : MonoBehaviour
 
     //To load correct page when changing scene
     public string PreviousPage { get; set; }
+    public string PreviousScene { get; set; }
 
     public static UserController GetInstance()
     {

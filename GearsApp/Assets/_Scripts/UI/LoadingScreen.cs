@@ -50,12 +50,25 @@ public class LoadingScreen : MonoBehaviour
             DontDestroyOnLoad(instance.gameObject);
         }
 
+        PreviousSceneName();
+
         instance.gameObject.SetActive(true);
         instance.loadingProcess = SceneManager.LoadSceneAsync(sceneName);
         instance.loadingProcess.allowSceneActivation = true;
     }
 
-
+    private static void PreviousSceneName()
+    {
+        string previousScene = SceneManager.GetActiveScene().name;
+        if (previousScene == "Main" || previousScene == "LocationNew")
+        {
+            UserController.GetInstance().PreviousScene = previousScene;
+        }
+        else
+        {
+            UserController.GetInstance().PreviousScene = "Main";
+        }
+    }
 
     void Awake()
     {
