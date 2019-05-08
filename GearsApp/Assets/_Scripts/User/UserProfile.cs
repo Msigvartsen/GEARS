@@ -24,6 +24,7 @@ public class UserProfile : MonoBehaviour
 
     public void UpdateUserProfileUI()
     {
+        Debug.Log("Updating user profile UI");
         _currentUser = UserController.GetInstance().CurrentUser;
 
         if (_currentUser == null)
@@ -32,6 +33,11 @@ public class UserProfile : MonoBehaviour
         UpdateExperienceBar();
         UpdateTextFields();
         SetProfilePicture();
+    }
+
+    private void Update()
+    {
+        //UpdateExperienceBar();
     }
 
     private void UpdateExperienceBar()

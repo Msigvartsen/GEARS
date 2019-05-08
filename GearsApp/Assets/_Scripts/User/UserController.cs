@@ -17,7 +17,7 @@ public class UserController : MonoBehaviour
 
     //To load correct page when changing scene
     public string PreviousPage { get; set; }
-    
+
     public static UserController GetInstance()
     {
         return _instance;
@@ -52,7 +52,7 @@ public class UserController : MonoBehaviour
     public void UpdateUserExperience(int experience)
     {
         CurrentUser.experience += experience;
-        if(CurrentUser.experience >= experienceCapPerLevel)
+        if (CurrentUser.experience >= experienceCapPerLevel)
         {
             UpdateUserLevel();
         }
@@ -60,11 +60,9 @@ public class UserController : MonoBehaviour
 
     public void UpdateUserLevel()
     {
+        CurrentUser.level++;
         if(CurrentUser.experience >= experienceCapPerLevel)
-        {
-            CurrentUser.level++;
             CurrentUser.experience -= experienceCapPerLevel; //resets experience bar
-        }
     }
 
 
@@ -86,9 +84,9 @@ public class UserController : MonoBehaviour
         StartCoroutine(DeleteUser());
     }
 
-    public void CallUpdateUserExperience()
+    public void CallUpdateUserExpAndLevel()
     {
-        StartCoroutine(UpdateUserExperience());
+        StartCoroutine(UpdateUserExpAndLevel());
     }
 
 
@@ -154,12 +152,13 @@ public class UserController : MonoBehaviour
         }
     }
 
-    IEnumerator UpdateUserExperience()
+    IEnumerator UpdateUserExpAndLevel()
     {
         WWWForm form = new WWWForm();
         form.AddField("number", CurrentUser.telephonenr);
+        form.AddField("level", CurrentUser.level);
         form.AddField("experience", CurrentUser.experience);
-        string path = Constants.PhpPath + "updateuserexperience.php";
+        string path = Constants.PhpPath + "updateuser.php";
         using (UnityWebRequest request = UnityWebRequest.Post(path, form))
         {
             yield return request.SendWebRequest();
@@ -180,6 +179,7 @@ public class UserController : MonoBehaviour
                 else
                 {
                     Debug.Log("Successful Update" + req);
+
                 }
             }
         }
