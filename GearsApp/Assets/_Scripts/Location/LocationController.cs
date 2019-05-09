@@ -41,8 +41,11 @@ public class LocationController : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        StartCoroutine(Request());
+        string path = ConstantsNS.Constants.PhpPath + "locations.php";
+        StartCoroutine(WebRequestController.GetRequest<Location>(path, WebResponseHandler));
+        //StartCoroutine(Request());
     }
+    
 
     public Vector2d GetLatitudeLongitudeFromLocation(Location loc)
     {
@@ -117,6 +120,23 @@ public class LocationController : MonoBehaviour
             }
         }
     }
+
+    private void WebResponseHandler(WebResponse<Location> res)
+    {
+        foreach (Location loc in res.objectList)
+        {
+            object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
+            loc.images = new Texture2D[obj.Length];
+            for (int i = 0; i < obj.Length; i++)
+            {
+                loc.images[i] = (Texture2D)obj[i];
+                if (loc.images[i].name == "thumbnail")
+                    loc.thumbnail = loc.images[i];
+            }
+            locationList.Add(loc);
+        }
+    }
+
 
     IEnumerator GetFavorites()
     {
