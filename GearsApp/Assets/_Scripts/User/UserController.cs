@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
 using ConstantsNS;
-using Newtonsoft.Json;
-using UnityEngine.SceneManagement;
 
 public class UserController : MonoBehaviour
 {
-    private static UserController _instance;
-    private string _username;
+    private static UserController instance;
     public User CurrentUser { get; set; }
     [SerializeField]
     private int experienceCapPerLevel = 100;
@@ -21,18 +14,18 @@ public class UserController : MonoBehaviour
 
     public static UserController GetInstance()
     {
-        return _instance;
+        return instance;
     }
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
         }
         DontDestroyOnLoad(gameObject);
 
@@ -40,14 +33,35 @@ public class UserController : MonoBehaviour
         LocationServiceNS.LocationService.CallUserPermission();
     }
 
-    public void RequestUserData(string username)
+    public void CallUpdateUserExpAndLevel()
     {
-        _username = username;
+        WWWForm form = new WWWForm();
+        form.AddField("number", CurrentUser.telephonenr);
+        form.AddField("level", CurrentUser.level);
+        form.AddField("experience", CurrentUser.experience);
+        string path = Constants.PhpPath + "updateuser.php";
+
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateLevelAndExperience));
     }
 
-    public void SetCurrentUser(User user)
+    public void CallUpdateUserPicture(int mediaID)
     {
-        CurrentUser = user;
+        CurrentUser.media_ID = mediaID;
+        WWWForm form = new WWWForm();
+        form.AddField("number", CurrentUser.telephonenr);
+        form.AddField("media_ID", CurrentUser.media_ID);
+        string path = Constants.PhpPath + "updateuserpicture.php";
+
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateUserPicture));
+    }
+
+    public void CallDeleteUser()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("number", CurrentUser.telephonenr);
+        string path = Constants.PhpPath + "deleteuser.php";
+
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, DeleteAndLogout));
     }
 
     public void UpdateUserExperience(int experience)
@@ -66,123 +80,33 @@ public class UserController : MonoBehaviour
             CurrentUser.experience -= experienceCapPerLevel; //resets experience bar
     }
 
-
     public void LogOut()
     {
         CurrentUser = null;
         LocationController.GetInstance().ResetFavorites();
         LoadingScreen.LoadScene("RegistrationAndLogin");
     }
-
-    public void CallUpdateUserPicture(int mediaID)
+   
+    private void UpdateUserPicture(PHPStatusHandler handler)
     {
-        CurrentUser.media_ID = mediaID;
-        StartCoroutine(UpdateUserPicture());
+        if (WebRequestController.CheckResponse(handler))
+            return;
+
+        //Add popup notification telling user that their picture has been updated?
     }
 
-    public void CallDeleteUser()
+    private void DeleteAndLogout(PHPStatusHandler handler)
     {
-        StartCoroutine(DeleteUser());
+        if (!WebRequestController.CheckResponse(handler))
+            return;
+
+        LogOut();
     }
 
-    public void CallUpdateUserExpAndLevel()
+    private void UpdateLevelAndExperience(PHPStatusHandler handler)
     {
-        StartCoroutine(UpdateUserExpAndLevel());
-    }
-
-
-    IEnumerator UpdateUserPicture()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("number", CurrentUser.telephonenr);
-        form.AddField("media_ID", CurrentUser.media_ID);
-        string path = Constants.PhpPath + "updateuserpicture.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
-
-                if (handler.statusCode == false)
-                {
-                    Debug.Log(req);
-                }
-                else
-                {
-                    Debug.Log("Successful Update" + req);
-                }
-            }
-        }
-    }
-
-    IEnumerator DeleteUser()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("number", CurrentUser.telephonenr);
-        Debug.Log("NUMBEr: " + CurrentUser.telephonenr);
-        string path = Constants.PhpPath + "deleteuser.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
-
-                if (handler.statusCode == false)
-                {
-                    Debug.Log(req);
-                }
-                else
-                {
-                    LogOut();
-                }
-            }
-        }
-    }
-
-    IEnumerator UpdateUserExpAndLevel()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("number", CurrentUser.telephonenr);
-        form.AddField("level", CurrentUser.level);
-        form.AddField("experience", CurrentUser.experience);
-        string path = Constants.PhpPath + "updateuser.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
-
-                if (handler.statusCode == false)
-                {
-                    Debug.Log(req);
-                }
-                else
-                {
-                    Debug.Log("Successful Update" + req);
-
-                }
-            }
-        }
+        if (!WebRequestController.CheckResponse(handler))
+            return;
+        //Refresh UI from here?
     }
 }
