@@ -28,6 +28,26 @@ public static class WebRequestController
         }
     }
 
+    public static IEnumerator PostRequest<T,U>(string path, WWWForm form, Action<T,U> WebResponseHandler, U parameter)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
+        {
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("Error: " + webRequest.error);
+            }
+            else
+            {
+                string req = webRequest.downloadHandler.text;
+                T obj = JsonConvert.DeserializeObject<T>(req, Constants.JsonSettings);
+                WebResponseHandler(obj,parameter);
+            }
+        }
+    }
+
     public static IEnumerator GetRequest<T>(string path, Action<T> WebResponseHandler)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(path))
@@ -47,6 +67,8 @@ public static class WebRequestController
             }
         }
     }
+
+
 
     public static bool CheckResponse(PHPStatusHandler handler)
     {

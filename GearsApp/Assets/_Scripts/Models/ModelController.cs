@@ -75,11 +75,9 @@ public class ModelController : MonoBehaviour
 
     private void UpdateFoundModels(PHPStatusHandler handler)
     {
-        if (handler.statusCode == false)
-        {
-            Debug.Log(handler.text);
+        if (!WebRequestController.CheckResponse(handler))
             return;
-        }
+
         CallGetFoundModel();
     }
 
@@ -110,13 +108,14 @@ public class ModelController : MonoBehaviour
 
     private void SetFoundModelList(WebResponse<Model_id> response)
     {
-        if (response.handler.statusCode == false)
-        {
-            Debug.Log(response.handler.text);
+        if (!WebRequestController.CheckResponse(response.handler))
             return;
-        }
 
-        FoundModels = new List<int>();
+        if (FoundModels == null)
+            FoundModels = new List<int>();
+        else
+            FoundModels.Clear();
+
         foreach (Model_id foundModel in response.objectList)
         {
             FoundModels.Add(foundModel.model_ID);

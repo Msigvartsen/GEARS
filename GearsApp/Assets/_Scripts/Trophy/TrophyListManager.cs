@@ -10,14 +10,15 @@ public class TrophyListManager : MonoBehaviour
 
     void Start()
     {
-        var trophylist = TrophyController.GetInstance().TrophyList.ToArray();
-        int length = trophylist.Length;
+        var trophylist = TrophyController.GetInstance().TrophyList;
+        int length = trophylist.Count;
+
         for (int i = 0; i < length; i++)
         {
             itemList.Add(GetListItem(i, trophylist[i]));
         }
 
-        //Trophy t = itemList[1].GetComponent<TrophyListItem>().CurrentTrophy;
+        //Trophy t = itemList[0].GetComponent<TrophyListItem>().CurrentTrophy;
         //Debug.Log("Test: Adding trophy to collected trophy list " + t.trophyname);
         //TrophyController.GetInstance().CallAddCollectedTrophy(t);
     }
