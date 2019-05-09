@@ -17,7 +17,7 @@ public class LocationListManager : MonoBehaviour
     private void Init()
     {
         parent = transform.gameObject;
-        locationArray = LocationController.GetInstance().locationList.ToArray();
+        locationArray = LocationController.GetInstance().LocationList.ToArray();
         prefabName = "LocationListItem";
         isInitiated = true;
     }

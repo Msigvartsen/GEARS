@@ -12,11 +12,11 @@ public class StationMarker : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < LocationController.GetInstance().locationList.Count; i++)
+        for (int i = 0; i < LocationController.GetInstance().LocationList.Count; i++)
         {
-            if (LocationController.GetInstance().locationList[i].location_ID == StationMarkerStation.location_ID)
+            if (LocationController.GetInstance().LocationList[i].location_ID == StationMarkerStation.location_ID)
             {
-                coherentLocation = LocationController.GetInstance().locationList[i];
+                coherentLocation = LocationController.GetInstance().LocationList[i];
                 break;
             }
         }

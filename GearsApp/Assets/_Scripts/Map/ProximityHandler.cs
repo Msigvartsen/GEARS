@@ -23,7 +23,7 @@ public class ProximityHandler : MonoBehaviour
     void Start()
     {
         locationController = LocationController.GetInstance();
-        locations = locationController.locationList.ToArray();
+        locations = locationController.LocationList.ToArray();
         focusButton.GetComponent<CanvasGroup>().alpha = 0;
         focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
     }

@@ -7,10 +7,9 @@ using Mapbox.Utils;
 
 public class LocationController : MonoBehaviour
 {
-    public List<Location> locationList;
-    private static LocationController _instance;
-
-    public Location CurrentLocation;
+    public List<Location> LocationList { get; set; }
+    public Location CurrentLocation { get; set; }
+    private static LocationController instance;
 
     private void Start()
     {
@@ -20,30 +19,79 @@ public class LocationController : MonoBehaviour
 
     public static LocationController GetInstance()
     {
-        return _instance;
+        return instance;
     }
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
         }
-        if (locationList == null)
+        if (LocationList == null)
         {
-            locationList = new List<Location>();
+            LocationList = new List<Location>();
         }
         DontDestroyOnLoad(gameObject);
 
-        string path = ConstantsNS.Constants.PhpPath + "locations.php";
-        StartCoroutine(WebRequestController.GetRequest<Location>(path, WebResponseHandler));
-        //StartCoroutine(Request());
+        CallLocationRequest();
+
     }
-    
+
+    private void CallLocationRequest()
+    {
+        string path = ConstantsNS.Constants.PhpPath + "locations.php";
+        StartCoroutine(WebRequestController.GetRequest<Location>(path, InitLocationList));
+    }
+
+    private void InitLocationList(WebResponse<Location> res)
+    {
+        if (res.handler.statusCode == false)
+        {
+            Debug.Log(res.handler.text);
+            return;
+        }
+
+        foreach (Location loc in res.objectList)
+        {
+            object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
+            loc.images = new Texture2D[obj.Length];
+            for (int i = 0; i < obj.Length; i++)
+            {
+                loc.images[i] = (Texture2D)obj[i];
+                if (loc.images[i].name == "thumbnail")
+                    loc.thumbnail = loc.images[i];
+            }
+            LocationList.Add(loc);
+        }
+    }
+
+    public void CallGetFavorites()
+    {
+        string path = ConstantsNS.Constants.PhpPath + "favorites.php";
+        WWWForm form = new WWWForm();
+        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
+        StartCoroutine(WebRequestController.PostRequest<Location>(path, form, InitFavorites));
+    }
+
+    private void InitFavorites(WebResponse<Location> res)
+    {
+        foreach (Location loc in res.objectList)
+        {
+            for (int i = 0; i < LocationList.Count; i++)
+            {
+                int locationID = LocationList[i].location_ID;
+                if (locationID == loc.location_ID)
+                {
+                    LocationList[i].favorite = true;
+                }
+            }
+        }
+    }
 
     public Vector2d GetLatitudeLongitudeFromLocation(Location loc)
     {
@@ -59,7 +107,7 @@ public class LocationController : MonoBehaviour
 
     public void ResetFavorites()
     {
-        foreach (Location loc in locationList)
+        foreach (Location loc in LocationList)
         {
             loc.favorite = false;
         }
@@ -67,133 +115,10 @@ public class LocationController : MonoBehaviour
 
     public void UpdateLocation(Location updatedLocation)
     {
-        for (int i = 0; i < locationList.Count; i++)
+        for (int i = 0; i < LocationList.Count; i++)
         {
-            if (locationList[i].location_ID == updatedLocation.location_ID)
-                locationList[i] = updatedLocation;
-        }
-    }
-
-    public void CallGetFavorites()
-    {
-        StartCoroutine(GetFavorites());
-    }
-
-    IEnumerator Request()
-    {
-        string path = ConstantsNS.Constants.PhpPath + "locations.php";
-        using (UnityWebRequest request = UnityWebRequest.Get(path))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                Debug.Log("Location: " + req);
-                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req);
-
-                if (res.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO LOCATIONS RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    foreach (Location loc in res.objectList)
-                    {
-                        object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
-                        loc.images = new Texture2D[obj.Length];
-                        for (int i = 0; i < obj.Length; i++)
-                        {
-                            loc.images[i] = (Texture2D)obj[i];
-                            if (loc.images[i].name == "thumbnail")
-                                loc.thumbnail = loc.images[i];
-                        }
-                        locationList.Add(loc);
-                    }
-                }
-            }
-        }
-    }
-
-    private void WebResponseHandler(WebResponse<Location> res)
-    {
-        if(res.handler.statusCode == false)
-        {
-            return;
-        }
-
-        foreach (Location loc in res.objectList)
-        {
-            object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
-            loc.images = new Texture2D[obj.Length];
-            for (int i = 0; i < obj.Length; i++)
-            {
-                loc.images[i] = (Texture2D)obj[i];
-                if (loc.images[i].name == "thumbnail")
-                    loc.thumbnail = loc.images[i];
-            }
-            locationList.Add(loc);
-        }
-    }
-
-
-    IEnumerator GetFavorites()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
-        string path = ConstantsNS.Constants.PhpPath + "favorites.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            Debug.Log("REQUESTED IN FAVORITES" + req);
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                WebResponse<Location> res = JsonConvert.DeserializeObject<WebResponse<Location>>(req, ConstantsNS.Constants.JsonSettings);
-
-                if (res.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO FAVORITES RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    foreach (Location loc in res.objectList)
-                    {
-                        for (int i = 0; i < locationList.Count; i++)
-                        {
-                            int locationID = locationList[i].location_ID;
-                            if (locationID == loc.location_ID)
-                            {
-                                locationList[i].favorite = true;
-                            }
-                            //else
-                            //{
-                            //    locationList[i].favorite = false;
-                            //}
-                        }
-                        //foreach(Location location in locationList)
-                        //{
-                        //    if(location.location_ID == loc.location_ID)
-                        //    {
-                        //        location.favorite = true;
-                        //        Debug.Log("Location: " + location.name + " = " + location.favorite);
-                        //    }
-                        //    else
-                        //    {
-                        //        location.favorite = false;
-                        //    }
-                    }
-                }
-            }
+            if (LocationList[i].location_ID == updatedLocation.location_ID)
+                LocationList[i] = updatedLocation;
         }
     }
 }

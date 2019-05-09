@@ -152,7 +152,7 @@ public class SpawnOnMap : MonoBehaviour
     private void SetMarkers()
     {
         locationController = LocationController.GetInstance();
-        locations = locationController.locationList.ToArray();
+        locations = locationController.LocationList.ToArray();
         _spawnedObjects = new List<GameObject>();
         Debug.Log("Creating markers");
         // Set up markers for each location
