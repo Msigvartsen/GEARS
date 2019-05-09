@@ -23,7 +23,7 @@ public class LoadCollectedModelsButton : MonoBehaviour
 
     void SelectMe()
     {
-        ModelController.GetInstance().selectedCollectibleModel = model;
+        ModelController.GetInstance().SelectedCollectibleModel = model;
         LoadingScreen.LoadScene("CollectionAR");
     }
 

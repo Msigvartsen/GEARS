@@ -13,8 +13,8 @@ public class ModelLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        models = ModelController.GetInstance().modelList.ToArray();
-        locationModels = ModelController.GetInstance().locationModels.ToArray();
+        models = ModelController.GetInstance().ModelList.ToArray();
+        locationModels = ModelController.GetInstance().LocationModels.ToArray();
         GetItemList();
     }
 

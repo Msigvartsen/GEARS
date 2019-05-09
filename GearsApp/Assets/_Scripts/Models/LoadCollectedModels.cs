@@ -13,9 +13,9 @@ public class LoadCollectedModels : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        locationModels = ModelController.GetInstance().locationModels.ToArray();
-        collectedModelsID = ModelController.GetInstance().foundModels.ToArray();
-        allModels = ModelController.GetInstance().modelList.ToArray();
+        locationModels = ModelController.GetInstance().LocationModels.ToArray();
+        collectedModelsID = ModelController.GetInstance().FoundModels.ToArray();
+        allModels = ModelController.GetInstance().ModelList.ToArray();
 
         if (SceneManager.GetActiveScene().name == "CollectionAR")
             prefabButton = "LoadModelButton";

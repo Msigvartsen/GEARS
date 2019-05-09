@@ -226,12 +226,12 @@ public class PlaneFinderManager : MonoBehaviour
         // Find the models connected to the different stations at the selected location
         for (int i = 0; i < stationsAtLocation.Count; i++)
         {
-            for (int j = 0; j < modelController.modelList.Count; j++)
+            for (int j = 0; j < modelController.ModelList.Count; j++)
             {
-                if (stationsAtLocation[i].model_ID == modelController.modelList[j].model_ID)
+                if (stationsAtLocation[i].model_ID == modelController.ModelList[j].model_ID)
                 {
                     // Add relevant models to a list
-                    stationModelsAtLocation.Add(modelController.modelList[j]);
+                    stationModelsAtLocation.Add(modelController.ModelList[j]);
                 }
             }
         }

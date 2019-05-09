@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using Newtonsoft.Json;
-using System.Net;
-using System;
 using ConstantsNS;
 
 [System.Serializable]
@@ -15,185 +10,116 @@ struct Model_id
 
 public class ModelController : MonoBehaviour
 {
-    public List<Model> modelList;
-    public List<LocationModel> locationModels;
-    public List<int> foundModels;
-    private static ModelController _instance;
-    public Model selectedCollectibleModel;
+    public List<Model> ModelList { get; set; }
+    public List<int> FoundModels { get; set; }
+    public List<LocationModel> LocationModels { get; set; }
+
+    public Model SelectedCollectibleModel { get; set; }
+
+    private static ModelController instance;
 
     public static ModelController GetInstance()
     {
-        return _instance;
+        return instance;
     }
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
         }
 
-        if (modelList == null)
-        {
-            modelList = new List<Model>();
-        }
+        if (LocationModels == null)
+            LocationModels = new List<LocationModel>();
 
-        if (locationModels == null)
-        {
-            locationModels = new List<LocationModel>();
-        }
-
-        StartCoroutine(Request());
-        StartCoroutine(GetLocationModels());
+        CallRequestModels();
+        CallRequestLocationModels();
     }
 
-    public void CallGetFoundModel()
+    public void CallRequestModels()
     {
-        StartCoroutine(GetFoundModels());
+        string path = Constants.PhpPath + "models.php";
+        StartCoroutine(WebRequestController.GetRequest<WebResponse<Model>>(path, InitModelList));
+    }
+
+    public void CallRequestLocationModels()
+    {
+        string path = Constants.PhpPath + "locationmodels.php";
+        StartCoroutine(WebRequestController.GetRequest<WebResponse<LocationModel>>(path, SetLocationModels));
     }
 
     public void CallUpdateFoundModel(int model_id)
     {
-        StartCoroutine(UpdateFoundModels(model_id));
+        WWWForm form = new WWWForm();
+        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
+        form.AddField("model_ID", model_id);
+        string path = Constants.PhpPath + "updatefoundmodel.php";
+
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateFoundModels));
     }
 
-    IEnumerator Request()
-    {
-        //using (UnityWebRequest request = UnityWebRequest.Get("http://localhost/gears/models.php"))
-        string path = Constants.PhpPath + "models.php";
-        using (UnityWebRequest request = UnityWebRequest.Get(path))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            Debug.Log("REQUESTED IN MODEL: " + req);
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                WebResponse<Model> response = JsonConvert.DeserializeObject<WebResponse<Model>>(req);
-
-                if (response.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO MODELS RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    Debug.Log("Code:" + response.handler.text);
-                    foreach (Model model in response.objectList)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-        }
-    }
-
-    IEnumerator GetLocationModels()
-    {
-        string path = Constants.PhpPath + "locationmodels.php";
-        using (UnityWebRequest request = UnityWebRequest.Get(path))
-        {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
-
-            Debug.Log("REQUESTED IN LOCATIONMODEL: " + req);
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                WebResponse<LocationModel> response = JsonConvert.DeserializeObject<WebResponse<LocationModel>>(req);
-
-                if (response.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO LOCATIONMODELS RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    Debug.Log("Code:" + response.handler.text);
-                    foreach (LocationModel locationModel in response.objectList)
-                    {
-                        locationModels.Add(locationModel);
-                    }
-                }
-            }
-        }
-    }
-
-    IEnumerator GetFoundModels()
+    public void CallGetFoundModel()
     {
         WWWForm form = new WWWForm();
         form.AddField("user", UserController.GetInstance().CurrentUser.telephonenr);
 
         string path = Constants.PhpPath + "foundmodels.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+
+        StartCoroutine(WebRequestController.PostRequest<WebResponse<Model_id>>(path, form, SetFoundModelList));
+    }
+
+    private void UpdateFoundModels(PHPStatusHandler handler)
+    {
+        if (handler.statusCode == false)
         {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
+            Debug.Log(handler.text);
+            return;
+        }
+        CallGetFoundModel();
+    }
 
-            Debug.Log("REQUESTED IN FOUNDMODEL: " + req);
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                WebResponse<Model_id> response = JsonConvert.DeserializeObject<WebResponse<Model_id>>(req);
+    private void InitModelList(WebResponse<Model> response)
+    {
+        if (ModelList == null)
+            ModelList = new List<Model>();
 
-                if (response.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO FOUNDMODELS RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    Debug.Log("Code:" + response.handler.text);
-                    foreach (Model_id foundModel in response.objectList)
-                    {
-                        foundModels.Add(foundModel.model_ID);
-                    }
-                }
-            }
+        foreach (Model model in response.objectList)
+        {
+            ModelList.Add(model);
         }
     }
 
-    IEnumerator UpdateFoundModels(int model_id)
+    private void SetLocationModels(WebResponse<LocationModel> response)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
-        form.AddField("model_ID", model_id);
-
-        string path = Constants.PhpPath + "updatefoundmodel.php";
-        using (UnityWebRequest request = UnityWebRequest.Post(path, form))
+        if (response.handler.statusCode == false)
         {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
+            Debug.Log(response.handler.text);
+            return;
+        }
 
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req);
+        foreach (LocationModel locationModel in response.objectList)
+        {
+            LocationModels.Add(locationModel);
+        }
+    }
 
-                if (handler.statusCode == false)
-                {
-                    Debug.Log(req);
-                }
-                else
-                {
-                    Debug.Log("Successful Update" + req);
-                    CallGetFoundModel();
-                }
-            }
+    private void SetFoundModelList(WebResponse<Model_id> response)
+    {
+        if (response.handler.statusCode == false)
+        {
+            Debug.Log(response.handler.text);
+            return;
+        }
+
+        FoundModels = new List<int>();
+        foreach (Model_id foundModel in response.objectList)
+        {
+            FoundModels.Add(foundModel.model_ID);
         }
     }
 }

@@ -70,7 +70,7 @@ public class CollectionARManager : MonoBehaviour
         stationModelsAtLocation = new List<Model>();
 
         // Instantiate the selected model from previous scene
-        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + modelController.selectedCollectibleModel.model_name), groundPlane.transform);
+        GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + modelController.SelectedCollectibleModel.model_name), groundPlane.transform);
         go.transform.localPosition = new Vector3(0, 0, 0);
         shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), go.transform);
         shadowPlane.GetComponent<Renderer>().enabled = false;
