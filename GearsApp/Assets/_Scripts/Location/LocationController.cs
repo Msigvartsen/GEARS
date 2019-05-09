@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using Newtonsoft.Json;
 using Mapbox.Utils;
 
 public class LocationController : MonoBehaviour
@@ -45,7 +42,7 @@ public class LocationController : MonoBehaviour
     private void CallLocationRequest()
     {
         string path = ConstantsNS.Constants.PhpPath + "locations.php";
-        StartCoroutine(WebRequestController.GetRequest<Location>(path, InitLocationList));
+        StartCoroutine(WebRequestController.GetRequest<WebResponse<Location>>(path, InitLocationList));
     }
 
     private void InitLocationList(WebResponse<Location> res)
@@ -75,7 +72,7 @@ public class LocationController : MonoBehaviour
         string path = ConstantsNS.Constants.PhpPath + "favorites.php";
         WWWForm form = new WWWForm();
         form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
-        StartCoroutine(WebRequestController.PostRequest<Location>(path, form, InitFavorites));
+        StartCoroutine(WebRequestController.PostRequest<WebResponse<Location>>(path, form, InitFavorites));
     }
 
     private void InitFavorites(WebResponse<Location> res)

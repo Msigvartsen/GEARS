@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Networking;
-using Newtonsoft.Json;
+﻿using UnityEngine;
 using ConstantsNS;
 using TMPro;
 
@@ -39,7 +34,7 @@ public class Registration : MonoBehaviour
 
         string path = Constants.PhpPath + "register.php";
 
-        StartCoroutine(WebRequestController.PostRequest<User>(path, form, RegisterUser));
+        StartCoroutine(WebRequestController.PostRequest<WebResponse<User>>(path, form, RegisterUser));
     }
 
     private void RegisterUser(WebResponse<User> obj)

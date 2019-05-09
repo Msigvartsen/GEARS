@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public static class WebRequestController
 {
 
-    public static IEnumerator PostRequest<T>(string path, WWWForm form, Action<WebResponse<T>> WebResponseHandler)
+    public static IEnumerator PostRequest<T>(string path, WWWForm form, Action<T> WebResponseHandler)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
         {
@@ -22,13 +22,13 @@ public static class WebRequestController
             else
             {
                 string req = webRequest.downloadHandler.text;
-                WebResponse<T> obj = JsonConvert.DeserializeObject<WebResponse<T>>(req, Constants.JsonSettings);
+                T obj = JsonConvert.DeserializeObject<T>(req, Constants.JsonSettings);
                 WebResponseHandler(obj);
             }
         }
     }
 
-    public static IEnumerator GetRequest<T>(string path, Action<WebResponse<T>> WebResponseHandler)
+    public static IEnumerator GetRequest<T>(string path, Action<T> WebResponseHandler)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(path))
         {
@@ -42,7 +42,7 @@ public static class WebRequestController
             else
             {
                 string req = webRequest.downloadHandler.text;
-                WebResponse<T> obj = JsonConvert.DeserializeObject<WebResponse<T>>(req, Constants.JsonSettings);
+                T obj = JsonConvert.DeserializeObject<T>(req, Constants.JsonSettings);
                 WebResponseHandler(obj);
             }
         }

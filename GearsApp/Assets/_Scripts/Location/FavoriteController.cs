@@ -1,10 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using ConstantsNS;
-using Newtonsoft.Json;
-using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class FavoriteController : MonoBehaviour
 {
@@ -12,8 +7,6 @@ public class FavoriteController : MonoBehaviour
     private LocationListItem listItem;
     [SerializeField]
     private GameObject imagePanel; //For filled/unfilled favorite icon
-    [SerializeField]
-    private Toggle toggleButton;
     private bool isFavorite;
 
     private void Start()
@@ -24,16 +17,10 @@ public class FavoriteController : MonoBehaviour
 
     public void CallAddToFavorite()
     {
-        StartCoroutine(AddToFavorite());
-    }
-
-    IEnumerator AddToFavorite()
-    {
         isFavorite = !isFavorite;
         imagePanel.SetActive(isFavorite);
-        Location loc = listItem.location;
         UserController manager = UserController.GetInstance();
-        
+        Location loc = listItem.location;
 
         WWWForm form = new WWWForm();
         form.AddField("number", manager.CurrentUser.telephonenr);
@@ -45,28 +32,20 @@ public class FavoriteController : MonoBehaviour
         else
             path = Constants.PhpPath + "removefavorite.php";
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateFavorite));
+    }
+
+    private void UpdateFavorite(PHPStatusHandler handler)
+    {
+        if (handler.statusCode == false)
         {
-            webRequest.downloadHandler = new DownloadHandlerBuffer();
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
-            else
-            {
-                string req = webRequest.downloadHandler.text;
-                LocationController locManager = LocationController.GetInstance();
-                PHPStatusHandler handler = JsonConvert.DeserializeObject<PHPStatusHandler>(req, Constants.JsonSettings);
-
-                if (handler.statusCode == true)
-                {
-                    loc.favorite = isFavorite;
-                    LocationController.GetInstance().UpdateLocation(loc);
-                }
-            }
+            Debug.Log(handler.text);
+            return;
         }
+
+        var loc = listItem.location;
+        loc.favorite = isFavorite;
+        LocationController.GetInstance().UpdateLocation(loc);
     }
 }
 

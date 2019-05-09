@@ -25,7 +25,7 @@ public class Login : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("user", usernameField.text);
         form.AddField("password", passwordField.text);
-        StartCoroutine(WebRequestController.PostRequest<User>(path, form, InitLogin));
+        StartCoroutine(WebRequestController.PostRequest<WebResponse<User>>(path, form, InitLogin));
     }
 
     private void InitLogin(WebResponse<User> obj)
