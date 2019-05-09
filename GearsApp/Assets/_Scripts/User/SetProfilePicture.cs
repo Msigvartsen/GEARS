@@ -13,7 +13,7 @@ public class SetProfilePicture : MonoBehaviour
         MediaController mediaController = MediaController.GetInstance();
         User user = UserController.GetInstance().CurrentUser;
 
-        foreach (Media media in mediaController.mediaList)
+        foreach (Media media in mediaController.MediaList)
         {
             if (media.media_ID == user.media_ID)
             {

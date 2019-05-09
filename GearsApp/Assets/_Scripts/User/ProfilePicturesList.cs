@@ -11,7 +11,7 @@ public class ProfilePicturesList : MonoBehaviour
     {
         prefabName = "ImageListItem";
         MediaController mediaController = MediaController.GetInstance();
-        images = mediaController.mediaList.ToArray();
+        images = mediaController.MediaList.ToArray();
         for(int i = 0; i < images.Length; i++)
         {
             GetListItem(i, images[i]);

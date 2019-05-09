@@ -69,7 +69,7 @@ public class UserProfile : MonoBehaviour
         MediaController mediaController = MediaController.GetInstance();
         if (mediaController != null && profilePicture != null)
         {
-            foreach (Media media in mediaController.mediaList)
+            foreach (Media media in mediaController.MediaList)
             {
                 if (media.media_ID == _currentUser.media_ID)
                 {

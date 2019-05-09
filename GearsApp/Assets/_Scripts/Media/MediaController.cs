@@ -1,67 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
-using UnityEngine.Networking;
 
 public class MediaController : MonoBehaviour
 {
-    private static MediaController _instance;
-    public List<Media> mediaList;
+    public List<Media> MediaList { get; set; }
+    private static MediaController instance;
 
     public static MediaController GetInstance()
     {
-        return _instance;
+        return instance;
     }
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
+            instance = this;
         }
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(RequestImages());
+        CallRequestImages();
     }
 
-    IEnumerator RequestImages()
+    public void CallRequestImages()
     {
         string path = ConstantsNS.Constants.PhpPath + "getimages.php";
-        using (UnityWebRequest request = UnityWebRequest.Get(path))
+        StartCoroutine(WebRequestController.GetRequest<WebResponse<Media>>(path, InitMediaList));
+    }
+
+    private void InitMediaList(WebResponse<Media> res)
+    {
+        if(res.handler.statusCode == false)
         {
-            yield return request.SendWebRequest();
-            string req = request.downloadHandler.text;
+            Debug.Log(res.handler.text);
+            return;
+        }
 
-            if (request.isNetworkError)
-            {
-                Debug.Log("Error: " + request.error);
-            }
-            else
-            {
-                Debug.Log("Media: " + req);
-                WebResponse<Media> res = JsonConvert.DeserializeObject<WebResponse<Media>>(req);
-
-                if (res.handler.statusCode == false)
-                {
-                    Debug.Log(req + ": ERROR: NO MEDIA RETRIEVED FROM DATABASE");
-                }
-                else
-                {
-                    Debug.Log("Code:" + res.handler.text);
-                    foreach (Media media in res.objectList)
-                    {
-                        string mediapath = "_Media/" + media.mediatype + "/" + media.medianame;
-                        Texture2D image = Resources.Load<Texture2D>(mediapath);
-                        media.image = image;
-                        mediaList.Add(media);
-
-                    }
-                }
-            }
+        MediaList = new List<Media>();
+        foreach (Media media in res.objectList)
+        {
+            string mediapath = "_Media/" + media.mediatype + "/" + media.medianame;
+            Texture2D image = Resources.Load<Texture2D>(mediapath);
+            media.image = image;
+            MediaList.Add(media);
         }
     }
 }
