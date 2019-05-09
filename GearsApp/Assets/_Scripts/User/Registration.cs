@@ -23,76 +23,59 @@ public class Registration : MonoBehaviour
     public void CallRegister()
     {
         string message = string.Empty;
+
         if (!ValidateInput(ref message))
-        {
             popupNotification.ShowPopup(message);
-        }
         else
-        {
-            StartCoroutine(Register());
-        }
+            RequestRegisterUser();
     }
 
-    private bool ValidateInput(ref string message)
-    {
-
-        if (!Inputcheck.ValidateNumberInput(mobileField))
-        {
-            message = "Mobile number needs to have 8 digits";
-            return false;
-        }
-        if(!Inputcheck.ValidateTextInput(nameField))
-        {
-            message = "Username needs to be atleast 4 characters long. (A-Z) - No numbers or special characters";
-            return false;
-        }
-        if (!Inputcheck.ValidateTextInput(passwordField,true))
-        {
-            message = "Password needs atleast 6 characters, One upper case letter and one number";
-            return false;
-        }
-        
-        return true;
-    }
-
-    IEnumerator Register()
+    private void RequestRegisterUser()
     {
         WWWForm form = new WWWForm();
         form.AddField("telephonenr", mobileField.text);
         form.AddField("name", nameField.text);
         form.AddField("password", passwordField.text);
 
-        //using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/register.php", form))
         string path = Constants.PhpPath + "register.php";
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
+
+        StartCoroutine(WebRequestController.PostRequest<User>(path, form, RegisterUser));
+    }
+
+    private void RegisterUser(WebResponse<User> obj)
+    {
+        if (obj.handler.statusCode == false)
         {
-            yield return webRequest.SendWebRequest();
+            if (popupNotification != null)
+                popupNotification.ShowPopup("User Already Exist!");
 
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
-            else
-            {
-                string req = webRequest.downloadHandler.text;
-                WebResponse<User> obj = JsonConvert.DeserializeObject<WebResponse<User>>(req, Constants.JsonSettings);
-                Debug.Log(obj.handler.text);
-                if (obj.handler.statusCode == true)
-                {
-                    UserController manager = UserController.GetInstance();
-                    manager.CurrentUser = obj.objectList.ToArray()[0];
-
-                    LocationController.GetInstance().CallGetFavorites();
-                    LoadingScreen.LoadScene("Main");
-                }
-                else
-                {
-                    if (popupNotification != null)
-                    {
-                        popupNotification.ShowPopup("User Already Exist!");
-                    }
-                }
-            }
+            return;
         }
+
+        UserController manager = UserController.GetInstance();
+        manager.CurrentUser = obj.objectList[0];
+        LocationController.GetInstance().CallGetFavorites();
+        LoadingScreen.LoadScene("Main");
+    }
+
+    private bool ValidateInput(ref string message)
+    {
+        if (!Inputcheck.ValidateNumberInput(mobileField))
+        {
+            message = "Mobile number needs to have 8 digits";
+            return false;
+        }
+        if (!Inputcheck.ValidateTextInput(nameField))
+        {
+            message = "Username needs to be atleast 4 characters long. (A-Z) - No numbers or special characters";
+            return false;
+        }
+        if (!Inputcheck.ValidateTextInput(passwordField, true))
+        {
+            message = "Password needs atleast 6 characters, One upper case letter and one number";
+            return false;
+        }
+
+        return true;
     }
 }
