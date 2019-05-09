@@ -21,7 +21,12 @@ public class Login : MonoBehaviour
 
     public void CallLogin()
     {
-        StartCoroutine(UserLogin());
+        string path = Constants.PhpPath + "login.php";
+        WWWForm form = new WWWForm();
+        form.AddField("user", usernameField.text);
+        form.AddField("password", passwordField.text);
+        StartCoroutine(WebRequestController.PostRequest<User>(path, form, WebRequestHandler));
+        //StartCoroutine(UserLogin());
     }
 
     IEnumerator UserLogin()
@@ -68,6 +73,27 @@ public class Login : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void WebRequestHandler(WebResponse<User> obj)
+    {
+        if(obj.handler.statusCode == false)
+        {
+            if (popupNotification != null)
+            {
+                popupNotification.ShowPopup(obj.handler.text);
+            }
+            return;
+        }
+
+        UserController manager = UserController.GetInstance();
+        manager.CurrentUser = obj.objectList.ToArray()[0];
+
+        LocationController.GetInstance().CallGetFavorites();
+        StationController.GetInstance().CallUserProgressRequest();
+        TrophyController.GetInstance().CallCollectedTrophies();
+        ModelController.GetInstance().CallGetFoundModel();
+        LoadingScreen.LoadScene("Main");
     }
 }
 

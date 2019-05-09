@@ -2,14 +2,13 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public static class WebRequestController
 {
 
-    public static IEnumerator PostRequest<T>(WWWForm form, string path)
+    public static IEnumerator PostRequest<T>(string path, WWWForm form, Action<WebResponse<T>> WebResponseHandler)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
         {
@@ -24,16 +23,7 @@ public static class WebRequestController
             {
                 string req = webRequest.downloadHandler.text;
                 WebResponse<T> obj = JsonConvert.DeserializeObject<WebResponse<T>>(req, Constants.JsonSettings);
-                Debug.Log(obj.handler.text);
-
-                if (obj.handler.statusCode == true)
-                {
-
-                }
-                else
-                {
-
-                }
+                WebResponseHandler(obj);
             }
         }
     }
@@ -53,14 +43,7 @@ public static class WebRequestController
             {
                 string req = webRequest.downloadHandler.text;
                 WebResponse<T> obj = JsonConvert.DeserializeObject<WebResponse<T>>(req, Constants.JsonSettings);
-                if (obj.handler.statusCode == true)
-                {
-                    WebResponseHandler(obj);
-                }
-                else
-                {
-                    Debug.Log("Query Failed -> Status Code false");
-                }
+                WebResponseHandler(obj);
             }
         }
     }

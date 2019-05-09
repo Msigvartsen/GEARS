@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using Mapbox.Utils;
-using System;
-using System.Text.RegularExpressions;
 
 public class LocationController : MonoBehaviour
 {
@@ -123,6 +121,11 @@ public class LocationController : MonoBehaviour
 
     private void WebResponseHandler(WebResponse<Location> res)
     {
+        if(res.handler.statusCode == false)
+        {
+            return;
+        }
+
         foreach (Location loc in res.objectList)
         {
             object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
