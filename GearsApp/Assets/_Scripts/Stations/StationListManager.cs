@@ -21,7 +21,7 @@ public class StationListManager : MonoBehaviour
     {
         parent = transform.gameObject;
         locationController = LocationController.GetInstance();
-        stationArray = StationController.GetInstance().stationList.ToArray();
+        stationArray = StationController.GetInstance().StationList.ToArray();
         itemList = new GameObject[stationArray.Length];
         prefabName = "StationListItem";
 
@@ -50,7 +50,7 @@ public class StationListManager : MonoBehaviour
     public void UpdateVisitedStations()
     {
         // Update buttons to see if any new ones has been unlocked by the user
-        stationArray = StationController.GetInstance().stationList.ToArray();
+        stationArray = StationController.GetInstance().StationList.ToArray();
 
         if (itemList != null)
         {

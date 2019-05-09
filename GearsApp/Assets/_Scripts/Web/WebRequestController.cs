@@ -47,4 +47,13 @@ public static class WebRequestController
             }
         }
     }
+
+    public static bool CheckResponse(PHPStatusHandler handler)
+    {
+        if(!handler.statusCode)
+        {
+            Debug.Log(handler.text);
+        }
+        return handler.statusCode;
+    }
 }

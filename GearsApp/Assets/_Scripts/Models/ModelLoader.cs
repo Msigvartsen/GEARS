@@ -39,16 +39,16 @@ public class ModelLoader : MonoBehaviour
         }
 
         // Add buttons for visited stations. User can see these models at home after they have been scanned.
-        for (int i = 0; i < StationController.GetInstance().stationList.Count; i++)
+        for (int i = 0; i < StationController.GetInstance().StationList.Count; i++)
         {
             for (int j = 0; j < models.Length; j++)
             {
-                if (StationController.GetInstance().stationList[i].visited 
-                    && (LocationController.GetInstance().CurrentLocation.location_ID == StationController.GetInstance().stationList[i].location_ID) 
-                    && (StationController.GetInstance().stationList[i].model_ID == models[j].model_ID))
+                if (StationController.GetInstance().StationList[i].visited 
+                    && (LocationController.GetInstance().CurrentLocation.location_ID == StationController.GetInstance().StationList[i].location_ID) 
+                    && (StationController.GetInstance().StationList[i].model_ID == models[j].model_ID))
                 {
                     GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadModelButton"));
-                    go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station " + StationController.GetInstance().stationList[i].station_NR;
+                    go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station " + StationController.GetInstance().StationList[i].station_NR;
                     go.transform.SetParent(gameObject.transform, false);
                     go.GetComponent<LoadModelButton>().model = models[j];
                     numberOfButtons++;

@@ -191,7 +191,7 @@ public class SpawnOnMap : MonoBehaviour
             _spawnedStations = new List<GameObject>();
             stations = new List<Station>();
 
-            foreach (var item in stationController.stationList)
+            foreach (var item in stationController.StationList)
             {
                 if (item.location_ID == location.location_ID)
                     stations.Add(item);

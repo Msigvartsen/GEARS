@@ -138,11 +138,11 @@ public class PlaneFinderManager : MonoBehaviour
 
 
             // Update database with userprogress
-            for (int i = 0; i < stationController.stationList.Count; i++)
+            for (int i = 0; i < stationController.StationList.Count; i++)
             {
-                if (station.station_NR == stationController.stationList[i].station_NR && station.location_ID == stationController.stationList[i].location_ID)
+                if (station.station_NR == stationController.StationList[i].station_NR && station.location_ID == stationController.StationList[i].location_ID)
                 {
-                    stationController.CurrentStation = stationController.stationList[i];
+                    stationController.CurrentStation = stationController.StationList[i];
                     stationController.CallUpdateUserProgress();
                 }
             }
@@ -215,12 +215,12 @@ public class PlaneFinderManager : MonoBehaviour
     private void GetModelsAtStations()
     {
         // Find stations connected to selected location
-        for (int i = 0; i < stationController.stationList.Count; i++)
+        for (int i = 0; i < stationController.StationList.Count; i++)
         {
-            if (stationController.stationList[i].location_ID == locationController.CurrentLocation.location_ID)
+            if (stationController.StationList[i].location_ID == locationController.CurrentLocation.location_ID)
             {
                 // Add relevant stations to a list
-                stationsAtLocation.Add(stationController.stationList[i]);
+                stationsAtLocation.Add(stationController.StationList[i]);
             }
         }
         // Find the models connected to the different stations at the selected location
