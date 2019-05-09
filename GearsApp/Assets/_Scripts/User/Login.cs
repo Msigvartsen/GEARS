@@ -26,53 +26,6 @@ public class Login : MonoBehaviour
         form.AddField("user", usernameField.text);
         form.AddField("password", passwordField.text);
         StartCoroutine(WebRequestController.PostRequest<User>(path, form, InitLogin));
-        //StartCoroutine(UserLogin());
-    }
-
-    IEnumerator UserLogin()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("user", usernameField.text);
-        form.AddField("password", passwordField.text);
-        
-        //using (UnityWebRequest webRequest = UnityWebRequest.Post("http://localhost/gears/login.php", form))
-        string path = Constants.PhpPath + "login.php";
-
-        using (UnityWebRequest webRequest = UnityWebRequest.Post(path, form))
-        {
-            webRequest.downloadHandler = new DownloadHandlerBuffer();
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
-            else
-            {
-                string req = webRequest.downloadHandler.text;
-                WebResponse<User> obj = JsonConvert.DeserializeObject<WebResponse<User>>(req, Constants.JsonSettings);
-                Debug.Log(obj.handler.text);
-                if (obj.handler.statusCode == true)
-                {
-                    UserController manager = UserController.GetInstance();
-                    manager.CurrentUser = obj.objectList.ToArray()[0];
-
-                    LocationController.GetInstance().CallGetFavorites();
-                    StationController.GetInstance().CallUserProgressRequest();
-                    TrophyController.GetInstance().CallCollectedTrophies();
-                    LoadingScreen.LoadScene("Main");
-                    ModelController.GetInstance().CallGetFoundModel();
-                }
-                else
-                {
-                    Debug.Log("Error: Login Failed -> Wrong Username or Password");
-                    if (popupNotification != null)
-                    {
-                        popupNotification.ShowPopup(obj.handler.text);
-                    }
-                }
-            }
-        }
     }
 
     private void InitLogin(WebResponse<User> obj)
