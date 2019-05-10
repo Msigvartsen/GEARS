@@ -77,7 +77,7 @@ public class StationController : MonoBehaviour
 
     private void SetVisitedStations(WebResponse<Station> response)
     {
-        if (!WebRequestController.CheckResponse(response.handler))
+        if (!WebRequestController.CheckResponse(response.handler) || response.objectList == null)
             return;
 
         foreach (Station stat in response.objectList)

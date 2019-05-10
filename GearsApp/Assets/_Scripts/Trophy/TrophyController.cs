@@ -51,8 +51,6 @@ public class TrophyController : MonoBehaviour
         if (TrophyList == null)
             TrophyList = new List<Trophy>();
 
-        Debug.Log(response.handler.text);
-
         foreach (Trophy trophy in response.objectList)
         {
             Texture2D tex = Resources.Load<Texture2D>("_Trophies/" + trophy.trophyname);

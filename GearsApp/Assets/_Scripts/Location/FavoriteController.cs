@@ -11,7 +11,7 @@ public class FavoriteController : MonoBehaviour
 
     private void Start()
     {
-        isFavorite = listItem.location.favorite;
+        isFavorite = listItem.Location.favorite;
         imagePanel.SetActive(isFavorite);
     }
 
@@ -20,7 +20,7 @@ public class FavoriteController : MonoBehaviour
         isFavorite = !isFavorite;
         imagePanel.SetActive(isFavorite);
         UserController manager = UserController.GetInstance();
-        Location loc = listItem.location;
+        Location loc = listItem.Location;
 
         WWWForm form = new WWWForm();
         form.AddField("number", manager.CurrentUser.telephonenr);
@@ -43,7 +43,7 @@ public class FavoriteController : MonoBehaviour
             return;
         }
 
-        var loc = listItem.location;
+        var loc = listItem.Location;
         loc.favorite = isFavorite;
         LocationController.GetInstance().UpdateLocation(loc);
     }

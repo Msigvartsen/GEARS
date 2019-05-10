@@ -77,7 +77,10 @@ public class LocationController : MonoBehaviour
 
     private void InitFavorites(WebResponse<Location> res)
     {
-        if (res.objectList != null)
+        if (res.objectList == null)
+            return;
+
+        foreach (Location loc in res.objectList)
         {
             foreach (Location loc in res.objectList)
             {
@@ -122,4 +125,3 @@ public class LocationController : MonoBehaviour
         }
     }
 }
-

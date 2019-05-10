@@ -68,8 +68,6 @@ public static class WebRequestController
         }
     }
 
-
-
     public static bool CheckResponse(PHPStatusHandler handler)
     {
         if(!handler.statusCode)
