@@ -10,15 +10,20 @@ public class ModelLoader : MonoBehaviour
     private Model[] models;
     private LocationModel[] locationModels;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Get models from database.
+    /// </summary>
     void Start()
     {
         models = ModelController.GetInstance().ModelList.ToArray();
         locationModels = ModelController.GetInstance().LocationModels.ToArray();
-        GetItemList();
+        CreateButtons();
     }
 
-    void GetItemList()
+    /// <summary>
+    /// Create buttons for models the user can see at the selected location.
+    /// </summary>
+    void CreateButtons()
     {
         int numberOfButtons = 0;
 

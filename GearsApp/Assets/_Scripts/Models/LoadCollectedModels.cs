@@ -10,22 +10,30 @@ public class LoadCollectedModels : MonoBehaviour
     private Model[] allModels;
     private string prefabButton = "";
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Set instances and determine what type of button to create.
+    /// </summary>
     void Start()
     {
-        locationModels = ModelController.GetInstance().LocationModels.ToArray();
-        collectedModelsID = ModelController.GetInstance().FoundModels.ToArray();
-        allModels = ModelController.GetInstance().ModelList.ToArray();
+        if (ModelController.GetInstance().LocationModels != null)
+            locationModels = ModelController.GetInstance().LocationModels.ToArray();
+        if (ModelController.GetInstance().FoundModels != null)
+            collectedModelsID = ModelController.GetInstance().FoundModels.ToArray();
+        if (ModelController.GetInstance().ModelList != null)
+            allModels = ModelController.GetInstance().ModelList.ToArray();
 
         if (SceneManager.GetActiveScene().name == "CollectionAR")
             prefabButton = "LoadModelButton";
         else
             prefabButton = "LoadCollectedModelsButton";
 
-        GetItemList();
+        CreateButtons();
     }
 
-    void GetItemList()
+    /// <summary>
+    /// Create buttons for every default model and every model the user has collected.
+    /// </summary>
+    void CreateButtons()
     {
         int numberOfButtons = 0;
 

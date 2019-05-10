@@ -77,14 +77,17 @@ public class LocationController : MonoBehaviour
 
     private void InitFavorites(WebResponse<Location> res)
     {
-        foreach (Location loc in res.objectList)
+        if (res.objectList != null)
         {
-            for (int i = 0; i < LocationList.Count; i++)
+            foreach (Location loc in res.objectList)
             {
-                int locationID = LocationList[i].location_ID;
-                if (locationID == loc.location_ID)
+                for (int i = 0; i < LocationList.Count; i++)
                 {
-                    LocationList[i].favorite = true;
+                    int locationID = LocationList[i].location_ID;
+                    if (locationID == loc.location_ID)
+                    {
+                        LocationList[i].favorite = true;
+                    }
                 }
             }
         }

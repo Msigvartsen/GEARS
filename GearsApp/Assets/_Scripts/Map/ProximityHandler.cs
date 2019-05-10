@@ -45,6 +45,12 @@ public class ProximityHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculate distance to target location from user location.
+    /// </summary>
+    /// <param name="lat">Target latitude.</param>
+    /// <param name="longi">Target longitude</param>
+    /// <returns>Returns distance in meters.</returns>
     double CalculateDistanceInMeters(float lat, float longi)
     {
         double total_dist = 0.0;
@@ -66,6 +72,9 @@ public class ProximityHandler : MonoBehaviour
         return total_dist;
     }
 
+    /// <summary>
+    /// Dynamic fade-in for button.
+    /// </summary>
     void FadeInPanel()
     {
         if (focusButton.GetComponent<CanvasGroup>().alpha < 1)
@@ -76,6 +85,9 @@ public class ProximityHandler : MonoBehaviour
         focusButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "See stations at " + locationInRange.name;
     }
 
+    /// <summary>
+    /// Dynamic fade-out for button.
+    /// </summary>
     void FadeOutPanel()
     {
         if (focusButton.GetComponent<CanvasGroup>().alpha > 0)
@@ -84,6 +96,10 @@ public class ProximityHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check range to all locations.
+    /// </summary>
+    /// <returns>Return true if a location is within range.</returns>
     Location CheckRangeToLocations()
     {
         Location locInRange = null;
@@ -101,6 +117,9 @@ public class ProximityHandler : MonoBehaviour
         return locInRange;
     }
 
+    /// <summary>
+    /// Zoom in on location if it is within range.
+    /// </summary>
     void FocusLocation()
     {
         if (locationInRange != null)

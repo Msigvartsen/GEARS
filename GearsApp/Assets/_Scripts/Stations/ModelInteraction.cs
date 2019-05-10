@@ -29,7 +29,9 @@ public class ModelInteraction : MonoBehaviour
         groundPlane = GameObject.FindGameObjectWithTag("GroundPlane");
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Check for touch input.
+    /// </summary>
     void Update()
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).position.y < Screen.height * 0.7)
@@ -48,6 +50,10 @@ public class ModelInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Select a model.
+    /// </summary>
+    /// <param name="inTouch">Raycast from touch position.</param>
     void SelectModel(Touch inTouch)
     {
         Ray ray = currentCamera.ScreenPointToRay(inTouch.position);
@@ -66,6 +72,10 @@ public class ModelInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handle input with one finger.
+    /// </summary>
+    /// <param name="inTouch">Touch to check.</param>
     void DetermineTouchCountOneAction(Touch inTouch)
     {
         if (groundPlane.transform.childCount > 0)
@@ -87,12 +97,12 @@ public class ModelInteraction : MonoBehaviour
                     if (toggleStationSearch.isOn)
                     {
                         //MoveModel(inTouch);
-                        RotateSelectedObject(inTouch);
+                        RotateModel(inTouch);
                     }
                     // If the user interacts with model on the 3D model panel
                     else
                     {
-                        RotateSelectedObject(inTouch);
+                        RotateModel(inTouch);
                     }
                 }
             }
@@ -113,14 +123,21 @@ public class ModelInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handle input with two fingers.
+    /// </summary>
     void DetermineTouchCountTwoAction()
     {
         if (!toggleStationSearch.isOn)
         {
-            ScaleSelectedObject(Input.GetTouch(0));
+            ScaleModel(Input.GetTouch(0));
         }
     }
 
+    /// <summary>
+    /// Move active model around.
+    /// </summary>
+    /// <param name="inTouch">Determines movement.</param>
     void MoveModel(Touch inTouch)
     {
         // Get previous touch positions
@@ -152,7 +169,11 @@ public class ModelInteraction : MonoBehaviour
         selectedObject.transform.localPosition -= up * deltaUpMagnitudeDifference * Time.deltaTime;
     }
 
-    void RotateSelectedObject(Touch inTouch)
+    /// <summary>
+    /// Rotate active model.
+    /// </summary>
+    /// <param name="inTouch">Determines rotation amount.</param>
+    void RotateModel(Touch inTouch)
     {
         selectedObject = groundPlane.transform.GetChild(0).gameObject;
 
@@ -168,7 +189,11 @@ public class ModelInteraction : MonoBehaviour
         selectedObject.transform.Rotate(rotateVector);
     }
 
-    void ScaleSelectedObject(Touch inTouch)
+    /// <summary>
+    /// Zoom in and out on model.
+    /// </summary>
+    /// <param name="inTouch">Determines amount of zoom.</param>
+    void ScaleModel(Touch inTouch)
     {
         if (groundPlane.transform.childCount > 0)
         {

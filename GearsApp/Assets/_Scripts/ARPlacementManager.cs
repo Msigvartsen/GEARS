@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
-public class PlaneFinderManager : MonoBehaviour
+public class ARPlacementManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject planeFinder;
@@ -27,7 +27,9 @@ public class PlaneFinderManager : MonoBehaviour
     private GameObject shadowPlane;
 
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Set all instances and retrieve models connected to stations.
+    /// </summary>
     void Start()
     {
         SetInstances();
@@ -35,7 +37,9 @@ public class PlaneFinderManager : MonoBehaviour
         GetModelsAtStations();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Find out which mode the user has selected, to give correct instructions and feedback.
+    /// </summary>
     void Update()
     {
         if (!toggleStationSearch.isOn)
@@ -48,6 +52,9 @@ public class PlaneFinderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handle station search mode.
+    /// </summary>
     private void HandleStationSearch()
     {
         // Check distance to selected location first, need to find a way to set range dynamically based on which location. 25 km for testing purposes
@@ -64,7 +71,7 @@ public class PlaneFinderManager : MonoBehaviour
                     LoadModelAtStation(closestStation);
 
                     // Check if the model has been placed on the ground
-                    if (CheckForActiveChildren())
+                    if (IsChildActive())
                     {
                         // The user has now "Scanned" a station. Update this data to database
                         UpdateStationData(closestStation);
@@ -100,13 +107,16 @@ public class PlaneFinderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Enable and disable user interaction to position and place viewable model.
+    /// </summary>
     private void HandleModelViewingAndPlacement()
     {
         htm.DisableButton();
         if (CheckForChildren())
         {
             // Check if the model has been placed on the ground
-            if (CheckForActiveChildren())
+            if (IsChildActive())
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
@@ -127,6 +137,10 @@ public class PlaneFinderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update scanned station to database.
+    /// </summary>
+    /// <param name="station">Station that has been scanned by user.</param>
     private void UpdateStationData(Station station)
     {
         // Add experience to user and update database with userprogress
@@ -151,6 +165,10 @@ public class PlaneFinderManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Retrieve the station nearest to users location.
+    /// </summary>
+    /// <returns>Returns the nearest station at current location.</returns>
     private Station GetClosestStation()
     {
         int currentDistance = 0;
@@ -170,6 +188,10 @@ public class PlaneFinderManager : MonoBehaviour
         return stationsAtLocation[indexToReturn];
     }
 
+    /// <summary>
+    /// Load the model connected to the station.
+    /// </summary>
+    /// <param name="station">Model at this station will be loaded.</param>
     private void LoadModelAtStation(Station station)
     {
         for (int i = 0; i < stationModelsAtLocation.Count; i++)
@@ -201,6 +223,12 @@ public class PlaneFinderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check if the user is close enough to a station.
+    /// </summary>
+    /// <param name="station">Station to check distance against.</param>
+    /// <param name="range">Range in meters.</param>
+    /// <returns>Returns true if the user is within range of station, if not return false.</returns>
     private bool CheckDistanceToStation(Station station, int range)
     {
         // Check if the distance to the station is close enough
@@ -212,6 +240,9 @@ public class PlaneFinderManager : MonoBehaviour
             return false;
     }
 
+    /// <summary>
+    /// Retrieves all models at the stations connected to the location.
+    /// </summary>
     private void GetModelsAtStations()
     {
         // Find stations connected to selected location
@@ -237,6 +268,9 @@ public class PlaneFinderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set all instances of controllers and initiate lists.
+    /// </summary>
     private void SetInstances()
     {
         stationController = StationController.GetInstance();
@@ -248,6 +282,10 @@ public class PlaneFinderManager : MonoBehaviour
         stationModelsAtLocation = new List<Model>();
     }
 
+    /// <summary>
+    /// Check if a model has selected by the user.
+    /// </summary>
+    /// <returns>Return true if model is selected, else false.</returns>
     private bool CheckForChildren()
     {
         if (groundPlane.transform.childCount > 0)
@@ -256,24 +294,12 @@ public class PlaneFinderManager : MonoBehaviour
             return false;
     }
 
-    private bool CheckForActiveChildren()
+    /// <summary>
+    /// Check if the model has been placed on the ground.
+    /// </summary>
+    /// <returns>Returns true if model is active and visible, else false.</returns>
+    private bool IsChildActive()
     {
-        if (groundPlane.transform.childCount > 0)
-        {
-            int activeChild = GetActiveChild();
-            if (activeChild != -1)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private int GetActiveChild()
-    {
-        int index = -1;
-
         // Check for children
         if (groundPlane.transform.childCount > 0)
         {
@@ -290,7 +316,7 @@ public class PlaneFinderManager : MonoBehaviour
                     {
                         if (componenent.enabled)
                         {
-                            index = 0;
+                            return true;
                         }
                     }
                 }
@@ -298,15 +324,18 @@ public class PlaneFinderManager : MonoBehaviour
                 {
                     if (child.GetComponent<Renderer>().enabled)
                     {
-                        index = 0;
+                        return true;
                     }
                 }
             }
         }
 
-        return index;
+        return false;
     }
 
+    /// <summary>
+    /// Turn off user input regarding model placement and surface scanning.
+    /// </summary>
     private void TurnOffInputOnGround()
     {
         // Disable components
@@ -315,6 +344,9 @@ public class PlaneFinderManager : MonoBehaviour
         groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = false;
     }
 
+    /// <summary>
+    /// Turn on user input regarding model placement and surface scanning.
+    /// </summary>
     private void TurnOnInputOnGround()
     {
         // Set correct help text
@@ -343,6 +375,12 @@ public class PlaneFinderManager : MonoBehaviour
         htm.FadeInHelpText();
     }
 
+    /// <summary>
+    /// Calculate distance to a point in the world from users location.
+    /// </summary>
+    /// <param name="lat">Target latitude.</param>
+    /// <param name="longi">Target longitude.</param>
+    /// <returns>Returns distance in meters.</returns>
     private double CalculateDistanceInMeters(float lat, float longi)
     {
         float userLat = Input.location.lastData.latitude;
@@ -359,6 +397,9 @@ public class PlaneFinderManager : MonoBehaviour
         return total_dist;
     }
 
+    /// <summary>
+    /// Remove model placed on the ground.
+    /// </summary>
     public void DestroyAllChildren()
     {
         if (groundPlane.transform.childCount > 0)

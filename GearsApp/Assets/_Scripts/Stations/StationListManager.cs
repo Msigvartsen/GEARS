@@ -17,6 +17,9 @@ public class StationListManager : MonoBehaviour
         SetData();
     }
 
+    /// <summary>
+    /// Set instances and retrieve station models.
+    /// </summary>
     private void SetData()
     {
         parent = transform.gameObject;
@@ -30,12 +33,17 @@ public class StationListManager : MonoBehaviour
         {
             if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
             {
-                itemList[i] = GetListItem(i, stationArray[i]);
+                itemList[i] = CreateButton(stationArray[i]);
             }
         }
     }
 
-    GameObject GetListItem(int index, Station station)
+    /// <summary>
+    /// Create button for station at selected location.
+    /// </summary>
+    /// <param name="station">Station connected to button.</param>
+    /// <returns></returns>
+    GameObject CreateButton(Station station)
     {
         // Create buttons to each station, meant to check on progress at current location
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
@@ -47,6 +55,9 @@ public class StationListManager : MonoBehaviour
         return go;
     }
 
+    /// <summary>
+    /// Update button values if the user has unlocked more stations.
+    /// </summary>
     public void UpdateVisitedStations()
     {
         // Update buttons to see if any new ones has been unlocked by the user
@@ -64,6 +75,11 @@ public class StationListManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set correct button values based on user progression.
+    /// </summary>
+    /// <param name="ListItem">Button.</param>
+    /// <param name="station">Station connected to button.</param>
     void SetButtonValues(GameObject ListItem, Station station)
     {
         // Set the buttons value based on whether the station has been scanned or not

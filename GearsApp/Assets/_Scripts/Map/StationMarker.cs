@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class StationMarker : MonoBehaviour
 {
-
     public Station StationMarkerStation { get; set; }
-
     private Location coherentLocation;
 
     private void Start()
@@ -22,14 +20,9 @@ public class StationMarker : MonoBehaviour
         }
     }
 
-    public void UpdateData()
-    {
-        if (StationMarkerStation != null)
-        {
-            GetComponentInChildren<TextMesh>().text = StationMarkerStation.helptext;
-        }
-    }
-
+    /// <summary>
+    /// Fade-in popup panel with information about the selected location.
+    /// </summary>
     public void SpawnStationPoputInfo()
     {
         GameObject popupWindow = GameObject.FindGameObjectWithTag("LocationPopupContainer");
@@ -44,11 +37,14 @@ public class StationMarker : MonoBehaviour
 
             //Button button = popupInfo.GetComponent<Button>();
             Button button = popupInfo.GetComponentInChildren<Button>();
-            button.onClick.AddListener(OpenLocationTab);
+            button.onClick.AddListener(OpenLocationScene);
         }
     }
 
-    void OpenLocationTab()
+    /// <summary>
+    /// Loads new scene where location is determined by the station selected.
+    /// </summary>
+    void OpenLocationScene()
     {
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = coherentLocation;
