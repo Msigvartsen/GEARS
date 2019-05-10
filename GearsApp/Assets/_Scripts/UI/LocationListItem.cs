@@ -9,8 +9,6 @@ public class LocationListItem : MonoBehaviour
 {
     public Location Location { get; set; }
     [SerializeField]
-    private GameObject imagePanel;
-    [SerializeField]
     private TMPro.TextMeshProUGUI placeName;
     [SerializeField]
     private TMPro.TextMeshProUGUI lengthToLocation;
