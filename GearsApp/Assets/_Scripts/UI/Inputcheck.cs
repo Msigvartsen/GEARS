@@ -27,10 +27,10 @@ public static class Inputcheck
     /// <param name="inputField"></param>
     /// <param name="isPassword"></param>
     /// <returns>Returns true if all tests pass.</returns>
-    public static bool ValidateTextInput(TMPro.TMP_InputField inputField, bool isPassword=false)
+    public static bool ValidateTextInput(TMPro.TMP_InputField inputField, int length, bool isPassword=false)
     {
         string text = inputField.text;
-        if (text.Length >= 6 && CheckForNumberInString(text, isPassword) && CheckForUpperCharactersInString(text) && CheckForWhiteSpace(text))
+        if (text.Length >= length && CheckForNumberInString(text, isPassword) && CheckForUpperCharactersInString(text) && CheckForWhiteSpace(text))
         {
             return true;
         }

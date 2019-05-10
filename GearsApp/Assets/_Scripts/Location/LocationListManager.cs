@@ -39,7 +39,7 @@ public class LocationListManager : MonoBehaviour
         {
             foreach (var item in itemList)
             {
-                if (item.GetComponent<LocationListItem>().location.favorite)
+                if (item.GetComponent<LocationListItem>().Location.favorite)
                 {
                     item.SetActive(true);
                 }
@@ -66,7 +66,7 @@ public class LocationListManager : MonoBehaviour
         {
             if (arrayType == ArrayType.Favorites)
             {
-                item.SetActive(item.GetComponent<LocationListItem>().location.favorite);
+                item.SetActive(item.GetComponent<LocationListItem>().Location.favorite);
             }
         }
         List<Location> list = GetFavoriteList();
@@ -77,7 +77,7 @@ public class LocationListManager : MonoBehaviour
         {
             foreach (var item in itemList)
             {
-                if (item.GetComponent<LocationListItem>().location.location_ID == fav.location_ID)
+                if (item.GetComponent<LocationListItem>().Location.location_ID == fav.location_ID)
                 {
                     isActive = true;
                 }
@@ -86,7 +86,7 @@ public class LocationListManager : MonoBehaviour
             {
                 GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
                 go.transform.SetParent(parent.transform, false);
-                go.GetComponent<LocationListItem>().location = fav;
+                go.GetComponent<LocationListItem>().Location = fav;
                 itemList.Add(go);
                 isActive = false;
             }
@@ -135,10 +135,10 @@ public class LocationListManager : MonoBehaviour
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
-        go.GetComponent<LocationListItem>().location = locations[index];
+        go.GetComponent<LocationListItem>().Location = locations[index];
         if (arrayType == ArrayType.Favorites)
         {
-            go.SetActive(go.GetComponent<LocationListItem>().location.favorite);
+            go.SetActive(go.GetComponent<LocationListItem>().Location.favorite);
         }
 
         return go;

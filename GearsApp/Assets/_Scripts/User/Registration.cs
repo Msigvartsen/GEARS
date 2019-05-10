@@ -60,12 +60,12 @@ public class Registration : MonoBehaviour
             message = "Mobile number needs to have 8 digits";
             return false;
         }
-        if (!Inputcheck.ValidateTextInput(nameField))
+        if (!Inputcheck.ValidateTextInput(nameField,4))
         {
-            message = "Username needs to be atleast 4 characters long. (A-Z) - No numbers or special characters";
+            message = "Username needs to be atleast 4 characters long with one Captial letter. (A-Z) - No numbers or special characters";
             return false;
         }
-        if (!Inputcheck.ValidateTextInput(passwordField, true))
+        if (!Inputcheck.ValidateTextInput(passwordField,6,true))
         {
             message = "Password needs atleast 6 characters, One upper case letter and one number";
             return false;

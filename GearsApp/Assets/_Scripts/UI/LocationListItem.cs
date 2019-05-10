@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LocationListItem : MonoBehaviour
 {
-    private GameObject parent;
-    private Button listButton;
-    public Location location;
+    public Location Location { get; set; }
     [SerializeField]
     private GameObject imagePanel;
     [SerializeField]
@@ -23,14 +18,15 @@ public class LocationListItem : MonoBehaviour
 
     private void Update()
     {
-        //DistanceBewteenUserAndLocation();
+        if (lengthToLocation != null)
+            lengthToLocation.text = DistanceBetweenUserAndLocation();
     }
 
     private void Init()
     {
         string length = DistanceBetweenUserAndLocation();
 
-        placeName.text = location.name;
+        placeName.text = Location.name;
         lengthToLocation.text = length;
 
         for (int i = 0; i < transform.childCount; i++)
@@ -41,7 +37,7 @@ public class LocationListItem : MonoBehaviour
                 GameObject child = go.transform.GetChild(0).gameObject;
                 if (child.name == "Thumbnail")
                 {
-                    child.GetComponent<RawImage>().texture = location.thumbnail;
+                    child.GetComponent<RawImage>().texture = Location.thumbnail;
                 }
             }
         }
@@ -49,11 +45,11 @@ public class LocationListItem : MonoBehaviour
 
     private string DistanceBetweenUserAndLocation()
     {
-        float locationLat = (float)gameObject.GetComponent<LocationListItem>().location.latitude;
-        float locationLong = (float)gameObject.GetComponent<LocationListItem>().location.longitude;
+        float locationLat = (float)gameObject.GetComponent<LocationListItem>().Location.latitude;
+        float locationLong = (float)gameObject.GetComponent<LocationListItem>().Location.longitude;
 
         string length = string.Empty;
-        if (Input.location.isEnabledByUser)
+        if (LocationServiceNS.LocationService.IsLocationServiceRunning())
         {
             if (CalculateDistance(locationLat, locationLong) < 5)
             {
@@ -66,7 +62,7 @@ public class LocationListItem : MonoBehaviour
         }
         else
         {
-            length = "Location status not found";
+            length = "Turn on Location Service";
         }
 
         return length;
@@ -86,7 +82,7 @@ public class LocationListItem : MonoBehaviour
     public void OpenLocationTab()
     {
         LocationController manager = LocationController.GetInstance();
-        manager.CurrentLocation = location;
+        manager.CurrentLocation = Location;
         UserController.GetInstance().PreviousPage = "Locations";
         LoadingScreen.LoadScene("LocationNew");
     }
