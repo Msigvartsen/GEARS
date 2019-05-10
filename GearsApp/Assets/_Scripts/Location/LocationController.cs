@@ -82,15 +82,12 @@ public class LocationController : MonoBehaviour
 
         foreach (Location loc in res.objectList)
         {
-            foreach (Location loc in res.objectList)
+            for (int i = 0; i < LocationList.Count; i++)
             {
-                for (int i = 0; i < LocationList.Count; i++)
+                int locationID = LocationList[i].location_ID;
+                if (locationID == loc.location_ID)
                 {
-                    int locationID = LocationList[i].location_ID;
-                    if (locationID == loc.location_ID)
-                    {
-                        LocationList[i].favorite = true;
-                    }
+                    LocationList[i].favorite = true;
                 }
             }
         }
