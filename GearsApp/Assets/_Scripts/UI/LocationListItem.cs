@@ -86,16 +86,8 @@ public class LocationListItem : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Function is set on LocationListItem button. Opens Location Scene with correct location information.
     /// </summary>
-    public void UpdateFavorite()
-    {
-        if (transform.parent.GetComponent<LocationListManager>().displayFavoriteOnly)
-        {
-            imagePanel.SetActive(false);
-        }
-    }
-
     public void OpenLocationTab()
     {
         LocationController manager = LocationController.GetInstance();
@@ -104,6 +96,12 @@ public class LocationListItem : MonoBehaviour
         LoadingScreen.LoadScene("LocationNew");
     }
 
+    /// <summary>
+    /// Calculates distance between user and location
+    /// </summary>
+    /// <param name="locationLat"></param>
+    /// <param name="locationLong"></param>
+    /// <returns>Returns a double with total distance between user and location</returns>
     private double CalculateDistance(float locationLat, float locationLong)
     {
         float userLat = Input.location.lastData.latitude;
