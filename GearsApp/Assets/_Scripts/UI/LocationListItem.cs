@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// LocationListItem is a script meant to be attached to LocationListItem prefab in Unity.
+/// Delegates correct location information to the object (Text, images).
+/// </summary>
 public class LocationListItem : MonoBehaviour
 {
     public Location Location { get; set; }
@@ -11,17 +15,26 @@ public class LocationListItem : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI lengthToLocation;
 
+    /// <summary>
+    /// Runs on creation.
+    /// </summary>
     private void Start()
     {
         Init();
     }
 
+    /// <summary>
+    /// Updates Each Frame.
+    /// </summary>
     private void Update()
     {
         if (lengthToLocation != null)
             lengthToLocation.text = DistanceBetweenUserAndLocation();
     }
 
+    /// <summary>
+    /// Initialize on start. Set up correct name, length to location and thumbnails for the different locations.
+    /// </summary>
     private void Init()
     {
         string length = DistanceBetweenUserAndLocation();
@@ -43,6 +56,10 @@ public class LocationListItem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Distance between Location Position (Latitude / Longitude) and  User position is calculated. 
+    /// </summary>
+    /// <returns>Returns string message with the distance between user and location.</returns>
     private string DistanceBetweenUserAndLocation()
     {
         float locationLat = (float)gameObject.GetComponent<LocationListItem>().Location.latitude;
@@ -68,13 +85,13 @@ public class LocationListItem : MonoBehaviour
         return length;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void UpdateFavorite()
     {
-        Debug.Log("Update favorite");
         if (transform.parent.GetComponent<LocationListManager>().displayFavoriteOnly)
         {
-            Debug.Log("Hide favorite");
-
             imagePanel.SetActive(false);
         }
     }

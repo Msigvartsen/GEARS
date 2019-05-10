@@ -77,6 +77,9 @@ public class LocationController : MonoBehaviour
 
     private void InitFavorites(WebResponse<Location> res)
     {
+        if (res.objectList == null)
+            return;
+
         foreach (Location loc in res.objectList)
         {
             for (int i = 0; i < LocationList.Count; i++)
