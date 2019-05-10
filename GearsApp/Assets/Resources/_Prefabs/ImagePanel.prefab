@@ -114,7 +114,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2753861876100971872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1168272124}
+        m_MethodName: PreviousImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &3176294912609931665
@@ -231,7 +242,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3926445450559164942}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1168272124}
+        m_MethodName: NextImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &5349461899171260554
@@ -345,11 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd4982cbe86bb8e45af8ced092a20560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images:
-  - {fileID: 2800000, guid: 95348dab77916644883eb6ff1e899607, type: 3}
-  - {fileID: 2800000, guid: 3a7599e76963c60479cb3341c2707de3, type: 3}
-  - {fileID: 2800000, guid: a21869470432dc14da6741d60386f624, type: 3}
-  - {fileID: 2800000, guid: f6d3df384aad97d4394add3c96914c14, type: 3}
+  imageLifetime: 4
 --- !u!1 &5349461899673564933
 GameObject:
   m_ObjectHideFlags: 0

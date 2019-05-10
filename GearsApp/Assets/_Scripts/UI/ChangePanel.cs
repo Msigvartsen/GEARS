@@ -1,8 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ChangePanel
+/// Simple class that turns swaps two panels. Run script on a button/via script
+/// and set newPanel equal the panel you want to show, and previousPanel to the panel you want to hide.
+/// </summary>
 public class ChangePanel : MonoBehaviour
 {
     [SerializeField]
@@ -10,12 +13,18 @@ public class ChangePanel : MonoBehaviour
     [SerializeField]
     private GameObject previousPanel;
 
+    /// <summary>
+    /// Run setup when created
+    /// </summary>
     private void Start()
     {
         if (GetComponent<Toggle>().isOn)
             SetNewActivePanel();
     }
 
+    /// <summary>
+    /// Swaps the two panels Active State.
+    /// </summary>
     public void SetNewActivePanel()
     {
         newPanel.SetActive(true);

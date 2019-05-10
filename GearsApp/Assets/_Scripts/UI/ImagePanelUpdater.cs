@@ -1,34 +1,36 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ImagePanelUpdater
+/// This class takes an array of images which it then will display one by one.After imageLifetime has run out,
+/// the next image will appear.
+/// This script is attached to the "ImagePanel" prefab in the Unity Project.
+/// </summary>
 public class ImagePanelUpdater : MonoBehaviour
 {
-
-    public Texture2D[] imageList;
-    public float imageLifetime = 3.0f;
+    public Texture2D[] ImageList { get; set; }
+    public float imageLifetime = 4.0f;
 
     private RawImage activeImage;
     private int imageIndex = 0;
     private int arraySize;
     private float lifetimeCountdown;
-
+ 
+    /// <summary>
+    /// Initialize the ImagePanel and set first image.
+    /// </summary>
     void Start()
     {
-        //var currentLocation = LocationController.GetInstance().CurrentLocation;
-        //Uri uri = new Uri(ConstantsNS.Constants.FTPLocationPath + currentLocation.name + "/Images/");
-        //imageList = FTPHandler.DownloadAllImagesFromFTP(uri).ToArray();
-        //imageList = transform.parent.GetComponent<LocationDetails>().imagePanel;
-        imageList = LocationController.GetInstance().CurrentLocation.images;
+        ImageList = LocationController.GetInstance().CurrentLocation.images;
         activeImage = GetComponentInChildren<RawImage>();
-        arraySize = imageList.Length;
+        arraySize = ImageList.Length;
         SetTexture();
-        //activeImage.texture = imageList[0];
-        //lifetimeCountdown = imageLifetime;
     }
 
+    /// <summary>
+    /// Update countdown each frame. Change Image when the timer has reached 0. 
+    /// </summary>
     private void Update()
     {
         lifetimeCountdown -= Time.deltaTime;
@@ -38,18 +40,27 @@ public class ImagePanelUpdater : MonoBehaviour
             SetTexture();
         }
     }
-
+    /// <summary>
+    /// Change to next image
+    /// </summary>
     public void NextImage()
     {
         imageIndex++;
         SetTexture();
     }
-
+    /// <summary>
+    /// Change to previous image
+    /// </summary>
     public void PreviousImage()
     {
         imageIndex--;
         SetTexture();
     }
+
+    /// <summary>
+    /// Checks if the array has elements and if the index sent is out of bounds. Sets image to next image,
+    /// or if the index is out of bounds - the image is set to the first element in the array.
+    /// </summary>
     private void SetTexture()
     {
         if (arraySize > 0)
@@ -62,9 +73,8 @@ public class ImagePanelUpdater : MonoBehaviour
             {
                 imageIndex = 0;
             }
-            activeImage.texture = imageList[imageIndex];
+            activeImage.texture = ImageList[imageIndex];
             lifetimeCountdown = imageLifetime;
         }
     }
-
 }

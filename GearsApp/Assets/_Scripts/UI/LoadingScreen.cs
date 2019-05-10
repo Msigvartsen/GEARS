@@ -60,7 +60,7 @@ public class LoadingScreen : MonoBehaviour
     private static void PreviousSceneName()
     {
         string previousScene = SceneManager.GetActiveScene().name;
-        if (previousScene == "Main" || previousScene == "LocationNew")
+        if (previousScene == "LocationNew")
         {
             UserController.GetInstance().PreviousScene = previousScene;
         }

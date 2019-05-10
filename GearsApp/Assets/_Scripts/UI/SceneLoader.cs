@@ -16,17 +16,6 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadScene(string sceneName)
     {
-        //string previousScene = SceneManager.GetActiveScene().name;
-        //if (previousScene == "Main" || previousScene == "LocationNew")
-        //{
-        //    UserController.GetInstance().PreviousScene = previousScene;
-        //}
-        //else
-        //{
-        //    UserController.GetInstance().PreviousScene = "Main";
-        //}
-
-        //UserController.GetInstance().PreviousScene = SceneManager.GetActiveScene().name;
         LoadingScreen.LoadScene(sceneName);
     }
 
