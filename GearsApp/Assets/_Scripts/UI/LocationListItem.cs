@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 /// <summary>
-/// LocationListItem is a script meant to be attached to LocationListItem prefab in Unity.
+/// LocationListItem is a script attached to LocationListItem prefab in Unity.
 /// Delegates correct location information to the object (Text, images).
 /// </summary>
 public class LocationListItem : MonoBehaviour

@@ -22,7 +22,7 @@ public class ProfilePicturesList : MonoBehaviour
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(gameObject.transform, false);
-        go.GetComponent<ImageListItem>().media = media;
+        go.GetComponent<ImageListItem>().Media = media;
         go.GetComponent<ImageListItem>().RefreshImage();
         //go.GetComponent<RawImage>().texture = images[index].image;
         //go.GetComponent<Media>() = media;
