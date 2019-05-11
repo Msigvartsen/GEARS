@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class StationListManager : MonoBehaviour
@@ -8,10 +6,13 @@ public class StationListManager : MonoBehaviour
     private GameObject parent;
     private GameObject[] itemList;
     private Station[] stationArray;
-    LocationController locationController;
+    private LocationController locationController;
     private string prefabName;
 
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Start is called before the first frame update
+    /// </summary>
     void Start()
     {
         SetData();
@@ -45,7 +46,6 @@ public class StationListManager : MonoBehaviour
     /// <returns></returns>
     GameObject CreateButton(Station station)
     {
-        // Create buttons to each station, meant to check on progress at current location
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<StationListItem>().Station = station;
@@ -60,7 +60,6 @@ public class StationListManager : MonoBehaviour
     /// </summary>
     public void UpdateVisitedStations()
     {
-        // Update buttons to see if any new ones has been unlocked by the user
         stationArray = StationController.GetInstance().StationList.ToArray();
 
         if (itemList != null)

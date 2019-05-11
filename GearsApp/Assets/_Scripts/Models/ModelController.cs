@@ -2,6 +2,9 @@
 using UnityEngine;
 using ConstantsNS;
 
+/// <summary>
+/// Serializable struct. Retreives data from JSON via Database/PHP.
+/// </summary>
 [System.Serializable]
 struct Model_id
 {
