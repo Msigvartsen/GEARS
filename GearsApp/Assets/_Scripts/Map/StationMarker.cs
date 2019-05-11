@@ -49,6 +49,6 @@ public class StationMarker : MonoBehaviour
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = coherentLocation;
         UserController.GetInstance().PreviousPage = "Locations";
-        LoadingScreen.LoadScene("LocationNew");
+        LoadingScreen.LoadScene(ConstantsNS.Constants.LocationScene);
     }
 }

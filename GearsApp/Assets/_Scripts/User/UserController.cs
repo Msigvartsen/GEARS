@@ -84,7 +84,7 @@ public class UserController : MonoBehaviour
     {
         CurrentUser = null;
         LocationController.GetInstance().ResetFavorites();
-        LoadingScreen.LoadScene("RegistrationAndLogin");
+        LoadingScreen.LoadScene(ConstantsNS.Constants.RegistrationAndLoginScene);
     }
    
     private void UpdateUserPicture(PHPStatusHandler handler)

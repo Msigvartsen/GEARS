@@ -42,6 +42,6 @@ public class MapMarker : MonoBehaviour
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = MapMarkerLocation;
         UserController.GetInstance().PreviousPage = "Locations";
-        LoadingScreen.LoadScene("LocationNew");
+        LoadingScreen.LoadScene(ConstantsNS.Constants.LocationScene);
     }
 }

@@ -102,7 +102,7 @@ public class LocationListItem : MonoBehaviour
         LocationController manager = LocationController.GetInstance();
         manager.CurrentLocation = Location;
         UserController.GetInstance().PreviousPage = "Locations";
-        LoadingScreen.LoadScene("LocationNew");
+        LoadingScreen.LoadScene(ConstantsNS.Constants.LocationScene);
     }
 
     /// <summary>

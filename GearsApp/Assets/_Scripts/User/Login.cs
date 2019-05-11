@@ -46,7 +46,7 @@ public class Login : MonoBehaviour
         StationController.GetInstance().CallUserProgressRequest();
         TrophyController.GetInstance().CallCollectedTrophies();
         ModelController.GetInstance().CallGetFoundModel();
-        LoadingScreen.LoadScene("Main");
+        LoadingScreen.LoadScene(ConstantsNS.Constants.MainScene);
     }
 }
 

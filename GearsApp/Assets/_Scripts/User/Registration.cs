@@ -66,7 +66,7 @@ public class Registration : MonoBehaviour
         UserController manager = UserController.GetInstance();
         manager.CurrentUser = obj.objectList[0];
         LocationController.GetInstance().CallGetFavorites();
-        LoadingScreen.LoadScene("Main");
+        LoadingScreen.LoadScene(Constants.MainScene);
     }
 
     /// <summary>
