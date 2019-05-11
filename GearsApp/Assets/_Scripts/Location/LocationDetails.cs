@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Script used on Location Scene to delegate information to components in Unity about the current location selected.
+/// </summary>
 public class LocationDetails : MonoBehaviour
 {
     [Header("Text")]
@@ -7,10 +10,12 @@ public class LocationDetails : MonoBehaviour
     private TMPro.TextMeshProUGUI locationNameText;
     [SerializeField]
     private TMPro.TextMeshProUGUI infoText;
-    [SerializeField]
-    public Texture2D[] imagePanel; //Update ImagePanel with correct images from location
+
     private Location currentLocation;
 
+    /// <summary>
+    /// Ran on creation of script. Sets up text from Location objects to Unity UI text components.
+    /// </summary>
     private void Start()
     {
         currentLocation = LocationController.GetInstance().CurrentLocation;
@@ -21,6 +26,9 @@ public class LocationDetails : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads text from resources.
+    /// </summary>
     private void UpdateInfoText()
     {
         LocationController manager = LocationController.GetInstance();
