@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2404,6 +2404,49 @@ MonoBehaviour:
   usernameField: {fileID: 216123689}
   passwordField: {fileID: 68557062}
   popupNotification: {fileID: 1304054095}
+--- !u!1 &564648757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564648759}
+  - component: {fileID: 564648758}
+  m_Layer: 0
+  m_Name: LocationService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &564648758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564648757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a6e1ff3a023e14a9d2ecf24a1a9015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &564648759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564648757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 336.27478, y: 1249.8094, z: -16.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639409168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,16 +2661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4120c63d0041dd54190949d3e87bcd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationList: []
-  CurrentLocation:
-    location_ID: 0
-    name: 
-    latitude: 0
-    longitude: 0
-    information: 
-    favorite: 0
-    thumbnail: {fileID: 0}
-    images: []
 --- !u!114 &713353958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,14 +2673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1ae3491ace5aa4bac7d7dbe349972e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modelList: []
-  locationModels: []
-  foundModels: 
-  selectedCollectibleModel:
-    model_ID: 0
-    model_name: 
-    modeltype: 
-    score: 0
 --- !u!114 &713353959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,7 +2685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a9b73a4899d3e40abb2d4de3408890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mediaList: []
 --- !u!114 &713353960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2673,17 +2697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8849940b0adcbcb41a5a808f9b081782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationList: []
-  CurrentStation:
-    location_ID: 0
-    station_NR: 0
-    target_ID: 0
-    latitude: 0
-    longitude: 0
-    model_ID: 0
-    helptext: 
-    score: 0
-    visited: 0
 --- !u!114 &713353961
 MonoBehaviour:
   m_ObjectHideFlags: 0

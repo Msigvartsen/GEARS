@@ -2,23 +2,28 @@
 using UnityEngine;
 using Mapbox.Utils;
 
+/// <summary>
+/// Singleton class. Keeps track of all locations retreived from database, as well as the the current location visited.
+/// </summary>
 public class LocationController : MonoBehaviour
 {
     public List<Location> LocationList { get; set; }
     public Location CurrentLocation { get; set; }
     private static LocationController instance;
 
-    private void Start()
-    {
-        LocationServiceNS.LocationService.CallUserPermission();
-        StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
-    }
-
+    /// <summary>
+    /// Returns singleton instance of class.
+    /// </summary>
+    /// <returns></returns>
     public static LocationController GetInstance()
     {
         return instance;
     }
 
+    /// <summary>
+    /// Creates singleton object if it does not exist.
+    /// Creates new List of locations and runs request to database when app starts.
+    /// </summary>
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -39,34 +44,45 @@ public class LocationController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Start Coroutine with GetRequest to retreive list of locations.
+    /// </summary>
     private void CallLocationRequest()
     {
         string path = ConstantsNS.Constants.PhpPath + "locations.php";
         StartCoroutine(WebRequestController.GetRequest<WebResponse<Location>>(path, InitLocationList));
     }
 
+    /// <summary>
+    /// Checks response from database call. Sets up correct images to location object,
+    /// before adding new location to Locationlist.
+    /// </summary>
+    /// <param name="res">Response from Database call.</param>
     private void InitLocationList(WebResponse<Location> res)
     {
-        if (res.handler.statusCode == false)
-        {
-            Debug.Log(res.handler.text);
+        if (!WebRequestController.CheckResponse(res.handler))
             return;
-        }
 
         foreach (Location loc in res.objectList)
         {
             object[] obj = Resources.LoadAll("_Locations/" + loc.name + "/Images");
             loc.images = new Texture2D[obj.Length];
+
             for (int i = 0; i < obj.Length; i++)
             {
                 loc.images[i] = (Texture2D)obj[i];
+
                 if (loc.images[i].name == "thumbnail")
                     loc.thumbnail = loc.images[i];
             }
+
             LocationList.Add(loc);
         }
     }
 
+    /// <summary>
+    /// Start Coroutine with PostRequest to retrieve all locations in favorites connected to the user.
+    /// </summary>
     public void CallGetFavorites()
     {
         string path = ConstantsNS.Constants.PhpPath + "favorites.php";
@@ -75,9 +91,14 @@ public class LocationController : MonoBehaviour
         StartCoroutine(WebRequestController.PostRequest<WebResponse<Location>>(path, form, InitFavorites));
     }
 
+    /// <summary>
+    /// Checks response from Database, before it checks each location favorite against all Locations.
+    /// If they match, set Location.favorite = true.
+    /// </summary>
+    /// <param name="res">Response from database call.</param>
     private void InitFavorites(WebResponse<Location> res)
     {
-        if (res.objectList == null)
+        if (!WebRequestController.CheckResponse(res.handler))
             return;
 
         foreach (Location loc in res.objectList)
@@ -93,6 +114,11 @@ public class LocationController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get Latitude and Longitude from location sent in.
+    /// </summary>
+    /// <param name="loc"></param>
+    /// <returns>Returns Vector2d with latitude and longitude.</returns>
     public Vector2d GetLatitudeLongitudeFromLocation(Location loc)
     {
         if (loc != null)
@@ -105,6 +131,9 @@ public class LocationController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Reset all favorite locations.
+    /// </summary>
     public void ResetFavorites()
     {
         foreach (Location loc in LocationList)
@@ -113,6 +142,10 @@ public class LocationController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates changes to location in location list. Used if there is a copy of the location that has been updated.
+    /// </summary>
+    /// <param name="updatedLocation">Updated location, that needs to update LocationList</param>
     public void UpdateLocation(Location updatedLocation)
     {
         for (int i = 0; i < LocationList.Count; i++)
