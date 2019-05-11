@@ -55,6 +55,17 @@ public class LocationListItem : MonoBehaviour
     }
 
     /// <summary>
+    /// Turns off and hides gameobject if favorite marker is removed. (Only when sorting by favorites)
+    /// </summary>
+    public void UpdateFavorite()
+    {
+        if(transform.parent.GetComponent<LocationListManager>().DisplayFavoriteOnly)
+        {
+            transform.gameObject.SetActive(false);
+        }
+    }
+
+    /// <summary>
     /// Distance between Location Position (Latitude / Longitude) and  User position is calculated. 
     /// </summary>
     /// <returns>Returns string message with the distance between user and location.</returns>

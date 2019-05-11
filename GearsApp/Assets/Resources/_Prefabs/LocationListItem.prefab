@@ -714,16 +714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b352aa967c9cae4cb5229837a2b96bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location:
-    location_ID: 0
-    name: 
-    latitude: 0
-    longitude: 0
-    information: 
-    favorite: 0
-    thumbnail: {fileID: 0}
-    images: []
-  imagePanel: {fileID: 7016534622171913471}
   placeName: {fileID: 7016534622424973911}
   lengthToLocation: {fileID: 7016534621053138479}
 --- !u!1 &7016534622175884091
@@ -778,7 +768,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItem: {fileID: 3162642276121484870}
   imagePanel: {fileID: 7016534620971619558}
-  toggleButton: {fileID: 0}
 --- !u!1 &7016534622424973909
 GameObject:
   m_ObjectHideFlags: 0

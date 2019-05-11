@@ -1,102 +1,94 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Handles the creation and updates for the List of locations in Unity.
+/// Creates a list of prefabs with correct Location information.
+/// </summary>
 public class LocationListManager : MonoBehaviour
 {
-    public enum ArrayType { Locations, Favorites };
-    public ArrayType arrayType;
     private GameObject parent;
-    //private GameObject[] itemList;
     private List<GameObject> itemList = new List<GameObject>();
     private Location[] locationArray;
     private string prefabName;
     private bool isInitiated = false;
-    public bool displayFavoriteOnly = false;
+    public bool DisplayFavoriteOnly { get; set; }
 
+    /// <summary>
+    /// Initializes the variables with correct values, and retreives location list.
+    /// </summary>
     private void Init()
     {
         parent = transform.gameObject;
         locationArray = LocationController.GetInstance().LocationList.ToArray();
         prefabName = "LocationListItem";
         isInitiated = true;
+        DisplayFavoriteOnly = false;
     }
 
+    /// <summary>
+    /// Ran at creation.
+    /// Initializes and updates list of locations. 
+    /// </summary>
     private void Start()
     {
         if (!isInitiated)
         {
             Init();
-            UpdateLocationList();
+            CreateLocationGameObjectList();
         }
     }
 
+    /// <summary>
+    /// Toggle to show only favorites or all locations. 
+    /// </summary>
     public void ToggleFavoriteList()
     {
-        displayFavoriteOnly = !displayFavoriteOnly;
+        DisplayFavoriteOnly = !DisplayFavoriteOnly;
 
-        if (displayFavoriteOnly)
+        if (DisplayFavoriteOnly)
         {
-            foreach (var item in itemList)
-            {
-                if (item.GetComponent<LocationListItem>().Location.favorite)
-                {
-                    item.SetActive(true);
-                }
-                else
-                {
-                    item.SetActive(false);
-                }
-            }
-
+            SetOnlyFavoriteLocationsVisible();
         }
         else
         {
-            foreach (var item in itemList)
-            {
-                item.SetActive(true);
-            }
+            SetAllLocationsVisible();
         }
     }
 
-
-    public void UpdateFavorites()
+    /// <summary>
+    /// Loops through item list and hides all objects that are not favorites.
+    /// </summary>
+    private void SetOnlyFavoriteLocationsVisible()
     {
         foreach (var item in itemList)
         {
-            if (arrayType == ArrayType.Favorites)
+            if (item.GetComponent<LocationListItem>().Location.favorite)
             {
-                item.SetActive(item.GetComponent<LocationListItem>().Location.favorite);
-            }
-        }
-        List<Location> list = GetFavoriteList();
-
-        Location[] locations = GetFavoriteList().ToArray();
-        bool isActive = false;
-        foreach (var fav in locations)
-        {
-            foreach (var item in itemList)
-            {
-                if (item.GetComponent<LocationListItem>().Location.location_ID == fav.location_ID)
-                {
-                    isActive = true;
-                }
-            }
-            if (!isActive)
-            {
-                GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
-                go.transform.SetParent(parent.transform, false);
-                go.GetComponent<LocationListItem>().Location = fav;
-                itemList.Add(go);
-                isActive = false;
+                item.SetActive(true);
             }
             else
             {
-
+                item.SetActive(false);
             }
         }
     }
 
+    /// <summary>
+    /// Loops through item list. Sets all objects to visible.
+    /// </summary>
+    private void SetAllLocationsVisible()
+    {
+        foreach (var item in itemList)
+        {
+            item.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// Sort out a list of favorite locations from list of all locations.
+    /// </summary>
+    /// <returns>Returns List<Location> with favorites.</returns>
     private List<Location> GetFavoriteList()
     {
         List<Location> list = new List<Location>();
@@ -108,39 +100,30 @@ public class LocationListManager : MonoBehaviour
                 list.Add(locationArray[i]);
             }
         }
-
         return list;
     }
 
-    private void UpdateLocationList()
+    /// <summary>
+    /// Creates a list with LocationListItem prefab containing correct location information.
+    /// </summary>
+    private void CreateLocationGameObjectList()
     {
-        Location[] locations = new Location[0];
-
-        if (arrayType == ArrayType.Favorites)
+        for (int i = 0; i < locationArray.Length; i++)
         {
-            locations = GetFavoriteList().ToArray();
-        }
-        else
-        {
-            locations = locationArray;
-        }
-
-        for (int i = 0; i < locations.Length; i++)
-        {
-            itemList.Add(GetListItem(i, locations));
+            itemList.Add(CreateListItem(locationArray[i]));
         }
     }
 
-    private GameObject GetListItem(int index, Location[] locations)
+    /// <summary>
+    /// Creates a prefab with current location information.
+    /// </summary>
+    /// <param name="location">Location to set in ListItem</param>
+    /// <returns>Returns Prefab GameObject</returns>
+    private GameObject CreateListItem(Location location)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(parent.transform, false);
-        go.GetComponent<LocationListItem>().Location = locations[index];
-        if (arrayType == ArrayType.Favorites)
-        {
-            go.SetActive(go.GetComponent<LocationListItem>().Location.favorite);
-        }
-
+        go.GetComponent<LocationListItem>().Location = location;
         return go;
     }
 }
