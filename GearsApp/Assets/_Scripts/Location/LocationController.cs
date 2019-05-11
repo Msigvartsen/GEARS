@@ -60,7 +60,7 @@ public class LocationController : MonoBehaviour
     /// <param name="res">Response from Database call.</param>
     private void InitLocationList(WebResponse<Location> res)
     {
-        if (!WebRequestController.CheckResponse(res.handler))
+        if (!WebRequestController.CheckValidResponse(res.handler))
             return;
 
         foreach (Location loc in res.objectList)
@@ -98,7 +98,7 @@ public class LocationController : MonoBehaviour
     /// <param name="res">Response from database call.</param>
     private void InitFavorites(WebResponse<Location> res)
     {
-        if (!WebRequestController.CheckResponse(res.handler))
+        if (!WebRequestController.CheckValidResponse(res.handler))
             return;
 
         foreach (Location loc in res.objectList)

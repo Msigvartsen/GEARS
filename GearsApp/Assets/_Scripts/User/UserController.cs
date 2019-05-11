@@ -89,7 +89,7 @@ public class UserController : MonoBehaviour
    
     private void UpdateUserPicture(PHPStatusHandler handler)
     {
-        if (WebRequestController.CheckResponse(handler))
+        if (WebRequestController.CheckValidResponse(handler))
             return;
 
         //Add popup notification telling user that their picture has been updated?
@@ -97,7 +97,7 @@ public class UserController : MonoBehaviour
 
     private void DeleteAndLogout(PHPStatusHandler handler)
     {
-        if (!WebRequestController.CheckResponse(handler))
+        if (!WebRequestController.CheckValidResponse(handler))
             return;
 
         LogOut();
@@ -105,7 +105,7 @@ public class UserController : MonoBehaviour
 
     private void UpdateLevelAndExperience(PHPStatusHandler handler)
     {
-        if (!WebRequestController.CheckResponse(handler))
+        if (!WebRequestController.CheckValidResponse(handler))
             return;
         //Refresh UI from here?
     }

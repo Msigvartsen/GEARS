@@ -51,7 +51,7 @@ public class MediaController : MonoBehaviour
     /// <param name="res">Response from Database</param>
     private void InitMediaList(WebResponse<Media> res)
     {
-        if (!WebRequestController.CheckResponse(res.handler))
+        if (!WebRequestController.CheckValidResponse(res.handler))
             return;
 
         MediaList = new List<Media>();

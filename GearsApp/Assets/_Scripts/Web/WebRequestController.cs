@@ -68,7 +68,7 @@ public static class WebRequestController
         }
     }
 
-    public static bool CheckResponse(PHPStatusHandler handler)
+    public static bool CheckValidResponse(PHPStatusHandler handler)
     {
         if(!handler.statusCode)
         {

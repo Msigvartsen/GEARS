@@ -63,7 +63,7 @@ public class StationController : MonoBehaviour
 
     private void InitStationList(WebResponse<Station> response)
     {
-        if (!WebRequestController.CheckResponse(response.handler))
+        if (!WebRequestController.CheckValidResponse(response.handler))
             return;
 
         if (StationList == null)
@@ -77,7 +77,7 @@ public class StationController : MonoBehaviour
 
     private void SetVisitedStations(WebResponse<Station> response)
     {
-        if (!WebRequestController.CheckResponse(response.handler) || response.objectList == null)
+        if (!WebRequestController.CheckValidResponse(response.handler) || response.objectList == null)
             return;
 
         foreach (Station stat in response.objectList)
@@ -94,7 +94,7 @@ public class StationController : MonoBehaviour
 
     private void UpdateStationVisited(PHPStatusHandler handler)
     {
-        if (!WebRequestController.CheckResponse(handler))
+        if (!WebRequestController.CheckValidResponse(handler))
             return;
 
         CurrentStation.visited = true;

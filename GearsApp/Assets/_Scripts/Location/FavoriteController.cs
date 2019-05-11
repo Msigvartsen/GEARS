@@ -51,7 +51,7 @@ public class FavoriteController : MonoBehaviour
     /// <param name="handler">Keeps track of the status from the web request.</param>
     private void UpdateFavorite(PHPStatusHandler handler)
     {
-        if (!WebRequestController.CheckResponse(handler))
+        if (!WebRequestController.CheckValidResponse(handler))
             return;
 
         var loc = listItem.Location;
