@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
+/// <summary>
+/// Serializable class. Retreives data from JSON via Database/PHP.
+/// </summary>
 [System.Serializable]
 public class User
 {

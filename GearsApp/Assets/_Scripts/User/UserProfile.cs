@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script updates UI elements in Unity with correct information and images for the current user.
+/// </summary>
 public class UserProfile : MonoBehaviour
 {
-    private User _currentUser;
+    private User currentUser;
 
     [SerializeField]
     private Transform loadingBar;
@@ -16,17 +17,22 @@ public class UserProfile : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI experience;
 
-
+    /// <summary>
+    /// Ran before the first frame. Initialized user profile UI.
+    /// </summary>
     private void Start()
     {
         UpdateUserProfileUI();
     }
 
+    /// <summary>
+    /// Gets current user and updates UI in Unity with correct images/text.
+    /// </summary>
     public void UpdateUserProfileUI()
     {
-        _currentUser = UserController.GetInstance().CurrentUser;
+        currentUser = UserController.GetInstance().CurrentUser;
 
-        if (_currentUser == null)
+        if (currentUser == null)
             return;
 
         UpdateExperienceBar();
@@ -34,33 +40,38 @@ public class UserProfile : MonoBehaviour
         SetProfilePicture();
     }
 
-    private void Update()
-    {
-        //UpdateExperienceBar();
-    }
-
+    /// <summary>
+    /// Updates radial XP-Bar in Unity.
+    /// </summary>
     private void UpdateExperienceBar()
     {
-        int xp = _currentUser.experience;
+        int xp = currentUser.experience;
         float xpFillAmount = (float)xp / 100;
         loadingBar.GetComponent<Image>().fillAmount = xpFillAmount;
     }
 
+    /// <summary>
+    /// Updates all text fields (Level, experience and username)
+    /// </summary>
     private void UpdateTextFields()
     {
         if (username != null)
-            username.text = _currentUser.username;
+            username.text = currentUser.username;
 
         if (experience != null)
         {
-            experience.text = _currentUser.experience.ToString();
+            experience.text = currentUser.experience.ToString();
         }
         if (level != null)
         {
-            level.text = _currentUser.level.ToString();
+            level.text = currentUser.level.ToString();
         }
     }
 
+    /// <summary>
+    /// Find all profile picture UIs.
+    /// Update user picture when Current users media_id is equal to image in media list.
+    /// </summary>
     private void SetProfilePicture()
     {
         GameObject profilePicture = GameObject.FindGameObjectWithTag("ProfilePicture");
@@ -70,7 +81,7 @@ public class UserProfile : MonoBehaviour
         {
             foreach (Media media in mediaController.MediaList)
             {
-                if (media.media_ID == _currentUser.media_ID)
+                if (media.media_ID == currentUser.media_ID)
                 {
                     profilePicture.GetComponent<RawImage>().texture = media.image;
                 }
