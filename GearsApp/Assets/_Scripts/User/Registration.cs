@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ConstantsNS;
+using GEARSApp;
 using TMPro;
 
 /// <summary>

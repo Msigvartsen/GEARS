@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ConstantsNS;
+using GEARSApp;
 
 /// <summary>
 /// Class responsible for adding and removing favorites by sending requests to database.

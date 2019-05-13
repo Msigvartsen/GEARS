@@ -103,6 +103,6 @@ public class HelpTextManager : MonoBehaviour
     {
         Debug.Log("BUtton pressed OPEN MAP");
         UserController.GetInstance().PreviousPage = "Locations";
-        LoadingScreen.LoadScene(ConstantsNS.Constants.MainScene);
+        LoadingScreen.LoadScene(GEARSApp.Constants.MainScene);
     }
 }

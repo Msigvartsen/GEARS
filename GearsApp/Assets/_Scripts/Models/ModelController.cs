@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ConstantsNS;
+using GEARSApp;
 
 /// <summary>
 /// Serializable struct. Retreives data from JSON via Database/PHP.
