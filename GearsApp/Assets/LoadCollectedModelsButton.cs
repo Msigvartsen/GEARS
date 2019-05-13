@@ -24,7 +24,7 @@ public class LoadCollectedModelsButton : MonoBehaviour
     void SelectMe()
     {
         ModelController.GetInstance().SelectedCollectibleModel = model;
-        LoadingScreen.LoadScene(ConstantsNS.Constants.CollectionARScene);
+        LoadingScreen.LoadScene(GEARSApp.Constants.CollectionARScene);
     }
 
     void ConfirmButton()

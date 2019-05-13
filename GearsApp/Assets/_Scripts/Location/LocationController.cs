@@ -49,7 +49,7 @@ public class LocationController : MonoBehaviour
     /// </summary>
     private void CallLocationRequest()
     {
-        string path = ConstantsNS.Constants.PhpPath + "locations.php";
+        string path = GEARSApp.Constants.PhpPath + "locations.php";
         StartCoroutine(WebRequestController.GetRequest<WebResponse<Location>>(path, InitLocationList));
     }
 
@@ -85,7 +85,7 @@ public class LocationController : MonoBehaviour
     /// </summary>
     public void CallGetFavorites()
     {
-        string path = ConstantsNS.Constants.PhpPath + "favorites.php";
+        string path = GEARSApp.Constants.PhpPath + "favorites.php";
         WWWForm form = new WWWForm();
         form.AddField("number", UserController.GetInstance().CurrentUser.telephonenr);
         StartCoroutine(WebRequestController.PostRequest<WebResponse<Location>>(path, form, InitFavorites));

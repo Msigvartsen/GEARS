@@ -41,7 +41,7 @@ public class MediaController : MonoBehaviour
     /// </summary>
     public void CallRequestImages()
     {
-        string path = ConstantsNS.Constants.PhpPath + "getimages.php";
+        string path = GEARSApp.Constants.PhpPath + "getimages.php";
         StartCoroutine(WebRequestController.GetRequest<WebResponse<Media>>(path, InitMediaList));
     }
 

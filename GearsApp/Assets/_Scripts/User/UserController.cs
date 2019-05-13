@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using ConstantsNS;
+using GEARSApp;
 
 public class UserController : MonoBehaviour
 {
@@ -84,7 +84,7 @@ public class UserController : MonoBehaviour
     {
         CurrentUser = null;
         LocationController.GetInstance().ResetFavorites();
-        LoadingScreen.LoadScene(ConstantsNS.Constants.RegistrationAndLoginScene);
+        LoadingScreen.LoadScene(GEARSApp.Constants.RegistrationAndLoginScene);
     }
    
     private void UpdateUserPicture(PHPStatusHandler handler)

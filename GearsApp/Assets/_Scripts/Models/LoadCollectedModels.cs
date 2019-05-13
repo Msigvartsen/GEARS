@@ -45,7 +45,7 @@ public class LoadCollectedModels : MonoBehaviour
                 go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = allModels[i].model_name;
 
                 if (prefabButton == "LoadModelButton")
-                    go.GetComponent<LoadModelButton>().model = allModels[i];
+                    go.GetComponent<LoadModelButton>().Model = allModels[i];
                 else
                     go.GetComponent<LoadCollectedModelsButton>().model = allModels[i];
 
@@ -66,7 +66,7 @@ public class LoadCollectedModels : MonoBehaviour
                         go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = allModels[i].model_name + " *";
 
                         if (prefabButton == "LoadModelButton")
-                            go.GetComponent<LoadModelButton>().model = allModels[i];
+                            go.GetComponent<LoadModelButton>().Model = allModels[i];
                         else
                             go.GetComponent<LoadCollectedModelsButton>().model = allModels[i];
 

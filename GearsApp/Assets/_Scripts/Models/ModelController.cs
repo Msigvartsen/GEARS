@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using ConstantsNS;
+using GEARSApp;
 
 /// <summary>
 /// Serializable struct. Retreives data from JSON via Database/PHP.
@@ -124,4 +124,17 @@ public class ModelController : MonoBehaviour
             FoundModels.Add(foundModel.model_ID);
         }
     }
+
+    public Texture2D GetModelThumbnail(int modelID)
+    {
+        foreach(Model model in ModelList)
+        {
+            if(model.model_ID == modelID)
+            {
+                return Resources.Load<Texture2D>("_Media/ModelThumbnails/" + model.model_name);
+            }
+        }
+        return null;
+    }
+
 }

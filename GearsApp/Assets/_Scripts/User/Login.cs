@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
-using ConstantsNS;
+using GEARSApp;
 using TMPro;
 
 public class Login : MonoBehaviour
@@ -46,7 +46,7 @@ public class Login : MonoBehaviour
         StationController.GetInstance().CallUserProgressRequest();
         TrophyController.GetInstance().CallCollectedTrophies();
         ModelController.GetInstance().CallGetFoundModel();
-        LoadingScreen.LoadScene(ConstantsNS.Constants.MainScene);
+        LoadingScreen.LoadScene(GEARSApp.Constants.MainScene);
     }
 }
 

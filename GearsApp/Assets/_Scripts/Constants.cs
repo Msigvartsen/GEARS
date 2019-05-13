@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ConstantsNS
+namespace GEARSApp
 {
     public static class Constants
     {
