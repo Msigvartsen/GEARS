@@ -15,6 +15,7 @@ public class StationListManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //SetStationThumbnails
         SetData();
     }
 
@@ -50,7 +51,7 @@ public class StationListManager : MonoBehaviour
         go.transform.SetParent(parent.transform, false);
         go.GetComponent<StationListItem>().Station = station;
 
-        SetButtonValues(go, station);
+        SetButtonValues(go);
 
         return go;
     }
@@ -68,7 +69,7 @@ public class StationListManager : MonoBehaviour
             {
                 if (stationArray[i].location_ID == locationController.CurrentLocation.location_ID)
                 {
-                    SetButtonValues(itemList[i], stationArray[i]);
+                    SetButtonValues(itemList[i]);
                 }
             }
         }
@@ -79,30 +80,9 @@ public class StationListManager : MonoBehaviour
     /// </summary>
     /// <param name="ListItem">Button.</param>
     /// <param name="station">Station connected to button.</param>
-    void SetButtonValues(GameObject ListItem, Station station)
+    void SetButtonValues(GameObject ListItem)
     {
-        // Set the buttons value based on whether the station has been scanned or not
-        Toggle visitedToggle = ListItem.GetComponentInChildren<Toggle>();
-        visitedToggle.isOn = ListItem.GetComponentInChildren<StationListItem>().Station.visited;
-
-
-        if (!visitedToggle.isOn)
-        {
-            // Disable button if the user has not scanned the target
-            visitedToggle.GetComponent<Image>().enabled = false;
-            ListItem.GetComponentInChildren<CanvasGroup>().alpha = 0.5f;
-            ListItem.GetComponentInChildren<Button>().enabled = false;
-            visitedToggle.GetComponentInChildren<Text>().text = "Locked";
-            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            // Enable button if the user has scanned the target
-            visitedToggle.GetComponent<Image>().enabled = true;
-            ListItem.GetComponentInChildren<CanvasGroup>().alpha = 1;
-            ListItem.GetComponentInChildren<Button>().enabled = true;
-            visitedToggle.GetComponentInChildren<Text>().text = "Unlocked";
-            visitedToggle.GetComponentInChildren<Text>().transform.localPosition = new Vector3(0, -100, 0);
-        }
+            ListItem.GetComponent<StationListItem>().UpdateStationStatus();
     }
+
 }

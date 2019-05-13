@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1250768378}
-  m_IndirectSpecularColor: {r: 0.43849063, g: 0.48658144, b: 0.5668553, a: 1}
+  m_IndirectSpecularColor: {r: 0.43849024, g: 0.48658097, b: 0.56685394, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -872,11 +872,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Main
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -925,6 +920,11 @@ PrefabInstance:
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Main
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
       value: Main
       objectReference: {fileID: 0}
     - target: {fileID: 8709303198775294011, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
@@ -2926,11 +2926,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Location
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2955,6 +2950,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PanelAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Location
       objectReference: {fileID: 0}
     - target: {fileID: 8709303198775294011, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
@@ -3068,11 +3068,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: User
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3121,6 +3116,11 @@ PrefabInstance:
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: User
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
       value: User
       objectReference: {fileID: 0}
     - target: {fileID: 8709303198775294011, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
@@ -3428,7 +3428,7 @@ PrefabInstance:
     - target: {fileID: 225433301752926116, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
       propertyPath: m_Alpha
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224807193553581562, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
@@ -3438,7 +3438,7 @@ PrefabInstance:
     - target: {fileID: 224807193553581562, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -1.7000122
+      value: -1.6000061
       objectReference: {fileID: 0}
     - target: {fileID: 224807193553581562, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
@@ -3448,7 +3448,7 @@ PrefabInstance:
     - target: {fileID: 224807193553581562, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.23400001
+      value: 0.082732685
       objectReference: {fileID: 0}
     - target: {fileID: 224807193553581562, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
@@ -4175,7 +4175,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355974031}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -4188,10 +4188,10 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 900, y: 100}
+  m_CellSize: {x: 500, y: 400}
   m_Spacing: {x: 20, y: 25}
   m_Constraint: 1
-  m_ConstraintCount: 1
+  m_ConstraintCount: 2
 --- !u!1 &1365629152
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,7 +4323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00006866391, y: -0.00012207031}
+  m_AnchoredPosition: {x: -0.00006866391, y: 0}
   m_SizeDelta: {x: 0.00006866391, y: 923.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1392233007
@@ -4346,10 +4346,10 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 900, y: 100}
-  m_Spacing: {x: 20, y: 25}
+  m_CellSize: {x: 300, y: 400}
+  m_Spacing: {x: 35, y: 20}
   m_Constraint: 1
-  m_ConstraintCount: 1
+  m_ConstraintCount: 3
 --- !u!114 &1392233008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4515,7 +4515,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 812023002}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4654,11 +4654,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Stations
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4683,6 +4678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: PanelAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Stations
       objectReference: {fileID: 0}
     - target: {fileID: 8709303198775294011, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
