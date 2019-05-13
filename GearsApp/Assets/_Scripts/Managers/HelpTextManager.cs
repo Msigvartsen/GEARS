@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public enum Help
 {
-    SELECT,
-    SEARCH,
-    PLACE,
     DISTANCE,
     STATION_PLACEMENT,
     LOCATION_DISTANCE
@@ -16,25 +13,28 @@ public enum Help
 public class HelpTextManager : MonoBehaviour
 {
     private HelpTextManager instance;
-
-    private GameObject helpPanel;
+    [SerializeField]
+    private GameObject backToMapButton;
     private TMPro.TextMeshProUGUI helpText;
     private Button helpButton;
     private CanvasGroup helpGroup;
+    private string messageText = "";
+    private string modelHelpText = "";
+    private string stationHelpText = "";
 
-    private float fadeSpeed = 0.5f;
+    private float fadeSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        helpPanel = GameObject.FindGameObjectWithTag("HelpPanel");
-        if(helpPanel != null)
+
+        if (backToMapButton != null)
         {
-            helpText = helpPanel.GetComponent<TMPro.TextMeshProUGUI>();
-            helpButton = helpPanel.GetComponent<Button>();
+            helpButton = backToMapButton.GetComponent<Button>();
+            helpText = backToMapButton.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             helpButton.onClick.AddListener(OpenMap);
-            helpGroup = helpPanel.GetComponent<CanvasGroup>();
+            helpGroup = backToMapButton.GetComponent<CanvasGroup>();
             helpGroup.alpha = 0;
         }
 
@@ -42,18 +42,8 @@ public class HelpTextManager : MonoBehaviour
 
     public void SetHelpText(int message)
     {
-        string messageText = "";
         switch (message)
         {
-            case (int) Help.SELECT:
-                messageText = "Select a model you want to look at";
-                break;
-            case (int) Help.SEARCH:
-                messageText = "Look around for a flat surface";
-                break;
-            case (int) Help.PLACE:
-                messageText = "Tap to place the model on the indicator";
-                break;
             case (int) Help.DISTANCE:
                 messageText = "Too far away from nearest station, tap here to see the map";
                 break;
@@ -69,6 +59,12 @@ public class HelpTextManager : MonoBehaviour
         }
 
         helpText.text = messageText;
+    }
+
+    public string GetModelHelpText()
+    {
+        modelHelpText = "1. Select a model you want to look at.\n2. Look around for a flat surface.\n3. Tap to place the model on the indicator";
+        return modelHelpText;
     }
 
     public void FadeOutHelpText()

@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Vuforia;
 
+/// <summary>
+/// Handle AR placement on the ground when viewing your collected items.
+/// </summary>
 public class CollectionARManager : MonoBehaviour
 {
     [SerializeField]
@@ -13,7 +16,6 @@ public class CollectionARManager : MonoBehaviour
     private GameObject groundPlane;
 
     private ModelController modelController;
-    private HelpTextManager htm;
 
     private List<Station> stationsAtLocation;
     private List<Model> stationModelsAtLocation;
@@ -21,21 +23,27 @@ public class CollectionARManager : MonoBehaviour
     private GameObject shadowPlane;
 
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Set all instances.
+    /// </summary>
     void Start()
     {
         SetInstances();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Handle viewing and placement of models, checks every frame.
+    /// </summary>
     void Update()
     {
         HandleModelViewingAndPlacement();
     }
 
+    /// <summary>
+    /// Handles viewing and placement of the model that the user has selected.
+    /// </summary>
     private void HandleModelViewingAndPlacement()
     {
-        htm.DisableButton();
         if (CheckForChildren())
         {
             // Check if the model has been placed on the ground
@@ -43,7 +51,6 @@ public class CollectionARManager : MonoBehaviour
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
-                htm.FadeOutHelpText();
             }
             else
             {
@@ -55,17 +62,17 @@ public class CollectionARManager : MonoBehaviour
         {
             // User has not selected any models to view
             TurnOffInputOnGround();
-            htm.SetHelpText((int)Help.SELECT);
-            htm.FadeInHelpText();
         }
     }
 
 
+    /// <summary>
+    /// Retrieve all neccesary instances.
+    /// </summary>
     private void SetInstances()
     {
         modelController = ModelController.GetInstance();
 
-        htm = GetComponent<HelpTextManager>();
         stationsAtLocation = new List<Station>();
         stationModelsAtLocation = new List<Model>();
 
@@ -93,6 +100,10 @@ public class CollectionARManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Check if a model has been selected.
+    /// </summary>
+    /// <returns>Returns true if a model has been selected, if not false.</returns>
     private bool CheckForChildren()
     {
         if (groundPlane.transform.childCount > 0)
@@ -101,6 +112,10 @@ public class CollectionARManager : MonoBehaviour
             return false;
     }
 
+    /// <summary>
+    /// Check if the model has been placed on the ground.
+    /// </summary>
+    /// <returns>Returns true if the model has been placed, if not false.</returns>
     private bool CheckForActiveChildren()
     {
         if (groundPlane.transform.childCount > 0)
@@ -115,6 +130,10 @@ public class CollectionARManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Get the model that is active on the ground.
+    /// </summary>
+    /// <returns>Returns the index of the child.</returns>
     private int GetActiveChild()
     {
         int index = -1;
@@ -152,6 +171,9 @@ public class CollectionARManager : MonoBehaviour
         return index;
     }
 
+    /// <summary>
+    /// User can not place more models on the ground. Stop scanning for planes and surfaces.
+    /// </summary>
     private void TurnOffInputOnGround()
     {
         // Disable components
@@ -160,6 +182,9 @@ public class CollectionARManager : MonoBehaviour
         groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = false;
     }
 
+    /// <summary>
+    /// User is able to place a model on the ground. Start scanning for planes and surfaces.
+    /// </summary>
     private void TurnOnInputOnGround()
     {
         // Set correct help text
@@ -167,21 +192,17 @@ public class CollectionARManager : MonoBehaviour
         {
             Vector3 optimalSize = groundPlane.transform.GetChild(0).GetComponentInChildren<BoxCollider>().size;
             planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.transform.GetChild(0).localScale = optimalSize;
-
-            htm.SetHelpText((int)Help.PLACE);
-        }
-        else
-        {
-            htm.SetHelpText((int)Help.SEARCH);
         }
 
         // Enable components
         planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
         planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
         groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
-        htm.FadeInHelpText();
     }
 
+    /// <summary>
+    /// Destroy all models placed on the ground.
+    /// </summary>
     public void DestroyAllChildren()
     {
         if (groundPlane.transform.childCount > 0)

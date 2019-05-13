@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Vuforia;
 
+/// <summary>
+/// Handle AR placement on the ground.
+/// </summary>
 public class ARPlacementManager : MonoBehaviour
 {
     [SerializeField]
@@ -112,6 +115,7 @@ public class ARPlacementManager : MonoBehaviour
     /// </summary>
     private void HandleModelViewingAndPlacement()
     {
+        htm.FadeOutHelpText();
         htm.DisableButton();
         if (CheckForChildren())
         {
@@ -120,7 +124,6 @@ public class ARPlacementManager : MonoBehaviour
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
-                htm.FadeOutHelpText();
             }
             else
             {
@@ -132,8 +135,6 @@ public class ARPlacementManager : MonoBehaviour
         {
             // User has not selected any models to view
             TurnOffInputOnGround();
-            htm.SetHelpText((int)Help.SELECT);
-            htm.FadeInHelpText();
         }
     }
 
@@ -349,24 +350,14 @@ public class ARPlacementManager : MonoBehaviour
     /// </summary>
     private void TurnOnInputOnGround()
     {
-        // Set correct help text
         if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
         {
             Vector3 optimalSize = groundPlane.transform.GetChild(0).GetComponentInChildren<BoxCollider>().size;
             planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.transform.GetChild(0).localScale = optimalSize;
+        }
 
-            if (!toggleStationSearch.isOn)
-                htm.SetHelpText((int)Help.PLACE);
-            else
-                htm.SetHelpText((int)Help.STATION_PLACEMENT);
-        }
-        else
-        {
-            if (!toggleStationSearch.isOn)
-                htm.SetHelpText((int)Help.SEARCH);
-            else
-                htm.SetHelpText((int)Help.STATION_PLACEMENT);
-        }
+        if (toggleStationSearch.isOn)
+            htm.SetHelpText((int)Help.STATION_PLACEMENT);
 
         // Enable components
         planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
