@@ -5,7 +5,6 @@ public class StationListItem : MonoBehaviour
 {
     public Station Station { get; set; }
 
-    private GameObject parent;
     private Button listButton;
     [Header("Image Panels")]
     [SerializeField]

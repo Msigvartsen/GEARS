@@ -1,20 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Vuforia;
 
 public class LoadModelButton : MonoBehaviour
 {
-    public Model model;
+    public Model Model { get; set; }
+
     private Button button;
     private bool loaded = false;
     private GameObject modelToShow;
     private GameObject groundPlane;
     private GameObject shadowPlane;
+    [SerializeField]
+    private RawImage thumbnail;
 
     void Start()
     {
+        SetButtonThumbnail();
         button = GetComponent<Button>();
         button.onClick.AddListener(CloseProfilePictureWindow);
         button.onClick.AddListener(LoadModel);
@@ -29,7 +30,7 @@ public class LoadModelButton : MonoBehaviour
         if (groundPlane.transform.childCount > 0)
         {
             Debug.Log("DESTROY EXISTING MODEL");
-            if (groundPlane.transform.GetChild(0).name != model.model_name)
+            if (groundPlane.transform.GetChild(0).name != Model.model_name)
             {
                 Destroy(groundPlane.transform.GetChild(0).gameObject);
                 loaded = false;
@@ -39,7 +40,7 @@ public class LoadModelButton : MonoBehaviour
         // Create the prefab if it is not loaded
         if (!loaded)
         {
-            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + model.model_name), groundPlane.transform);
+            modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + Model.model_name), groundPlane.transform);
             shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), modelToShow.transform);
             shadowPlane.GetComponent<Renderer>().enabled = false;
 
@@ -73,6 +74,13 @@ public class LoadModelButton : MonoBehaviour
         GameObject p = GameObject.FindGameObjectWithTag("NewProfilePictureWindow");
         p.GetComponent<Animator>().Play("Fade-out");
 
+    }
+
+    private void SetButtonThumbnail()
+    {
+        Texture2D img = ModelController.GetInstance().GetModelThumbnail(Model.model_ID);
+        if (img != null)
+            thumbnail.texture = img;
     }
 }
 

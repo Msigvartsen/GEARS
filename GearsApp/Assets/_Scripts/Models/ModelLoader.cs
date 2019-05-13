@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using Vuforia;
+﻿using UnityEngine;
 
 public class ModelLoader : MonoBehaviour
 {
@@ -37,7 +33,7 @@ public class ModelLoader : MonoBehaviour
                     GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadModelButton"));
                     go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = models[i].model_name;
                     go.transform.SetParent(gameObject.transform, false);
-                    go.GetComponent<LoadModelButton>().model = models[i];
+                    go.GetComponent<LoadModelButton>().Model = models[i];
                     numberOfButtons++;
                 }
             }
@@ -55,7 +51,7 @@ public class ModelLoader : MonoBehaviour
                     GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/LoadModelButton"));
                     go.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station " + StationController.GetInstance().StationList[i].station_NR;
                     go.transform.SetParent(gameObject.transform, false);
-                    go.GetComponent<LoadModelButton>().model = models[j];
+                    go.GetComponent<LoadModelButton>().Model = models[j];
                     numberOfButtons++;
                 }
             }
