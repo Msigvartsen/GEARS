@@ -15,6 +15,7 @@ public class StationListManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        //SetStationThumbnails
         SetData();
     }
 
@@ -83,4 +84,5 @@ public class StationListManager : MonoBehaviour
     {
             ListItem.GetComponent<StationListItem>().UpdateStationStatus();
     }
+
 }

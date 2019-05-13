@@ -22,8 +22,8 @@ public class StationListItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetStationThumbnail();
         GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station " + Station.station_NR.ToString();
-        //thumbnail.texture = GetStationThumbnail();
         listButton = GetComponentInChildren<Button>();
         listButton.onClick.AddListener(OpenStationTab);
     }
@@ -33,6 +33,13 @@ public class StationListItem : MonoBehaviour
         StationController manager = StationController.GetInstance();
         manager.CurrentStation = Station;
         // LoadingScreen.LoadScene("Station");
+    }
+
+    private void SetStationThumbnail()
+    {
+        Texture2D img = ModelController.GetInstance().GetModelThumbnail(Station.model_ID);
+        if (img != null)
+            thumbnail.texture = img;
     }
 
     public void UpdateStationStatus()
