@@ -29,8 +29,7 @@ public class UserController : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        PreviousPage = "Main";
-        LocationServiceNS.LocationService.CallUserPermission();
+        PreviousPage = Constants.MainScene;
     }
 
     public void CallUpdateUserExpAndLevel()

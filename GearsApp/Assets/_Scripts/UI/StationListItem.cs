@@ -31,7 +31,27 @@ public class StationListItem : MonoBehaviour
     {
         StationController manager = StationController.GetInstance();
         manager.CurrentStation = Station;
-        // LoadingScreen.LoadScene("Station");
+        GameObject popupWindow = GameObject.FindGameObjectWithTag("StationPopupContainer");
+        popupWindow.GetComponent<Animator>().Play("Fade-in");
+
+        if (Station != null)
+        {
+            GameObject popupInfo = GameObject.FindGameObjectWithTag("StationPopupInfo");
+            popupInfo.GetComponentInChildren<RawImage>().texture = thumbnail.texture;
+            var textFields = popupInfo.GetComponentsInChildren<TMPro.TextMeshProUGUI>();
+            foreach(var textField in textFields)
+            {
+                if(textField.name == "Name")
+                    textField.text = "Station # " + Station.station_NR;
+                if (textField.name == "Latitude")
+                    textField.text = Station.latitude.ToString();
+                if(textField.name == "Longitude")
+                    textField.text = Station.longitude.ToString();
+                if (textField.name == "Details")
+                    textField.text = Station.helptext;
+            }
+            popupInfo.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Station # "+ Station.station_NR;
+        }
     }
 
     private void SetStationThumbnail()

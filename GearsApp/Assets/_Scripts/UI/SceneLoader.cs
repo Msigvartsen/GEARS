@@ -42,4 +42,10 @@ public class SceneLoader : MonoBehaviour
         else
             uiController.PanelAnimPreviousPanel();
     }
+
+    public void ChangeSceneAndSetPage(string page)
+    {
+        UserController.GetInstance().PreviousPage = page;
+        LoadScene(GEARSApp.Constants.MainScene);
+    }
 }
