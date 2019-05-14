@@ -148,10 +148,29 @@ public class TrophyController : MonoBehaviour
         int number = UserController.GetInstance().CurrentUser.telephonenr;
         string trophyname = collectedTrophy.trophyname;
 
-        CollectedTrophies.Add(new CollectedTrophy
+        CollectedTrophy newCollectedTrophy = new CollectedTrophy
         {
             telephonenr = number,
             trophyname = trophyname
-        });
+        };
+
+        foreach(var trophy in CollectedTrophies)
+        {
+            //Return empty is trophy is already collected.
+            if (newCollectedTrophy.trophyname == trophy.trophyname)
+                return;
+        }
+        CollectedTrophies.Add(newCollectedTrophy);
+    }
+
+    public void AddCollectedTrophyByName(string trophyName)
+    {
+        foreach(Trophy trophy in TrophyList)
+        {
+            if(trophy.trophyname == trophyName)
+            {
+                CallAddCollectedTrophy(trophy);
+            }
+        }
     }
 }

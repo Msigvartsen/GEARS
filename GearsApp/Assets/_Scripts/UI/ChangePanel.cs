@@ -14,15 +14,6 @@ public class ChangePanel : MonoBehaviour
     private GameObject previousPanel;
 
     /// <summary>
-    /// Run setup when created
-    /// </summary>
-    private void Start()
-    {
-        //if (GetComponent<Toggle>().isOn && !newPanel.activeSelf)
-        //    SetNewActivePanel();
-    }
-
-    /// <summary>
     /// Swaps the two panels Active State.
     /// </summary>
     public void SetNewActivePanel()

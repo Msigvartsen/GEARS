@@ -11,8 +11,10 @@ public class InitiateLocationService : MonoBehaviour
     /// </summary>
     void Start()
     {
-        LocationServiceNS.LocationService.CallUserPermission();
         StartCoroutine(LocationServiceNS.LocationService.StartLocationService());
     }
-
+    private void Awake()
+    {
+        LocationServiceNS.LocationService.CallUserPermission();
+    }
 }

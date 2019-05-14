@@ -56,8 +56,63 @@ public class StationController : MonoBehaviour
             form.AddField("station_nr", CurrentStation.station_NR);
             form.AddField("location_id", CurrentStation.location_ID);
 
+            CheckForTrophies();
+
             string path = Constants.PhpPath + "updateuserprogress.php";
+            CurrentStation.visited = true;
             StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateStationVisited));
+        }
+    }
+
+    private void CheckForFirstStationVisited()
+    {
+        TrophyController trophyController = TrophyController.GetInstance();
+        foreach (var station in StationList)
+        {
+            if (station.visited)
+                return;
+        }
+        trophyController.AddCollectedTrophyByName("First Contact");
+    }
+
+    private void CheckForTrophies()
+    {
+        CheckForAllStationsVisitedAtLocation();
+        CheckForFirstStationVisited();
+        CheckForFoundTrollModel();
+    }
+
+    private void CheckForFoundTrollModel()
+    {
+        TrophyController trophyController = TrophyController.GetInstance();
+        foreach (var model in ModelController.GetInstance().ModelList)
+        {
+            if(CurrentStation.model_ID == model.model_ID && model.model_name == "Troll")
+            {
+                trophyController.AddCollectedTrophyByName("Trolled");
+            }
+        }
+    }
+
+    private void CheckForAllStationsVisitedAtLocation()
+    {
+        TrophyController trophyController = TrophyController.GetInstance();
+        int numberOfStations = 0;
+        int numberOfVisitedstations = 0;
+        foreach (var station in StationList)
+        {
+            if (station.location_ID == LocationController.GetInstance().CurrentLocation.location_ID)
+            {
+                numberOfStations++;
+                if (station.visited)
+                {
+                    numberOfVisitedstations++;
+                }
+            }
+        }
+        if (numberOfVisitedstations == numberOfStations)
+        {
+            trophyController.AddCollectedTrophyByName("Adventurer");
         }
     }
 
