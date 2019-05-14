@@ -18,8 +18,8 @@ public class ChangePanel : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (GetComponent<Toggle>().isOn)
-            SetNewActivePanel();
+        //if (GetComponent<Toggle>().isOn && !newPanel.activeSelf)
+        //    SetNewActivePanel();
     }
 
     /// <summary>

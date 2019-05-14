@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TogglePanel : MonoBehaviour
 {
     [SerializeField]
     private GameObject panel;
-    [SerializeField]
     private int backgroundBottomRect = 0;
     [SerializeField]
-    private Toggle toggleMapButton;
+    private GameObject mapPanel;
 
     private RectTransform rectTransform;
 
@@ -19,12 +16,12 @@ public class TogglePanel : MonoBehaviour
         if(panel != null)
             rectTransform = panel.GetComponent<RectTransform>();
 
-        backgroundBottomRect = 2400;
+        backgroundBottomRect = 2350;
     }
 
     private void Update()
     {
-        if(GetComponent<CanvasGroup>().alpha == 1 && toggleMapButton.isOn)
+        if(GetComponent<CanvasGroup>().alpha == 1 && mapPanel.activeSelf)
         {
             rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, backgroundBottomRect);
         }
