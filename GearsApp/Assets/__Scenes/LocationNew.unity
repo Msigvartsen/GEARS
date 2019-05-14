@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1440, y: 2960}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -770,6 +770,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: -55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517379594224000, guid: 4d94160a39c7e984aa7dcaae4efe0ea2, type: 3}
+      propertyPath: m_TagString
+      value: StationPopupInfo
       objectReference: {fileID: 0}
     - target: {fileID: 224675945550322508, guid: 4d94160a39c7e984aa7dcaae4efe0ea2,
         type: 3}
@@ -1280,10 +1284,6 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1517379594224000, guid: 4d94160a39c7e984aa7dcaae4efe0ea2, type: 3}
-      propertyPath: m_TagString
-      value: StationPopupInfo
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d94160a39c7e984aa7dcaae4efe0ea2, type: 3}
 --- !u!224 &248019519 stripped
@@ -1399,11 +1399,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Main
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1468,6 +1463,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Main
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cfaf48c19900d46b476ddeac2a2ae6, type: 3}
@@ -3175,11 +3175,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Location
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3219,6 +3214,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Location
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cfaf48c19900d46b476ddeac2a2ae6, type: 3}
@@ -3317,11 +3317,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: User
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3386,6 +3381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: User
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cfaf48c19900d46b476ddeac2a2ae6, type: 3}
@@ -4124,11 +4124,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Stations
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4168,6 +4163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Stations
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cfaf48c19900d46b476ddeac2a2ae6, type: 3}
@@ -4843,11 +4843,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
-        type: 3}
-      propertyPath: m_Text
-      value: Locations
-      objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4887,6 +4882,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
+        type: 3}
+      propertyPath: m_Text
+      value: Locations
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06cfaf48c19900d46b476ddeac2a2ae6, type: 3}
