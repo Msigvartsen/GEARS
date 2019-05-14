@@ -115,7 +115,6 @@ public class ARPlacementManager : MonoBehaviour
     /// </summary>
     private void HandleModelViewingAndPlacement()
     {
-        htm.FadeOutHelpText();
         htm.DisableButton();
         if (CheckForChildren())
         {
@@ -124,6 +123,7 @@ public class ARPlacementManager : MonoBehaviour
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
+                htm.FadeOutHelpText();
             }
             else
             {
@@ -135,6 +135,8 @@ public class ARPlacementManager : MonoBehaviour
         {
             // User has not selected any models to view
             TurnOffInputOnGround();
+            htm.FadeInHelpText();
+            htm.SetHelpText((int)Help.SELECT);
         }
     }
 
@@ -354,10 +356,17 @@ public class ARPlacementManager : MonoBehaviour
         {
             Vector3 optimalSize = groundPlane.transform.GetChild(0).GetComponentInChildren<BoxCollider>().size;
             planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.transform.GetChild(0).localScale = optimalSize;
-        }
 
-        if (toggleStationSearch.isOn)
-            htm.SetHelpText((int)Help.STATION_PLACEMENT);
+            if (toggleStationSearch.isOn)
+                htm.SetHelpText((int)Help.STATION_PLACEMENT);
+            else
+                htm.SetHelpText((int)Help.PLACE);
+        }
+        else
+        {
+            if (!toggleStationSearch.isOn)
+                htm.SetHelpText((int)Help.SCANNING);
+        }
 
         // Enable components
         planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;

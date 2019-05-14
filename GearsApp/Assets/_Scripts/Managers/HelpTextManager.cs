@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public enum Help
 {
+    SELECT,
+    SCANNING,
+    PLACE,
     DISTANCE,
     STATION_PLACEMENT,
     LOCATION_DISTANCE
@@ -44,14 +47,23 @@ public class HelpTextManager : MonoBehaviour
     {
         switch (message)
         {
+            case (int) Help.SELECT:
+                messageText = "Please select a model.";
+                break;
+            case (int) Help.SCANNING:
+                messageText = "Scanning for a flat surface...";
+                break;
+            case (int) Help.PLACE:
+                messageText = "Tap to place the model.";
+                break;
             case (int) Help.DISTANCE:
-                messageText = "Too far away from nearest station, tap here to see the map";
+                messageText = "Too far away from nearest station, tap here to see the map.";
                 break;
             case (int) Help.STATION_PLACEMENT:
-                messageText = "Look around and find *this* to get the best experience, then tap the screen";
+                messageText = "Look around and find *this* to get the best experience, then tap the screen.";
                 break;
             case (int) Help.LOCATION_DISTANCE:
-                messageText = "Not close enough to selected location, tap here to see the map";
+                messageText = "Not close enough to selected location, tap here to see the map.";
                 break;
             default:
                 messageText = "Look here for tips and help";
