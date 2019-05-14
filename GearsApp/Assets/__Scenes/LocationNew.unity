@@ -4846,7 +4846,7 @@ PrefabInstance:
     - target: {fileID: 8864699761999912127, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
       propertyPath: m_Text
-      value: Stations
+      value: Locations
       objectReference: {fileID: 0}
     - target: {fileID: 4573493861431933586, guid: 06cfaf48c19900d46b476ddeac2a2ae6,
         type: 3}
