@@ -75,8 +75,27 @@ public class UserController : MonoBehaviour
     public void UpdateUserLevel()
     {
         CurrentUser.level++;
-        if(CurrentUser.experience >= experienceCapPerLevel)
+        if (CurrentUser.experience >= experienceCapPerLevel)
             CurrentUser.experience -= experienceCapPerLevel; //resets experience bar
+
+        CheckLevelTrophy();
+    }
+
+    private void CheckLevelTrophy()
+    {
+        var trophyController = TrophyController.GetInstance();
+        switch (CurrentUser.level)
+        {
+            case 1:
+                trophyController.AddCollectedTrophyByName("Level 1");
+                break;
+            case 5:
+                trophyController.AddCollectedTrophyByName("Level 5");
+                break;
+            case 10:
+                trophyController.AddCollectedTrophyByName("Level 10");
+                break;
+        }
     }
 
     public void LogOut()
