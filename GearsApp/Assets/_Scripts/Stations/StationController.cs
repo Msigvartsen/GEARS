@@ -95,8 +95,10 @@ public class StationController : MonoBehaviour
     private void UpdateStationVisited(PHPStatusHandler handler)
     {
         if (!WebRequestController.CheckValidResponse(handler))
+        {
+            CurrentStation.visited = false;
+            Debug.Log("Error updating Visited station");
             return;
-
-        CurrentStation.visited = true;
+        }
     }
 }
