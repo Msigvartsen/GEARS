@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LoadCollectedModelsButton : MonoBehaviour
@@ -10,10 +8,16 @@ public class LoadCollectedModelsButton : MonoBehaviour
     private GameObject popupObject;
     private GameObject popupTitle;
     private GameObject popupConfirm;
-
+    private Texture2D modelThumbnail;
+    [SerializeField]
+    private RawImage thumbnailPanel;
     // Start is called before the first frame update
     void Start()
     {
+        modelThumbnail = ModelController.GetInstance().GetModelThumbnail(model.model_ID);
+        if (modelThumbnail != null && thumbnailPanel != null)
+            thumbnailPanel.texture = modelThumbnail;
+
         popupObject = GameObject.FindGameObjectWithTag("CollectedModelsSelectPopup");
         popupTitle = GameObject.FindGameObjectWithTag("CollectedModelsSelectTitle");
         popupConfirm = GameObject.FindGameObjectWithTag("CollectedModelsConfirmSelection");
@@ -30,8 +34,6 @@ public class LoadCollectedModelsButton : MonoBehaviour
     void ConfirmButton()
     {
         popupTitle.GetComponent<TMPro.TextMeshProUGUI>().text = model.model_name;
-
-        var modelThumbnail = ModelController.GetInstance().GetModelThumbnail(model.model_ID);
 
         if (modelThumbnail != null)
             popupTitle.transform.parent.GetComponent<RawImage>().texture = modelThumbnail;
