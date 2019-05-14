@@ -30,6 +30,12 @@ public class LoadCollectedModelsButton : MonoBehaviour
     void ConfirmButton()
     {
         popupTitle.GetComponent<TMPro.TextMeshProUGUI>().text = model.model_name;
+
+        var modelThumbnail = ModelController.GetInstance().GetModelThumbnail(model.model_ID);
+
+        if (modelThumbnail != null)
+            popupTitle.transform.parent.GetComponent<RawImage>().texture = modelThumbnail;
+
         popupConfirm.GetComponent<Button>().onClick.AddListener(SelectMe);
         popupObject.GetComponent<Animator>().Play("Fade-in");
     }
