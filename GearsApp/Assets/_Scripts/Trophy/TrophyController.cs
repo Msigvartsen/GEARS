@@ -169,7 +169,7 @@ public class TrophyController : MonoBehaviour
         {
             if(trophy.trophyname == trophyName)
             {
-                CreateNewCollectedTrophy(trophy);
+                CallAddCollectedTrophy(trophy);
             }
         }
     }
