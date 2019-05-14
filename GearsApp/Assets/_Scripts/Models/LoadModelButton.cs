@@ -10,6 +10,7 @@ public class LoadModelButton : MonoBehaviour
     private GameObject modelToShow;
     private GameObject groundPlane;
     private GameObject shadowPlane;
+    private GameObject smokeSpawn;
     [SerializeField]
     private RawImage thumbnail;
 
@@ -42,7 +43,10 @@ public class LoadModelButton : MonoBehaviour
         {
             modelToShow = Instantiate(Resources.Load<GameObject>("_Prefabs/" + Model.model_name), groundPlane.transform);
             shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), modelToShow.transform);
+            smokeSpawn = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "SmokeSpawn"), modelToShow.transform);
+
             shadowPlane.GetComponent<Renderer>().enabled = false;
+            smokeSpawn.GetComponent<Renderer>().enabled = false;
 
             // Get the renderer component in either child or on current object and turn it off
             if (modelToShow.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -59,6 +63,7 @@ public class LoadModelButton : MonoBehaviour
             }
 
             modelToShow.transform.localPosition = new Vector3(0, 0, 0);
+            smokeSpawn.transform.localPosition = new Vector3(0, 0, 0);
             loaded = true;
         }
         else
@@ -66,6 +71,7 @@ public class LoadModelButton : MonoBehaviour
             // Activate the model if its selected and loaded
             modelToShow.SetActive(true);
             shadowPlane.SetActive(true);
+            smokeSpawn.SetActive(true);
         }
     }
 

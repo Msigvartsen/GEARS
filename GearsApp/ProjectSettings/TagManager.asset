@@ -36,6 +36,7 @@ TagManager:
   - CollectedModelsConfirmSelection
   - StationPopupInfo
   - StationPopupContainer
+  - SmokeSpawn
   layers:
   - Default
   - TransparentFX

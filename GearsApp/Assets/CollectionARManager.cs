@@ -21,6 +21,7 @@ public class CollectionARManager : MonoBehaviour
     private List<Model> stationModelsAtLocation;
     private GameObject modelAtStation;
     private GameObject shadowPlane;
+    private GameObject smokeSpawn;
 
 
     /// <summary>
@@ -81,6 +82,9 @@ public class CollectionARManager : MonoBehaviour
         go.transform.localPosition = new Vector3(0, 0, 0);
         shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), go.transform);
         shadowPlane.GetComponent<Renderer>().enabled = false;
+        smokeSpawn = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "SmokeSpawn"), go.transform);
+        smokeSpawn.GetComponent<Renderer>().enabled = false;
+        smokeSpawn.transform.localPosition = new Vector3(0, 0, 0);
 
         // Get the renderer component in either child or on current object and turn it off
         if (go.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -95,9 +99,6 @@ public class CollectionARManager : MonoBehaviour
         {
             go.GetComponent<Renderer>().enabled = false;
         }
-
-        go.transform.localPosition = new Vector3(0, 0, 0);
-
     }
 
     /// <summary>
