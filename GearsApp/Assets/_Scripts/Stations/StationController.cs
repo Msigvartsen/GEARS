@@ -57,6 +57,7 @@ public class StationController : MonoBehaviour
             form.AddField("location_id", CurrentStation.location_ID);
 
             string path = Constants.PhpPath + "updateuserprogress.php";
+            CurrentStation.visited = true;
             StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateStationVisited));
         }
     }

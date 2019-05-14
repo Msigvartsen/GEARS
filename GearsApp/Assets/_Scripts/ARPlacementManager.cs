@@ -160,13 +160,10 @@ public class ARPlacementManager : MonoBehaviour
                 if (station.station_NR == stationController.StationList[i].station_NR && station.location_ID == stationController.StationList[i].location_ID)
                 {
                     stationController.CurrentStation = stationController.StationList[i];
-                    stationController.CurrentStation.visited = true;
                     stationController.CallUpdateUserProgress();
                 }
             }
         }
-
-
     }
 
     /// <summary>

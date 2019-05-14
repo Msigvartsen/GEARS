@@ -106,6 +106,7 @@ public class UserController : MonoBehaviour
     {
         if (!WebRequestController.CheckValidResponse(handler))
             return;
+
         //Refresh UI from here?
     }
 }
