@@ -178,9 +178,9 @@ public class ModelInteraction : MonoBehaviour
         selectedObject = groundPlane.transform.GetChild(0).gameObject;
 
         // Get previous touch positions and magnitudes
-        Vector2 touchPrevPos = inTouch.position - inTouch.deltaPosition;
+        Vector2 touchPrevPos = new Vector2(inTouch.position.x - inTouch.deltaPosition.x, 0);
         float prevTouchDeltaMagnitude = (touchPrevPos).magnitude;
-        float touchDeltaMagnitude = (inTouch.position).magnitude;
+        float touchDeltaMagnitude = new Vector2(inTouch.position.x, 0).magnitude;
 
         // Get magnitude differences between previous and current touch to determine rotation amount
         float deltaMagnitudeDifference = (prevTouchDeltaMagnitude - touchDeltaMagnitude) * rotateSpeed;
