@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that handles button data connected to different stations.
+/// </summary>
 public class StationListItem : MonoBehaviour
 {
     public Station Station { get; set; }
@@ -18,7 +21,10 @@ public class StationListItem : MonoBehaviour
     [SerializeField]
     private Texture2D unlockedImage;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called the first frame.
+    /// Set thumbnail image and correct text to the button.
+    /// </summary>
     void Start()
     {
         SetStationThumbnail();
@@ -27,6 +33,9 @@ public class StationListItem : MonoBehaviour
         listButton.onClick.AddListener(OpenStationTab);
     }
 
+    /// <summary>
+    /// Opens a popup information page with more information about the selected station.
+    /// </summary>
     void OpenStationTab()
     {
         StationController manager = StationController.GetInstance();
@@ -54,6 +63,9 @@ public class StationListItem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the thumbnail image based on the model at the station.
+    /// </summary>
     private void SetStationThumbnail()
     {
         Texture2D img = ModelController.GetInstance().GetModelThumbnail(Station.model_ID);
@@ -61,6 +73,9 @@ public class StationListItem : MonoBehaviour
             thumbnail.texture = img;
     }
 
+    /// <summary>
+    /// Updates button visuals based on whether or not the station is unlocked.
+    /// </summary>
     public void UpdateStationStatus()
     {
         if (!Station.visited)

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that creates buttons connected to the selected location.
+/// </summary>
 public class StationListManager : MonoBehaviour
 {
     private GameObject parent;
