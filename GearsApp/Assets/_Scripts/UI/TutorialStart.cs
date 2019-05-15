@@ -1,13 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Script to open tutorial page after user has created a new user
+/// </summary>
 public class TutorialStart : MonoBehaviour
 {
     [SerializeField]
-    UserProfile[] level;
+    private UserProfile[] level;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Is called before the first frame update.
+    /// Fade in Tutorial Page if user is level 0.
+    /// </summary>
     void Start()
     {
         if (UserController.GetInstance().CurrentUser.level == 0)
@@ -16,6 +20,9 @@ public class TutorialStart : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Level up the user after completing the tutorial page.
+    /// </summary>
     public void LevelUp()
     {
         UserController.GetInstance().UpdateUserLevel();
