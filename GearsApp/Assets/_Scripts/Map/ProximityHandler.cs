@@ -63,20 +63,16 @@ public class ProximityHandler : MonoBehaviour
     double CalculateDistanceInMeters(float lat, float longi)
     {
         double total_dist = 0.0;
-
-        if(Input.location.status == LocationServiceStatus.Running)
-        {
-            float userLat = Input.location.lastData.latitude;
-            float userLong = Input.location.lastData.longitude;
-            int R = 6371;
-            var lat_rad_1 = Mathf.Deg2Rad * userLat;
-            var lat_rad_2 = Mathf.Deg2Rad * lat;
-            var d_lat_rad = Mathf.Deg2Rad * (lat - userLat);
-            var d_long_rad = Mathf.Deg2Rad * (longi - userLong);
-            var a = Mathf.Pow(Mathf.Sin(d_lat_rad / 2), 2) + (Mathf.Pow(Mathf.Sin(d_long_rad / 2), 2) * Mathf.Cos(lat_rad_1) * Mathf.Cos(lat_rad_2));
-            var c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1 - a));
-            total_dist = R * c * 1000;
-        }
+        float userLat = Input.location.lastData.latitude;
+        float userLong = Input.location.lastData.longitude;
+        int R = 6371;
+        var lat_rad_1 = Mathf.Deg2Rad * userLat;
+        var lat_rad_2 = Mathf.Deg2Rad * lat;
+        var d_lat_rad = Mathf.Deg2Rad * (lat - userLat);
+        var d_long_rad = Mathf.Deg2Rad * (longi - userLong);
+        var a = Mathf.Pow(Mathf.Sin(d_lat_rad / 2), 2) + (Mathf.Pow(Mathf.Sin(d_long_rad / 2), 2) * Mathf.Cos(lat_rad_1) * Mathf.Cos(lat_rad_2));
+        var c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1 - a));
+        total_dist = R * c * 1000;
 
         return total_dist;
     }
@@ -115,11 +111,14 @@ public class ProximityHandler : MonoBehaviour
 
         for (int i = 0; i < locations.Length; i++)
         {
-            if (CalculateDistanceInMeters((float)locations[i].latitude, (float)locations[i].longitude) < maxRange)
+            if (Input.location.status == LocationServiceStatus.Running)
             {
-                locInRange = locations[i];
-                inRange = true;
-                showButton = true;
+                if (CalculateDistanceInMeters((float)locations[i].latitude, (float)locations[i].longitude) < maxRange)
+                {
+                    locInRange = locations[i];
+                    inRange = true;
+                    showButton = true;
+                }
             }
         }
 
