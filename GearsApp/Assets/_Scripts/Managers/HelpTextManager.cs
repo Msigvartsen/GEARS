@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Enumerator used to display different help messages.
+/// </summary>
 public enum Help
 {
     SELECT,
@@ -13,6 +16,9 @@ public enum Help
     LOCATION_DISTANCE
 };
 
+/// <summary>
+/// Class that determines what type of help messages is displayed to the user regarding AR.
+/// </summary>
 public class HelpTextManager : MonoBehaviour
 {
     private HelpTextManager instance;
@@ -27,7 +33,10 @@ public class HelpTextManager : MonoBehaviour
 
     private float fadeSpeed = 2f;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called the first frame.
+    /// Used to set instances and values.
+    /// </summary>
     void Start()
     {
         instance = this;
@@ -43,6 +52,10 @@ public class HelpTextManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sets different help messages based on in parameter.
+    /// </summary>
+    /// <param name="message">Uses a switch to determine which message is shown.</param>
     public void SetHelpText(int message)
     {
         switch (message)
@@ -73,40 +86,62 @@ public class HelpTextManager : MonoBehaviour
         helpText.text = messageText;
     }
 
+    /// <summary>
+    /// Retrieve tutorial message for model viewing.
+    /// </summary>
+    /// <returns>Returns a string with the help message.</returns>
     public string GetModelHelpText()
     {
         modelHelpText = "1. Select a model you want to look at.\n2. Look around for a flat surface.\n3. Tap to place the model on the indicator";
         return modelHelpText;
     }
 
+    /// <summary>
+    /// Fade out the help text.
+    /// </summary>
     public void FadeOutHelpText()
     {
         if (helpGroup.alpha > 0)
             helpGroup.alpha -= Time.deltaTime * fadeSpeed;
-
     }
 
+    /// <summary>
+    /// Fade in the help text.
+    /// </summary>
     public void FadeInHelpText()
     {
         if (helpGroup.alpha < 1)
             helpGroup.alpha += Time.deltaTime * fadeSpeed;
     }
 
+    /// <summary>
+    /// Retrieve this instance of the manager.
+    /// </summary>
+    /// <returns>Returns this.</returns>
     public HelpTextManager GetInstance()
     {
         return instance;
     }
 
+    /// <summary>
+    /// Enables the return-to-map button.
+    /// </summary>
     public void EnableButton()
     {
         helpButton.interactable = true;
     }
 
+    /// <summary>
+    /// Disables the return-to-map button.
+    /// </summary>
     public void DisableButton()
     {
         helpButton.interactable = false;
     }
 
+    /// <summary>
+    /// Opens the map view in another scene.
+    /// </summary>
     public void OpenMap()
     {
         Debug.Log("BUtton pressed OPEN MAP");
