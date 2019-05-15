@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class that creates buttons for each model the user can look view at the selected location.
+/// </summary>
 public class ModelLoader : MonoBehaviour
 {
     private GameObject selectedModel;

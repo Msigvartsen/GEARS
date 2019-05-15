@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that loads a specific model when pressed.
+/// </summary>
 public class LoadModelButton : MonoBehaviour
 {
     public Model Model { get; set; }
@@ -14,6 +17,10 @@ public class LoadModelButton : MonoBehaviour
     [SerializeField]
     private RawImage thumbnail;
 
+    /// <summary>
+    /// Called the first frame.
+    /// Used to set data values and variables.
+    /// </summary>
     void Start()
     {
         SetButtonThumbnail();
@@ -82,6 +89,9 @@ public class LoadModelButton : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sets the correct image to display on the button.
+    /// </summary>
     private void SetButtonThumbnail()
     {
         Texture2D img = ModelController.GetInstance().GetModelThumbnail(Model.model_ID);
