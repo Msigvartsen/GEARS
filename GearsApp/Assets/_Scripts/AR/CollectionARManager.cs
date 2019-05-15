@@ -16,6 +16,7 @@ public class CollectionARManager : MonoBehaviour
     private GameObject groundPlane;
 
     private ModelController modelController;
+    private HelpTextManager htm;
 
     private List<Station> stationsAtLocation;
     private List<Model> stationModelsAtLocation;
@@ -52,6 +53,7 @@ public class CollectionARManager : MonoBehaviour
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
+                htm.FadeOutHelpText();
             }
             else
             {
@@ -63,6 +65,8 @@ public class CollectionARManager : MonoBehaviour
         {
             // User has not selected any models to view
             TurnOffInputOnGround();
+            htm.FadeInHelpText();
+            htm.SetHelpText((int)Help.SELECT);
         }
     }
 
@@ -73,6 +77,7 @@ public class CollectionARManager : MonoBehaviour
     private void SetInstances()
     {
         modelController = ModelController.GetInstance();
+        htm = GetComponent<HelpTextManager>();
 
         stationsAtLocation = new List<Station>();
         stationModelsAtLocation = new List<Model>();
@@ -85,7 +90,7 @@ public class CollectionARManager : MonoBehaviour
         smokeSpawn = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "SmokeSpawn"), go.transform);
         smokeSpawn.GetComponent<Renderer>().enabled = false;
         smokeSpawn.transform.localPosition = new Vector3(0, 0, 0);
-
+        
         // Get the renderer component in either child or on current object and turn it off
         if (go.GetComponentsInChildren<Renderer>(true).Length > 0)
         {
@@ -93,6 +98,7 @@ public class CollectionARManager : MonoBehaviour
             foreach (var componenent in rendererComponents)
             {
                 componenent.enabled = false;
+                Debug.Log(componenent.enabled);
             }
         }
         else if (go.GetComponent<Renderer>())
@@ -191,14 +197,18 @@ public class CollectionARManager : MonoBehaviour
         // Set correct help text
         if (planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.GetComponentInChildren<Renderer>().isVisible)
         {
-            Vector3 optimalSize = groundPlane.transform.GetChild(0).GetComponentInChildren<BoxCollider>().size;
-            planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.transform.GetChild(0).localScale = optimalSize;
+            htm.SetHelpText((int)Help.PLACE);
+        }
+        else
+        {
+            htm.SetHelpText((int)Help.SCANNING);
         }
 
         // Enable components
         planeFinder.GetComponent<AnchorInputListenerBehaviour>().enabled = true;
         planeFinder.GetComponent<PlaneFinderBehaviour>().PlaneIndicator.SetActive(true);
         groundPlane.GetComponent<DefaultTrackableEventHandler>().enabled = true;
+        htm.FadeInHelpText();
     }
 
     /// <summary>
