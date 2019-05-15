@@ -14,16 +14,7 @@ public class ImageListItem : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        AddButtonListeners();
-    }
-
-    /// <summary>
-    /// Sets up OnClick listeners to Image button.
-    /// </summary>
-    private void AddButtonListeners()
-    {
         GetComponent<Button>().onClick.AddListener(UpdateProfilePicture);
-        GetComponent<Button>().onClick.AddListener(CloseProfilePictureWindow);
     }
 
     /// <summary>
@@ -53,6 +44,7 @@ public class ImageListItem : MonoBehaviour
                 pictures.GetComponent<SetProfilePicture>().RefreshImage();
             }
         }
+        CloseProfilePictureWindow();
     }
 
     /// <summary>
