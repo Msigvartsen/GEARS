@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script attached to TrophyItem Prefab in Unity.
+/// Keeps track of all information of the current trophy, and updates UI elements.
+/// </summary>
 public class TrophyListItem : MonoBehaviour
 {
     public Trophy CurrentTrophy { get; set; }
@@ -14,6 +16,10 @@ public class TrophyListItem : MonoBehaviour
 
     public GameObject overlayPanel;
 
+    /// <summary>
+    /// Ran before the first frame.
+    /// Set the image and text for trophy.
+    /// </summary>
     private void Start()
     {
         if (trophyImage != null)
@@ -22,6 +28,9 @@ public class TrophyListItem : MonoBehaviour
             trophyName.text = CurrentTrophy.trophyname;
     }
 
+    /// <summary>
+    /// Updates Popup window with correct details and image.
+    /// </summary>
     public void TrophyDetailPopup()
     {
         GameObject popupWindow = GameObject.FindGameObjectWithTag("TrophyPopupContainer");

@@ -1,13 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script creates and handles TrophyList prefabs in Unity.  
+/// </summary>
 public class TrophyListManager : MonoBehaviour
 {
     private string prefabName = "TrophyItem";
     private List<GameObject> itemList = new List<GameObject>();
 
+    /// <summary>
+    /// Ran before the first frame.
+    /// Creates prefabs objects from all trophies before adding them to a list. 
+    /// </summary>
     void Start()
     {
         var trophylist = TrophyController.GetInstance().TrophyList;
@@ -15,15 +21,17 @@ public class TrophyListManager : MonoBehaviour
 
         for (int i = 0; i < length; i++)
         {
-            itemList.Add(GetListItem(i, trophylist[i]));
+            itemList.Add(GetListItem(trophylist[i]));
         }
-
-        //Trophy t = itemList[0].GetComponent<TrophyListItem>().CurrentTrophy;
-        //Debug.Log("Test: Adding trophy to collected trophy list " + t.trophyname);
-        //TrophyController.GetInstance().CallAddCollectedTrophy(t);
     }
 
-    private GameObject GetListItem(int index, Trophy trophy)
+    /// <summary>
+    /// Creates the prefab and sets parent. 
+    /// Checks if the trophy is collected or not.
+    /// </summary>
+    /// <param name="trophy"></param>
+    /// <returns></returns>
+    private GameObject GetListItem(Trophy trophy)
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(transform, false);
@@ -33,6 +41,11 @@ public class TrophyListManager : MonoBehaviour
         return go;
     }
 
+    /// <summary>
+    /// Check if Trophy is collected or not. Updates overlay and button.
+    /// </summary>
+    /// <param name="trophy">Trophy to check</param>
+    /// <param name="go">Gameobject to update</param>
     private static void SetCollectedTrophies(Trophy trophy, GameObject go)
     {
         var trophies = TrophyController.GetInstance().CollectedTrophies;
@@ -51,6 +64,10 @@ public class TrophyListManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update Collected trophies. 
+    /// </summary>
+    /// <param name="trophyname">Name of trophy to add</param>
     public void UpdateTrophyList(string trophyname)
     {
         foreach (var item in itemList)
