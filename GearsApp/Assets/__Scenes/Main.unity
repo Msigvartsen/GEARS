@@ -17045,6 +17045,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 1460517073694144, guid: eae20cb2348f2f14e921ce92c3d29505, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224938339951195250, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17529,22 +17533,22 @@ PrefabInstance:
     - target: {fileID: 114110752624111652, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_text
-      value: Stash for user
+      value: Add Relevant User Settings here
       objectReference: {fileID: 0}
     - target: {fileID: 114110752624111652, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 14
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 114110752624111652, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114110752624111652, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114011671301230436, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
@@ -17587,6 +17591,26 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114004883445913594, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_text
+      value: Add Relevant Settings For AR here
+      objectReference: {fileID: 0}
+    - target: {fileID: 114004883445913594, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 114004883445913594, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114004883445913594, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 114607168703409924, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -17606,6 +17630,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762224913979062, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_text
+      value: Add Other Settings here
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762224913979062, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762224913979062, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762224913979062, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1771702123154896, guid: eae20cb2348f2f14e921ce92c3d29505, type: 3}
       propertyPath: m_IsActive
@@ -17623,6 +17667,26 @@ PrefabInstance:
     - target: {fileID: 114465816517570012, guid: eae20cb2348f2f14e921ce92c3d29505,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114465816517570012, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_text
+      value: Other
+      objectReference: {fileID: 0}
+    - target: {fileID: 114465816517570012, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114465816517570012, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114465816517570012, guid: eae20cb2348f2f14e921ce92c3d29505,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114373352473299280, guid: eae20cb2348f2f14e921ce92c3d29505,
@@ -17734,6 +17798,14 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1749364817834778, guid: eae20cb2348f2f14e921ce92c3d29505, type: 3}
+      propertyPath: m_Name
+      value: Other
+      objectReference: {fileID: 0}
+    - target: {fileID: 1862792625842384, guid: eae20cb2348f2f14e921ce92c3d29505, type: 3}
+      propertyPath: m_Name
+      value: Other
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eae20cb2348f2f14e921ce92c3d29505, type: 3}
