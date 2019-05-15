@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class the updates location map markers.
+/// </summary>
 public class MapMarker : MonoBehaviour
 {
     public Location MapMarkerLocation { get; set; }

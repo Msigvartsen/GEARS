@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that calculates distance from user position to different locations on the map.
+/// </summary>
 public class ProximityHandler : MonoBehaviour
 {
     [SerializeField]
@@ -19,7 +22,10 @@ public class ProximityHandler : MonoBehaviour
 
     float fadeSpeed = 1;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called the first frame.
+    /// Used to set instances and data values.
+    /// </summary>
     void Start()
     {
         locationController = LocationController.GetInstance();
@@ -28,7 +34,10 @@ public class ProximityHandler : MonoBehaviour
         focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Called every frame.
+    /// Determines which location is in range, if any. Will display focus button if the user is close enough to a location.
+    /// </summary>
     void Update()
     {
         if (locations != null)

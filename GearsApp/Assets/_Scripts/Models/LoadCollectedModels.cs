@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Class that creates buttons based on which models the user has created.
+/// </summary>
 public class LoadCollectedModels : MonoBehaviour
 {
     private LocationModel[] locationModels;

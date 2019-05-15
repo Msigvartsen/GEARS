@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that loads a specific model when pressed.
+/// </summary>
 public class LoadCollectedModelsButton : MonoBehaviour
 {
     public Model model;
@@ -11,7 +14,11 @@ public class LoadCollectedModelsButton : MonoBehaviour
     private Texture2D modelThumbnail;
     [SerializeField]
     private RawImage thumbnailPanel;
-    // Start is called before the first frame update
+
+    /// <summary>
+    /// Called the first frame.
+    /// Sets instances and data values.
+    /// </summary>
     void Start()
     {
         modelThumbnail = ModelController.GetInstance().GetModelThumbnail(model.model_ID);
@@ -25,12 +32,18 @@ public class LoadCollectedModelsButton : MonoBehaviour
         button.onClick.AddListener(ConfirmButton);
     }
 
+    /// <summary>
+    /// Select the model and load AR view scene.
+    /// </summary>
     void SelectMe()
     {
         ModelController.GetInstance().SelectedCollectibleModel = model;
         LoadingScreen.LoadScene(GEARSApp.Constants.CollectionARScene);
     }
 
+    /// <summary>
+    /// Opens a popup panel where the user has to confirm their selection.
+    /// </summary>
     void ConfirmButton()
     {
         popupTitle.GetComponent<TMPro.TextMeshProUGUI>().text = model.model_name;

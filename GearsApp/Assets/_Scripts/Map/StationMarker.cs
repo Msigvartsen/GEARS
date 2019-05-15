@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that updates station map marker data.
+/// </summary>
 public class StationMarker : MonoBehaviour
 {
     public Station StationMarkerStation { get; set; }
