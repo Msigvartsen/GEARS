@@ -5,6 +5,10 @@ using Vuforia;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 
+/// <summary>
+/// Class that calculates lighting amount to affect model placed in AR.
+/// Makes the model darker if the room is dark, and vice versa.
+/// </summary>
 public class LightEstimate : MonoBehaviour
 {
     private bool mAccessCameraImage = true;
@@ -25,7 +29,10 @@ public class LightEstimate : MonoBehaviour
     public float? intensity { get; private set; }
     public float? colorTemperature { get; private set; }
 
-
+    /// <summary>
+    /// Called the first frame.
+    /// Used to set instances and values.
+    /// </summary>
     void Start()
     {
         mPixelFormat = Vuforia.PIXEL_FORMAT.UNKNOWN_FORMAT;
@@ -38,7 +45,6 @@ public class LightEstimate : MonoBehaviour
         mPixelFormat = Vuforia.PIXEL_FORMAT.RGB888; // Use RGB888 for mobile
 #endif
 
-        // API for getting Vuforia Callbacks as of Unity 2018.1.0f2. 
         //The OnVuforiaStarted event is required for getting the camera pixel data for sure
         VuforiaARController.Instance.RegisterVuforiaStartedCallback(OnVuforiaStarted);
         VuforiaARController.Instance.RegisterOnPauseCallback(OnVuforiaPaused);
@@ -53,10 +59,12 @@ public class LightEstimate : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Register camera format when Vuforia is started.
+    /// </summary>
     private void OnVuforiaStarted()
     {
         // Try register camera image format
-
         if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))
         {
             mFormatRegistered = true;
@@ -67,7 +75,10 @@ public class LightEstimate : MonoBehaviour
         }
     }
 
-    // Called when app is paused / resumed
+    /// <summary>
+    /// Unregister format if the app is paused.
+    /// </summary>
+    /// <param name="paused"></param>
     private void OnVuforiaPaused(bool paused)
     {
         if (paused)
@@ -80,7 +91,10 @@ public class LightEstimate : MonoBehaviour
         }
     }
 
-    // Called each time the Vuforia state is updated
+    /// <summary>
+    /// Called each time the Vuforia state is updated.
+    /// Calculate light temperature and intensity based on pixel values retrieved from device camera.
+    /// </summary>
     private void OnTrackablesUpdated()
     {
         if (mFormatRegistered)
@@ -139,15 +153,18 @@ public class LightEstimate : MonoBehaviour
             }
         }
     }
-
-    // Unregister the camera pixel format (e.g. call this when app is paused)
+    /// <summary>
+    /// Unregister the camera pixel format.
+    /// </summary>
     private void UnregisterFormat()
     {
         CameraDevice.Instance.SetFrameFormat(mPixelFormat, false);
         mFormatRegistered = false;
     }
 
-    // Register the camera pixel format
+    /// <summary>
+    /// Register the camera pixel format.
+    /// </summary>
     private void RegisterFormat()
     {
         if (CameraDevice.Instance.SetFrameFormat(mPixelFormat, true))

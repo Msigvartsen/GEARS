@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class that handles user interaction with models placed in AR.
+/// </summary>
 public class ModelInteraction : MonoBehaviour
 {
     private Camera currentCamera;
