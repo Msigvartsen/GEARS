@@ -30,8 +30,14 @@ public class ProximityHandler : MonoBehaviour
     {
         locationController = LocationController.GetInstance();
         locations = locationController.LocationList.ToArray();
-        focusButton.GetComponent<CanvasGroup>().alpha = 0;
-        focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
+
+        if (Input.location.isEnabledByUser)
+        {
+            focusButton.GetComponent<CanvasGroup>().alpha = 0;
+            focusButton.GetComponent<Button>().onClick.AddListener(FocusLocation);
+        }
+        else
+            focusButton.SetActive(false);
     }
 
     /// <summary>

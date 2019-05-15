@@ -177,7 +177,15 @@ public class SpawnOnMap : MonoBehaviour
             userObject = SetLocationOnMap(userLoc, _userPrefab);
         }
 
-        _moveToUserPositionButton.GetComponent<Button>().onClick.AddListener(EnableFocusUser);
+        if (Input.location.isEnabledByUser)
+        {
+            _moveToUserPositionButton.GetComponent<Button>().onClick.AddListener(EnableFocusUser);
+        }
+        else
+        {
+            _moveToUserPositionButton.SetActive(false);
+        }
+
     }
 
     public void SetStationMarkers(Location location)
