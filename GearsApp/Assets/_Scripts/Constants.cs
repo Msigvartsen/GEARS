@@ -2,6 +2,9 @@
 
 namespace GEARSApp
 {
+    /// <summary>
+    /// Static Class with Constants. Used to have an easy way to change paths in entire project.
+    /// </summary>
     public static class Constants
     {
         //--PATHS--

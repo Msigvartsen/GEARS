@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Networking;
-using Newtonsoft.Json;
+﻿using UnityEngine;
 using GEARSApp;
 using TMPro;
 
+/// <summary>
+/// Script handles user login.
+/// Sends requests to database to verify successfull logins. 
+/// </summary>
 public class Login : MonoBehaviour
 {
     [Header("Input Fields")]
@@ -18,7 +17,10 @@ public class Login : MonoBehaviour
     [SerializeField]
     private PopupNotification popupNotification;
 
-
+    /// <summary>
+    /// Create a form and start a Coroutine which sends a POST request to database.
+    /// Checks and verifies user / password.
+    /// </summary>
     public void CallLogin()
     {
         string path = Constants.PhpPath + "login.php";
@@ -28,6 +30,11 @@ public class Login : MonoBehaviour
         StartCoroutine(WebRequestController.PostRequest<WebResponse<User>>(path, form, InitLogin));
     }
 
+    /// <summary>
+    /// Action Method.
+    /// If reponse is successfull (Login succeeded), Set up all controllers before loading main scene.
+    /// </summary>
+    /// <param name="obj"></param>
     private void InitLogin(WebResponse<User> obj)
     {
         if(obj.handler.statusCode == false)

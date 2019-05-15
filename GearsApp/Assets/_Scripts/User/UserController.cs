@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using GEARSApp;
 
+/// <summary>
+/// Singleton class. Keeps track of the current user and sends requests to database for updating user information.
+/// </summary>
 public class UserController : MonoBehaviour
 {
     private static UserController instance;
@@ -12,11 +15,19 @@ public class UserController : MonoBehaviour
     public string PreviousPage { get; set; }
     public string PreviousScene { get; set; }
 
+    /// <summary>
+    /// Function to retreive singleton instance
+    /// </summary>
+    /// <returns>Returns instance of singleton object</returns>
     public static UserController GetInstance()
     {
         return instance;
     }
 
+    /// <summary>
+    /// Is called when the script instance is being loaded. 
+    /// Creates singleton object if it does not exist.
+    /// </summary>
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -32,6 +43,9 @@ public class UserController : MonoBehaviour
         PreviousPage = Constants.MainScene;
     }
 
+    /// <summary>
+    /// Creates a form and starts a Coroutine with a POST request to update the users experience and level.
+    /// </summary>
     public void CallUpdateUserExpAndLevel()
     {
         WWWForm form = new WWWForm();
@@ -43,6 +57,10 @@ public class UserController : MonoBehaviour
         StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateLevelAndExperience));
     }
 
+    /// <summary>
+    /// Creates a form and starts a Coroutine with POST request to update the users profile picture.
+    /// </summary>
+    /// <param name="mediaID">ID of new profile picture</param>
     public void CallUpdateUserPicture(int mediaID)
     {
         CurrentUser.media_ID = mediaID;
@@ -54,6 +72,9 @@ public class UserController : MonoBehaviour
         StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateUserPicture));
     }
 
+    /// <summary>
+    /// Creates a form and starts a Coroutine with POST request to delete current user from database. (Cannot be undone).
+    /// </summary>
     public void CallDeleteUser()
     {
         WWWForm form = new WWWForm();
@@ -63,6 +84,10 @@ public class UserController : MonoBehaviour
         StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, DeleteAndLogout));
     }
 
+    /// <summary>
+    /// Updates the users experience points.
+    /// </summary>
+    /// <param name="experience">Experience to add to the user</param>
     public void UpdateUserExperience(int experience)
     {
         CurrentUser.experience += experience;
@@ -72,6 +97,9 @@ public class UserController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update the users level and check if any trophies awarded for current level.
+    /// </summary>
     public void UpdateUserLevel()
     {
         CurrentUser.level++;
@@ -81,6 +109,9 @@ public class UserController : MonoBehaviour
         CheckLevelTrophy();
     }
 
+    /// <summary>
+    /// Checks current level and if any trophies are awarded. 
+    /// </summary>
     private void CheckLevelTrophy()
     {
         var trophyController = TrophyController.GetInstance();
@@ -98,6 +129,9 @@ public class UserController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Log out the user and reset favorites.
+    /// </summary>
     public void LogOut()
     {
         CurrentUser = null;
@@ -105,6 +139,10 @@ public class UserController : MonoBehaviour
         LoadingScreen.LoadScene(GEARSApp.Constants.RegistrationAndLoginScene);
     }
    
+    /// <summary>
+    /// Action Method. Ran from within a Coroutine. Checks valid response from database.
+    /// </summary>
+    /// <param name="handler"></param>
     private void UpdateUserPicture(PHPStatusHandler handler)
     {
         if (WebRequestController.CheckValidResponse(handler))
@@ -113,6 +151,11 @@ public class UserController : MonoBehaviour
         //Add popup notification telling user that their picture has been updated?
     }
 
+    /// <summary>
+    /// Action Method. Ran from within Coroutine. Checks valid response from database.
+    /// If response is valid, log out after deleting user from database.
+    /// </summary>
+    /// <param name="handler"></param>
     private void DeleteAndLogout(PHPStatusHandler handler)
     {
         if (!WebRequestController.CheckValidResponse(handler))
@@ -121,6 +164,11 @@ public class UserController : MonoBehaviour
         LogOut();
     }
 
+    /// <summary>
+    /// Action Method. Ran from withing a Coroutine.
+    /// Checks valid response from database.
+    /// </summary>
+    /// <param name="handler"></param>
     private void UpdateLevelAndExperience(PHPStatusHandler handler)
     {
         if (!WebRequestController.CheckValidResponse(handler))

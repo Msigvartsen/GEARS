@@ -21,6 +21,7 @@ public class LocationController : MonoBehaviour
     }
 
     /// <summary>
+    /// Is called when the script instance is being loaded.
     /// Creates singleton object if it does not exist.
     /// Creates new List of locations and runs request to database when app starts.
     /// </summary>
