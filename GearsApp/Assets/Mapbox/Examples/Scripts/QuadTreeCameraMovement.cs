@@ -180,7 +180,7 @@
 				var pos = _referenceCamera.ScreenToWorldPoint(mousePosScreen);
 
 				var latlongDelta = _mapManager.WorldToGeoPosition(pos);
-				Debug.Log("Latitude: " + latlongDelta.x + " Longitude: " + latlongDelta.y);
+				//Debug.Log("Latitude: " + latlongDelta.x + " Longitude: " + latlongDelta.y);
 				//_mapManager.UpdateMap(latlongDelta, _mapManager.Zoom);
 			}
 
