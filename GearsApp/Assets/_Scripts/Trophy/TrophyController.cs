@@ -1,4 +1,5 @@
 ﻿using GEARSApp;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -118,6 +119,8 @@ public class TrophyController : MonoBehaviour
 
         foreach (CollectedTrophy collectedtrophy in response.objectList)
             CollectedTrophies.Add(collectedtrophy);
+
+        
     }
 
     /// <summary>
@@ -133,39 +136,25 @@ public class TrophyController : MonoBehaviour
             return;
 
         CallCollectedTrophies();
+        StartCoroutine(UpdateCollectedTrophyUI(collectedTrophy));
+    }
+
+    /// <summary>
+    /// Add a delay before running UI update for Collected Trophies
+    /// </summary>
+    /// <param name="collectedTrophy"></param>
+    /// <returns></returns>
+    private IEnumerator UpdateCollectedTrophyUI(Trophy collectedTrophy)
+    {
+        yield return new WaitForSeconds(1f);
         GameObject gameObject = GameObject.FindGameObjectWithTag("TrophyListManager");
-        CreateNewCollectedTrophy(collectedTrophy);
         gameObject.GetComponent<TrophyListManager>().UpdateTrophyList(collectedTrophy);
     }
 
     /// <summary>
-    /// Created a new Collected Trophy with current user telephonenumber and name of trophy.
-    /// This is added to the users CollectedTrophy list and updating UI elements.
+    /// Adds trophy to collected trophies
     /// </summary>
-    /// <param name="collectedTrophy">Trophy the user has collected.</param>
-    private void CreateNewCollectedTrophy(Trophy collectedTrophy)
-    {
-        int number = UserController.GetInstance().CurrentUser.telephonenr;
-        string trophyname = collectedTrophy.trophyname;
-
-        CollectedTrophy newCollectedTrophy = new CollectedTrophy
-        {
-            telephonenr = number,
-            trophyname = trophyname
-        };
-        CollectedTrophies.Add(newCollectedTrophy);
-
-        //if (CollectedTrophies != null)
-        //{
-        //    foreach (var trophy in CollectedTrophies)
-        //    {
-        //        //Return empty is trophy is already collected.
-        //        if (newCollectedTrophy.trophyname == trophy.trophyname)
-        //            return;
-        //    }
-        //}
-    }
-
+    /// <param name="trophyName"></param>
     public void AddCollectedTrophyByName(string trophyName)
     {
         foreach (Trophy trophy in TrophyList)
