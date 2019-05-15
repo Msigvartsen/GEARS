@@ -35,8 +35,8 @@ public class TrophyListManager : MonoBehaviour
     {
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + prefabName));
         go.transform.SetParent(transform, false);
-        SetCollectedTrophies(trophy, go);
         go.GetComponent<TrophyListItem>().CurrentTrophy = trophy;
+        SetCollectedTrophies(trophy, go);
 
         return go;
     }
@@ -68,14 +68,14 @@ public class TrophyListManager : MonoBehaviour
     /// Update Collected trophies. 
     /// </summary>
     /// <param name="trophyname">Name of trophy to add</param>
-    public void UpdateTrophyList(string trophyname)
+    public void UpdateTrophyList(Trophy collectedTrophy)
     {
         foreach (var item in itemList)
         {
             var trophy = item.GetComponent<TrophyListItem>().CurrentTrophy;
-            if (trophy.trophyname == trophyname)
+            if (trophy.trophyname == collectedTrophy.trophyname)
             {
-                SetCollectedTrophies(trophy, item);
+                SetCollectedTrophies(collectedTrophy, item);
             }
         }
     }

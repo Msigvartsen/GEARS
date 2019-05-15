@@ -77,10 +77,12 @@ public class StationController : MonoBehaviour
             form.AddField("station_nr", CurrentStation.station_NR);
             form.AddField("location_id", CurrentStation.location_ID);
 
-            CheckForTrophies();
 
             string path = Constants.PhpPath + "updateuserprogress.php";
+
+            CheckForFirstStationVisited();
             CurrentStation.visited = true;
+            CheckForAllStationsVisitedAtLocation();
             StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateStationVisited));
         }
     }
@@ -105,25 +107,8 @@ public class StationController : MonoBehaviour
     /// </summary>
     private void CheckForTrophies()
     {
-        CheckForAllStationsVisitedAtLocation();
         CheckForFirstStationVisited();
-        CheckForFoundTrollModel();
-    }
-
-    /// <summary>
-    /// Checks if the user has scanned a station with the Troll model.
-    /// User gets achievement/trophy if Troll is found.
-    /// </summary>
-    private void CheckForFoundTrollModel()
-    {
-        TrophyController trophyController = TrophyController.GetInstance();
-        foreach (var model in ModelController.GetInstance().ModelList)
-        {
-            if(CurrentStation.model_ID == model.model_ID && model.model_name == "Troll")
-            {
-                trophyController.AddCollectedTrophyByName("Trolled");
-            }
-        }
+        CheckForAllStationsVisitedAtLocation();
     }
 
     /// <summary>

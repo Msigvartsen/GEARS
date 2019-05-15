@@ -1,4 +1,5 @@
 ﻿using GEARSApp;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ public class TrophyController : MonoBehaviour
         form.AddField("trophyname", collectedTrophy.trophyname);
         string path = Constants.PhpPath + "addcollectedtrophy.php";
 
-        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler, Trophy>(path,form,
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler, Trophy>(path, form,
                                                                                   UpdateCollectedTrophyList,
                                                                                   collectedTrophy));
     }
@@ -118,6 +119,8 @@ public class TrophyController : MonoBehaviour
 
         foreach (CollectedTrophy collectedtrophy in response.objectList)
             CollectedTrophies.Add(collectedtrophy);
+
+        
     }
 
     /// <summary>
@@ -132,42 +135,31 @@ public class TrophyController : MonoBehaviour
         if (!WebRequestController.CheckValidResponse(handler))
             return;
 
-        GameObject gameObject = GameObject.FindGameObjectWithTag("TrophyListManager");
-        var go = gameObject.GetComponent<TrophyListManager>();
-        CreateNewCollectedTrophy(collectedTrophy);
-        go.UpdateTrophyList(collectedTrophy.trophyname);
+        CallCollectedTrophies();
+        StartCoroutine(UpdateCollectedTrophyUI(collectedTrophy));
     }
 
     /// <summary>
-    /// Created a new Collected Trophy with current user telephonenumber and name of trophy.
-    /// This is added to the users CollectedTrophy list and updating UI elements.
+    /// Add a delay before running UI update for Collected Trophies
     /// </summary>
-    /// <param name="collectedTrophy">Trophy the user has collected.</param>
-    private void CreateNewCollectedTrophy(Trophy collectedTrophy)
+    /// <param name="collectedTrophy"></param>
+    /// <returns></returns>
+    private IEnumerator UpdateCollectedTrophyUI(Trophy collectedTrophy)
     {
-        int number = UserController.GetInstance().CurrentUser.telephonenr;
-        string trophyname = collectedTrophy.trophyname;
-
-        CollectedTrophy newCollectedTrophy = new CollectedTrophy
-        {
-            telephonenr = number,
-            trophyname = trophyname
-        };
-
-        foreach(var trophy in CollectedTrophies)
-        {
-            //Return empty is trophy is already collected.
-            if (newCollectedTrophy.trophyname == trophy.trophyname)
-                return;
-        }
-        CollectedTrophies.Add(newCollectedTrophy);
+        yield return new WaitForSeconds(1f);
+        GameObject gameObject = GameObject.FindGameObjectWithTag("TrophyListManager");
+        gameObject.GetComponent<TrophyListManager>().UpdateTrophyList(collectedTrophy);
     }
 
+    /// <summary>
+    /// Adds trophy to collected trophies
+    /// </summary>
+    /// <param name="trophyName"></param>
     public void AddCollectedTrophyByName(string trophyName)
     {
-        foreach(Trophy trophy in TrophyList)
+        foreach (Trophy trophy in TrophyList)
         {
-            if(trophy.trophyname == trophyName)
+            if (trophy.trophyname == trophyName)
             {
                 CallAddCollectedTrophy(trophy);
             }
