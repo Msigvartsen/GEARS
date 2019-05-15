@@ -52,7 +52,6 @@ public class LoadCollectedModels : MonoBehaviour
                 else
                     go.GetComponent<LoadCollectedModelsButton>().model = allModels[i];
 
-
                 numberOfButtons++;
             }
         }
@@ -79,6 +78,7 @@ public class LoadCollectedModels : MonoBehaviour
             }
         }
 
-        GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, (125 * numberOfButtons) + 25);
+        // Set size of viewport based on number of rows of buttons. (numberOfButtons - (numberOfButtons / 2)) = total rows
+        GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, (520 * (numberOfButtons - (numberOfButtons / 2))) + 20);
     }
 }
