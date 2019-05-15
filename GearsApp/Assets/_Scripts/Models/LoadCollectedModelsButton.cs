@@ -38,6 +38,7 @@ public class LoadCollectedModelsButton : MonoBehaviour
     void SelectMe()
     {
         ModelController.GetInstance().SelectedCollectibleModel = model;
+        UserController.GetInstance().PreviousPage = "Backpack";
         LoadingScreen.LoadScene(GEARSApp.Constants.CollectionARScene);
     }
 
