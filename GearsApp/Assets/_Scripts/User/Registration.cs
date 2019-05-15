@@ -55,10 +55,10 @@ public class Registration : MonoBehaviour
     /// <param name="obj">Input received from within the WebRequestController function (Get/Post)</param>
     private void RegisterUser(WebResponse<User> obj)
     {
-        if (obj.handler.statusCode == false)
+        if(!WebRequestController.CheckValidResponse(obj.handler))
         {
             if (popupNotification != null)
-                popupNotification.ShowPopup("User Already Exist!");
+                popupNotification.ShowPopup(obj.handler.text);
 
             return;
         }

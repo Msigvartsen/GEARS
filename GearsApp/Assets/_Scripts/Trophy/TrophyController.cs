@@ -74,7 +74,7 @@ public class TrophyController : MonoBehaviour
         form.AddField("trophyname", collectedTrophy.trophyname);
         string path = Constants.PhpPath + "addcollectedtrophy.php";
 
-        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler, Trophy>(path,form,
+        StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler, Trophy>(path, form,
                                                                                   UpdateCollectedTrophyList,
                                                                                   collectedTrophy));
     }
@@ -132,10 +132,10 @@ public class TrophyController : MonoBehaviour
         if (!WebRequestController.CheckValidResponse(handler))
             return;
 
+        CallCollectedTrophies();
         GameObject gameObject = GameObject.FindGameObjectWithTag("TrophyListManager");
-        var go = gameObject.GetComponent<TrophyListManager>();
         CreateNewCollectedTrophy(collectedTrophy);
-        go.UpdateTrophyList(collectedTrophy.trophyname);
+        gameObject.GetComponent<TrophyListManager>().UpdateTrophyList(collectedTrophy);
     }
 
     /// <summary>
@@ -153,21 +153,24 @@ public class TrophyController : MonoBehaviour
             telephonenr = number,
             trophyname = trophyname
         };
-
-        foreach(var trophy in CollectedTrophies)
-        {
-            //Return empty is trophy is already collected.
-            if (newCollectedTrophy.trophyname == trophy.trophyname)
-                return;
-        }
         CollectedTrophies.Add(newCollectedTrophy);
+
+        //if (CollectedTrophies != null)
+        //{
+        //    foreach (var trophy in CollectedTrophies)
+        //    {
+        //        //Return empty is trophy is already collected.
+        //        if (newCollectedTrophy.trophyname == trophy.trophyname)
+        //            return;
+        //    }
+        //}
     }
 
     public void AddCollectedTrophyByName(string trophyName)
     {
-        foreach(Trophy trophy in TrophyList)
+        foreach (Trophy trophy in TrophyList)
         {
-            if(trophy.trophyname == trophyName)
+            if (trophy.trophyname == trophyName)
             {
                 CallAddCollectedTrophy(trophy);
             }

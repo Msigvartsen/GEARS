@@ -63,9 +63,20 @@ public class ModelController : MonoBehaviour
         form.AddField("model_ID", model_id);
         string path = Constants.PhpPath + "updatefoundmodel.php";
 
+        CheckForTrollModelTrophy(model_id);
+
         StartCoroutine(WebRequestController.PostRequest<PHPStatusHandler>(path, form, UpdateFoundModels));
     }
-
+    private void CheckForTrollModelTrophy(int model_id)
+    {
+        foreach (var model in ModelList)
+        {
+            if (model_id == model.model_ID && model.model_name == "Troll")
+            {
+                TrophyController.GetInstance().AddCollectedTrophyByName("Trolled");
+            }
+        }
+    }
     public void CallGetFoundModel()
     {
         WWWForm form = new WWWForm();
