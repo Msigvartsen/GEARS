@@ -223,8 +223,8 @@ public class ModelInteraction : MonoBehaviour
             }
 
             // Configure max and minimum scale size
-            if (selectedObject.transform.localScale.x > 1.0f)
-                selectedObject.transform.localScale = new Vector3(1, 1, 1);
+            if (selectedObject.transform.localScale.x > 1.5f)
+                selectedObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             if (selectedObject.transform.localScale.x < 0.5f)
                 selectedObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
