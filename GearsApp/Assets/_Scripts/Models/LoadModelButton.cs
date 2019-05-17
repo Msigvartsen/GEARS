@@ -35,6 +35,11 @@ public class LoadModelButton : MonoBehaviour
     /// </summary>
     public void LoadModel()
     {
+        if (modelToShow == null)
+        {
+            loaded = false;
+        }
+
         if (groundPlane.transform.childCount > 0)
         {
             Debug.Log("DESTROY EXISTING MODEL");
