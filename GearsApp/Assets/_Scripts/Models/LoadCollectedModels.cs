@@ -78,7 +78,7 @@ public class LoadCollectedModels : MonoBehaviour
             }
         }
 
-        // Set size of viewport based on number of rows of buttons. (numberOfButtons - (numberOfButtons / 2)) = total rows
+        // Set size of view port based on number of rows of buttons. (numberOfButtons - (numberOfButtons / 2)) = total rows
         GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, (520 * (numberOfButtons - (numberOfButtons / 2))) + 20);
     }
 }
