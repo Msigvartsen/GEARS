@@ -22196,7 +22196,7 @@ PrefabInstance:
       objectReference: {fileID: 1110035303}
     - target: {fileID: 50757725, guid: 8078faf99d993d349975b1ba26893365, type: 3}
       propertyPath: maxRange
-      value: 25000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 50757725, guid: 8078faf99d993d349975b1ba26893365, type: 3}
       propertyPath: m_Enabled
