@@ -49,7 +49,7 @@
         public void Update()
         {
             var p = transform.parent;
-            Debug.Log(p.name + " " + p.parent.name);
+            //Debug.Log(p.name + " " + p.parent.name);
             if (p.gameObject.activeSelf && p.parent.gameObject.GetComponent<CanvasGroup>().alpha == 1)
             {
                 if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())

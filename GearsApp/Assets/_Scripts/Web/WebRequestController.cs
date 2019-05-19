@@ -12,13 +12,13 @@ public static class WebRequestController
 {
     /// <summary>
     /// Send a post request to the database. 
-    /// If Query is successfull, a response in Json format is returned.
+    /// If Query is successful, a response in Json format is returned.
     /// Json response is parsed to a Templated object, before running an Action Method.
     /// </summary>
     /// <typeparam name="T">Template object to hold data from query.</typeparam>
     /// <param name="path">Path to php file on server</param>
     /// <param name="form">Form with correct input</param>
-    /// <param name="WebResponseHandler">Action Method to run if request is successfull.</param>
+    /// <param name="WebResponseHandler">Action Method to run if request is successful.</param>
     /// <returns></returns>
     public static IEnumerator PostRequest<T>(string path, WWWForm form, Action<T> WebResponseHandler)
     {
@@ -42,14 +42,14 @@ public static class WebRequestController
 
     /// <summary>
     /// Send a post request to the database. 
-    /// If Query is successfull, a response in Json format is returned.
+    /// If Query is successful, a response in Json format is returned.
     /// Json response is parsed to a Templated object, before running an Action Method.
     /// </summary>
     /// <typeparam name="T">Template object #1 to hold data from query.</typeparam>
     /// <typeparam name="U">Template Object #2</typeparam>
     /// <param name="path">Path to php file on server</param>
     /// <param name="form">Form with correct input</param>
-    /// <param name="WebResponseHandler">Action Method to run if request is successfull.</param>
+    /// <param name="WebResponseHandler">Action Method to run if request is successful.</param>
     /// <param name="parameter">Template parameter. Used to send in another argument to Action Method. </param>
     /// <returns></returns>
     public static IEnumerator PostRequest<T,U>(string path, WWWForm form, Action<T,U> WebResponseHandler, U parameter)
@@ -74,12 +74,12 @@ public static class WebRequestController
 
     /// <summary>
     /// Sends a Get Request to database. 
-    /// If Query is successfull, a response in Json format is returned.
+    /// If Query is successful, a response in Json format is returned.
     /// Json response is parsed to a Templated object, before running an Action Method.
     /// </summary>
     /// <typeparam name="T">Template object to hold data from query.</typeparam>
     /// <param name="path">Path to php file on server</param>
-    /// <param name="WebResponseHandler">Action Method to run if request is successfull.</param>
+    /// <param name="WebResponseHandler">Action Method to run if request is successful.</param>
     /// <returns></returns>
     public static IEnumerator GetRequest<T>(string path, Action<T> WebResponseHandler)
     {
@@ -102,7 +102,7 @@ public static class WebRequestController
     }
 
     /// <summary>
-    /// Helper function to check if the response from database query is successfull.
+    /// Helper function to check if the response from database query is successful.
     /// Usually used in conjunction inside action methods to see if handler.status == true.
     /// </summary>
     /// <param name="handler">Status of handler form query.</param>
