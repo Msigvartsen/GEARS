@@ -28,7 +28,7 @@ public class CollectionARManager : MonoBehaviour
     /// <summary>
     /// Set all instances.
     /// </summary>
-    void Start()
+    void Awake()
     {
         SetInstances();
     }
@@ -49,7 +49,7 @@ public class CollectionARManager : MonoBehaviour
         if (CheckForChildren())
         {
             // Check if the model has been placed on the ground
-            if (CheckForActiveChildren())
+            if (IsChildActive())
             {
                 // Disable user input regarding placing the model
                 TurnOffInputOnGround();
@@ -84,12 +84,11 @@ public class CollectionARManager : MonoBehaviour
 
         // Instantiate the selected model from previous scene
         GameObject go = Instantiate(Resources.Load<GameObject>("_Prefabs/" + modelController.SelectedCollectibleModel.model_name), groundPlane.transform);
-        go.transform.localPosition = new Vector3(0, 0, 0);
         shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "ShadowPlane"), go.transform);
-        shadowPlane.GetComponent<Renderer>().enabled = false;
         smokeSpawn = Instantiate(Resources.Load<GameObject>("_Prefabs/" + "SmokeSpawn"), go.transform);
+
+        shadowPlane.GetComponent<Renderer>().enabled = false;
         smokeSpawn.GetComponent<Renderer>().enabled = false;
-        smokeSpawn.transform.localPosition = new Vector3(0, 0, 0);
         
         // Get the renderer component in either child or on current object and turn it off
         if (go.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -105,6 +104,9 @@ public class CollectionARManager : MonoBehaviour
         {
             go.GetComponent<Renderer>().enabled = false;
         }
+
+        go.transform.localPosition = new Vector3(0, 0, 0);
+        smokeSpawn.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     /// <summary>
@@ -123,28 +125,8 @@ public class CollectionARManager : MonoBehaviour
     /// Check if the model has been placed on the ground.
     /// </summary>
     /// <returns>Returns true if the model has been placed, if not false.</returns>
-    private bool CheckForActiveChildren()
+    private bool IsChildActive()
     {
-        if (groundPlane.transform.childCount > 0)
-        {
-            int activeChild = GetActiveChild();
-            if (activeChild != -1)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /// <summary>
-    /// Get the model that is active on the ground.
-    /// </summary>
-    /// <returns>Returns the index of the child.</returns>
-    private int GetActiveChild()
-    {
-        int index = -1;
-
         // Check for children
         if (groundPlane.transform.childCount > 0)
         {
@@ -161,7 +143,7 @@ public class CollectionARManager : MonoBehaviour
                     {
                         if (componenent.enabled)
                         {
-                            index = 0;
+                            return true;
                         }
                     }
                 }
@@ -169,13 +151,13 @@ public class CollectionARManager : MonoBehaviour
                 {
                     if (child.GetComponent<Renderer>().enabled)
                     {
-                        index = 0;
+                        return true;
                     }
                 }
             }
         }
 
-        return index;
+        return false;
     }
 
     /// <summary>

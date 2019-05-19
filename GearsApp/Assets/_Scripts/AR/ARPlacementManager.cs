@@ -314,7 +314,6 @@ public class ARPlacementManager : MonoBehaviour
                     {
                         if (componenent.enabled)
                         {
-                            //GameObject.FindGameObjectWithTag("SmokeSpawn").GetComponent<ParticleSystem>().Play();
                             return true;
                         }
                     }
@@ -323,7 +322,6 @@ public class ARPlacementManager : MonoBehaviour
                 {
                     if (child.GetComponent<Renderer>().enabled)
                     {
-                        //GameObject.FindGameObjectWithTag("SmokeSpawn").GetComponent<ParticleSystem>().Play();
                         return true;
                     }
                 }
