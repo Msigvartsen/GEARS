@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class LoadingImageFading.
+/// Implements the <see cref="UnityEngine.MonoBehaviour" />
+/// </summary>
+/// <seealso cref="UnityEngine.MonoBehaviour" />
 public class LoadingImageFading : MonoBehaviour
 {
     [SerializeField]

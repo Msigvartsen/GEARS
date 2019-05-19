@@ -1,8 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class ToggleOpposite.
+/// Disable button if toggle is off
+/// Implements the <see cref="UnityEngine.MonoBehaviour" />
+/// </summary>
+/// <seealso cref="UnityEngine.MonoBehaviour" />
 public class ToggleOpposite : MonoBehaviour
 {
     [SerializeField]

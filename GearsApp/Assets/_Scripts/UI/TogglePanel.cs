@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class TogglePanel.
+/// Hides background when Map tab is active to display Map.
+/// Implements the <see cref="UnityEngine.MonoBehaviour" />
+/// </summary>
+/// <seealso cref="UnityEngine.MonoBehaviour" />
 public class TogglePanel : MonoBehaviour
 {
     [SerializeField]
