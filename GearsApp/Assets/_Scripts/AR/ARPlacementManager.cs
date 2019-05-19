@@ -356,8 +356,7 @@ public class ARPlacementManager : MonoBehaviour
         }
         else
         {
-            if (!toggleStationSearch.isOn)
-                htm.SetHelpText((int)Help.SCANNING);
+            htm.SetHelpText((int)Help.SCANNING);
         }
 
         // Enable components
