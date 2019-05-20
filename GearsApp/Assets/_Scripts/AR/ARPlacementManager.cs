@@ -25,6 +25,7 @@ public class ARPlacementManager : MonoBehaviour
     private GameObject modelAtStation;
     private Station closestStation;
     private GameObject shadowPlane;
+    private GameObject smokeOnSpawn;
 
 
     /// <summary>
@@ -201,7 +202,9 @@ public class ARPlacementManager : MonoBehaviour
                 {
                     modelAtStation = Instantiate(Resources.Load<GameObject>("_Prefabs/" + stationModelsAtLocation[i].model_name), groundPlane.transform);
                     shadowPlane = Instantiate(Resources.Load<GameObject>("_Prefabs/ShadowPlane"), modelAtStation.transform);
+                    smokeOnSpawn = Instantiate(Resources.Load<GameObject>("_Prefabs/SmokeSpawn"), modelAtStation.transform);
                     shadowPlane.GetComponent<Renderer>().enabled = false;
+                    smokeOnSpawn.GetComponent<Renderer>().enabled = false;
 
                     // Get the renderer component in either child or on current object and turn it off
                     if (modelAtStation.GetComponentsInChildren<Renderer>(true).Length > 0)
@@ -216,6 +219,9 @@ public class ARPlacementManager : MonoBehaviour
                     {
                         modelAtStation.GetComponent<Renderer>().enabled = false;
                     }
+
+                    modelAtStation.transform.localPosition = new Vector3(0, 0, 0);
+                    smokeOnSpawn.transform.localPosition = new Vector3(0, 0, 0);
                 }
             }
         }
